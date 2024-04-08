@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // main gameplay loop function
 /**
  * 
- * @param {string all lower case no spaces} songName
+ * @param {string all lower case, no spaces} songName
  */
 function playSongQuiz(songName) {
     // this function should:
@@ -25,6 +25,8 @@ function playSongQuiz(songName) {
     //   respect to other songs
     // should this take an event instead and then 
     // the song can be accessed from the this keyword
+    alert('this function is not yet implemented.')
+    throw 'this function is not yet implemented. Aborting.'
 }
 
 // event handlers
@@ -50,10 +52,11 @@ function submitHandler(event) {
  * @param {name of current track/question user is on.} songName 
  */
 function checkAnswer(userAnswer, songName) {
+    userAnswer = toTitle(userAnswer);
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
-        const correctness = solutions.includes(userAnswer.toLowerCase());
+        const correctness = solutions.includes(userAnswer);
         if (correctness) {
             alert('That is correct!');
         } else {
@@ -70,25 +73,56 @@ function checkAnswer(userAnswer, songName) {
 
 /**
  * 
- * @param {user submitted guess as a string} guess 
+ * @param {user answer standardized to title case string} guess 
  * @param {boolean depending on answer} correctness 
  */
 function addGuess(guess, correctness) {
+    // should I be adding their guess or the correct answer?
+    let span;
+    // changes guess to a standardized form
+    guess = toTitle(guess);
+    // checks which span to access
     if (correctness) {
-        let span = document.getElementById('correct-submissions');
-        if (span.innerText === '') {
-            span.innerText = guess;
-        } else {
-            span.innerText += ', ' + guess
-        }
+        span = document.getElementById('correct-submissions');
     } else {
-        let span = document.getElementById('incorrect-submissions');
-        if (span.innerText === '') {
-            span.innerText = guess;
-        } else {
-            span.innerText += ', ' + guess
+        span = document.getElementById('incorrect-submissions');
+    }
+    // checks to see if text is empty or if it already contains
+    // the guess
+    let text = span.innerText;
+    if (text === '') {
+        text = toTitle(guess);
+    } else {
+        let submissions = text.split('; ');
+        // if it is not already present then we add it
+        // if it is already present then we do nothing
+        if (!submissions.includes(guess)) {
+            // use ; in case , is in a song or artist name
+            text += '; ' + toTitle(guess);
         }
     }
+    span.innerText = text;
+
+}
+
+/**
+ * checks if answer was already guessed
+ */
+function checkAlreadyGuessed(guess, correctness) {
+    let span;
+    let text;
+    if (correctness) {
+        span = document.getElementById("correct-submissions");
+    } else {
+        span = document.getElementById("incorrect-submissions");
+    }
+    let submissions = span.innerText.split('; ');
+    if (submissions.includes(guess)) {
+        text = '';
+    } else {
+        text = '; ' + guess;
+    }
+    span.innerText += text;
 }
 
 /**
@@ -201,7 +235,7 @@ function fetchSolutions(songName) {
         songName = titleSwap(songName);
         console.log(songName);
         const rawSolutions = transformWikiData(songName);
-        let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
+        let artistList = rawSolutions.map((entry) => toTitle(entry.artist));
         console.log(artistList);
         return artistList;
         return ['black sabbath'];
