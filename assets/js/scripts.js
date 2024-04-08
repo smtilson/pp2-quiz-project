@@ -27,10 +27,12 @@ function submitHandler(event){
 function checkAnswer(userAnswer,songName) {
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
+        //should I strip off the? maybe reference in instructions.
         const correctness = solutions.includes(userAnswer.toLowerCase());
         if (correctness) {
             alert('That is correct!');
         } else {
+            // issue with the grammar of was vs were
             alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
         }
         incrementScores(correctness);
