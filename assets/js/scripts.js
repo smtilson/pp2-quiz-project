@@ -3,16 +3,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     const button = document.getElementById('submit-button');
     button.addEventListener("click", submitHandler);
+
+    document.getElementById('user-answer').addEventListener('keydown', function(event){
+        if (event.key === 'Enter') {
+            submitHandler(event);
+        }
+    });
 });
 
 // event handlers
-function submitHandler(event){
+function submitHandler(event) {
     // this will involve a loop and give text inputs all a 
     // class to loop through and then run something to get 
     // the data from those upon the click of the submit button
     // or should we only have one input box?
-    const userAnswer = document.getElementById('artist').value;
-    checkAnswer(userAnswer,'Oh No');
+
+
+    const userAnswer = document.getElementById('user-answer').value;
+    checkAnswer(userAnswer, 'Oh No');
 }
 
 // get data from "form"
@@ -24,7 +32,7 @@ function submitHandler(event){
  * @param {string submitted by user.} userAnswer 
  * @param {name of current track/question user is on.} songName 
  */
-function checkAnswer(userAnswer,songName) {
+function checkAnswer(userAnswer, songName) {
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
@@ -51,11 +59,11 @@ function incrementScores(result) {
     if (result) {
         let scoreBox = document.getElementById('right');
         const oldScore = parseInt(scoreBox.innerText);
-        scoreBox.innerText = oldScore+1;
+        scoreBox.innerText = oldScore + 1;
     } else {
         let scoreBox = document.getElementById('wrong');
         const oldScore = parseInt(scoreBox.innerText);
-        scoreBox.innerText = oldScore+1;
+        scoreBox.innerText = oldScore + 1;
     }
 }
 
@@ -67,7 +75,7 @@ function transformWikiData(songName) {
     // cleans each string in the array
     sampleList = sampleList.map((item) => cleanString(item));
     // replaces strings with JS objects
-    sampleList = sampleList.map((item)=> sampleStringToData(item));
+    sampleList = sampleList.map((item) => sampleStringToData(item));
     return sampleList;
 }
 
@@ -94,7 +102,7 @@ function cleanString(string) {
  * also capitalizes first letters or makes them lower case.
  * @param {a string with dashes and no spaces or spaces and no dashes} sampleString 
  */
-function titleSwap (sampleString) {
+function titleSwap(sampleString) {
     const hasDash = sampleString.includes('-');
     const hasSpace = sampleString.includes(' ');
     if (hasDash && hasSpace) {
@@ -116,12 +124,12 @@ function titleSwap (sampleString) {
 }
 
 function capitalize(word) {
-    return word[0].toUpperCase()+word.slice(1);
+    return word[0].toUpperCase() + word.slice(1);
 }
 
 function toTitle(string) {
     let words = string.split(' ');
-    words = words.map(w=>capitalize(w));
+    words = words.map(w => capitalize(w));
     return words.join(' ');
 }
 
@@ -153,7 +161,7 @@ function fetchSolutions(songName) {
         songName = titleSwap(songName);
         console.log(songName);
         const rawSolutions = transformWikiData(songName);
-        let artistList = rawSolutions.map((entry)=>entry.artist.toLowerCase());
+        let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
         console.log(artistList);
         return artistList;
         return ['black sabbath'];
@@ -170,5 +178,4 @@ function fetchSolutions(songName) {
  * It adds event listeners, initializes the game,
  * and collects solutions from html document.
  */
-function setup() {
-}
+function setup() {}
