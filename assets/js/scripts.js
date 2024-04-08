@@ -77,7 +77,7 @@ function transformWikiData(songName) {
  */
 function cleanString(string) {
     // replaces special dashes with normal dash
-    string = string.replace(/\u2013|\u2012|\u2014/g, "-");
+    string = string.replace(/\u2013|\u2012|\u2014/g, ";");
     /* if removing the double quotes in this way causes an issue, 
     then it can be done later after the dictionary is built by 
     just slicing off the first and last character of the string */
@@ -126,7 +126,7 @@ function toTitle(string) {
  * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
  */
 function sampleStringToData(sampleString) {
-    let data = sampleString.split(" - ");
+    let data = sampleString.split(" ; ");
     /* should I validate data is of the correct form?*/
     let sampleData = {};
     // single quotes matter here because of the form
