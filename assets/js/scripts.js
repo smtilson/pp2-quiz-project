@@ -52,7 +52,7 @@ function submitHandler(event) {
  * @param {name of current track/question user is on.} songName 
  */
 function checkAnswer(userAnswer, songName) {
-    userAnswer = toTitle(userAnswer);
+    userAnswer = userAnswer.toLowerCase();
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
@@ -80,7 +80,7 @@ function addGuess(guess, correctness) {
     // should I be adding their guess or the correct answer?
     let span;
     // changes guess to a standardized form
-    guess = toTitle(guess);
+    guess = guess.toLowerCase();
     // checks which span to access
     if (correctness) {
         span = document.getElementById('correct-submissions');
@@ -94,6 +94,7 @@ function addGuess(guess, correctness) {
         text = toTitle(guess);
     } else {
         let submissions = text.split('; ');
+        submissions = submissions.map((word)=>word.toLowerCase());
         // if it is not already present then we add it
         // if it is already present then we do nothing
         if (!submissions.includes(guess)) {
@@ -235,7 +236,7 @@ function fetchSolutions(songName) {
         songName = titleSwap(songName);
         console.log(songName);
         const rawSolutions = transformWikiData(songName);
-        let artistList = rawSolutions.map((entry) => toTitle(entry.artist));
+        let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
         console.log(artistList);
         return artistList;
         return ['black sabbath'];
