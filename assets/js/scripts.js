@@ -99,10 +99,13 @@ function titleSwap (sampleString) {
         alert(`${sampleString} contains both spaces and dashes. This function can not transform it.`)
         return sampleString;
     } else if (hasDash) {
-        return sampleString.toLowerCase().replace('-', ' ');
+        sampleString = sampleString.replace('-', ' ');
+        sampleString = toTitle(sampleString);
+        return sampleString;
     } else if (hasSpace) {
         sampleString = sampleString.replace(' ', '-');
-        return toTitle(sampleString);
+        sampleString = sampleString.toLowerCase();
+        return sampleString;
     } else {
         alert('Not sure how we got here, the string has neither.');
         return sampleString;
@@ -144,9 +147,13 @@ function sampleStringToData(sampleString) {
 // I am having a hard time articulating this.
 function fetchSolutions(songName) {
     if (songName === 'Oh No') {
-        let solutions = [];
-        songName = swapDash(songName);
+        //let solutions = [];
+        songName = titleSwap(songName);
+        console.log(songName);
         const rawSolutions = transformWikiData(songName);
+        let artistList = rawSolutions.map((entry)=>entry.artist.toLowerCase());
+        console.log(artistList);
+        return artistList;
         return ['black sabbath'];
     } else {
         alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
