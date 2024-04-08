@@ -1,14 +1,71 @@
 // Initial setup
 document.addEventListener("DOMContentLoaded", function () {
-    // this is development set up
-    var ohNoStringSampleList = transformWikiData('oh-no');
+    // add event listeners to elements
+    const button = document.getElementById('submit-button');
+    button.addEventListener("click", submitHandler);
 });
 
-// event listeners
+// event handlers
+function submitHandler(event){
+    // this will involve a loop and give text inputs all a 
+    // class to loop through and then run something to get 
+    // the data from those upon the click of the submit button
+    let userAnswer = document.getElementById('artist').value;
+    console.log(this.id, "was clicked");
+    console.log(userAnswer);
+    checkAnswer(userAnswer,'Oh No');
+}
 
-// get data from form
+// get data from "form"
 
-// check answers
+
+// Functions related to checking answers
+
+/**
+ * This checks if userAnswer is a sample from the songName
+ * @param {string submitted by user.} userAnswer 
+ * @param {name of current track/question user is on.} songName 
+ */
+function checkAnswer(userAnswer,songName) {
+    if (songName === 'Oh No') {
+        const solutions = fetchSolutions(songName);
+        const correctness = solutions.includes(userAnswer.toLowerCase());
+        if (correctness) {
+            alert('That is correct!');
+        } else {
+            alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
+        }
+        incrementScores(correctness);
+    } else {
+        alert(`The checkAnswer function hasn't been implemented for ${songName} yet.`);
+        throw `The checkAnswer function hasn't been implemented for ${songName} yet. Aborting.`;
+    }
+}
+
+function fetchSolutions(songName) {
+    if (songName === 'Oh No') {
+        return ['black sabbath'];
+    } else {
+        alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
+        throw `The fetchSolutions function hasn't been implemented for ${songName} yet. Aborting.`;
+    }
+}
+
+/**
+ * This function increments the correct and incorrect answers
+ * @param {a boolean determining if the answer was correct} result 
+ */
+function incrementScores(result) {
+    if (result) {
+        let scoreBox = document.getElementById('right');
+        const oldScore = parseInt(scoreBox.innerText);
+        scoreBox.innerText = oldScore+1;
+    } else {
+        let scoreBox = document.getElementById('wrong');
+        const oldScore = parseInt(scoreBox.innerText);
+        scoreBox.innerText = oldScore+1;
+    }
+}
 
 // serialize data
 function transformWikiData(songName) {
