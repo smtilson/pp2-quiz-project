@@ -4,12 +4,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById('submit-button');
     button.addEventListener("click", submitHandler);
 
-    document.getElementById('user-answer').addEventListener('keydown', function(event){
+    document.getElementById('user-answer').addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             submitHandler(event);
         }
     });
 });
+
+// main gameplay loop function
+/**
+ * 
+ * @param {string all lower case no spaces} songName
+ */
+function playSongQuiz(songName) {
+    // this function should:
+    // - set focus
+    // - fetch answers
+    // - run main gameplay loop
+    // - control stopping and starting of video with 
+    //   respect to other songs
+    // should this take an event instead and then 
+    // the song can be accessed from the this keyword
+}
 
 // event handlers
 function submitHandler(event) {
@@ -18,9 +34,10 @@ function submitHandler(event) {
     // the data from those upon the click of the submit button
     // or should we only have one input box?
 
-
-    const userAnswer = document.getElementById('user-answer').value;
+    const answerBox = document.getElementById('user-answer');
+    const userAnswer = answerBox.value;
     checkAnswer(userAnswer, 'Oh No');
+    answerBox.value = '';
 }
 
 // get data from "form"
@@ -44,12 +61,35 @@ function checkAnswer(userAnswer, songName) {
             alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
         }
         incrementScores(correctness);
+        addGuess(userAnswer, correctness)
     } else {
         alert(`The checkAnswer function hasn't been implemented for ${songName} yet.`);
         throw `The checkAnswer function hasn't been implemented for ${songName} yet. Aborting.`;
     }
 }
 
+/**
+ * 
+ * @param {user submitted guess as a string} guess 
+ * @param {boolean depending on answer} correctness 
+ */
+function addGuess(guess, correctness) {
+    if (correctness) {
+        let span = document.getElementById('correct-submissions');
+        if (span.innerText === '') {
+            span.innerText = guess;
+        } else {
+            span.innerText += ', ' + guess
+        }
+    } else {
+        let span = document.getElementById('incorrect-submissions');
+        if (span.innerText === '') {
+            span.innerText = guess;
+        } else {
+            span.innerText += ', ' + guess
+        }
+    }
+}
 
 /**
  * This function increments the correct and incorrect answers
