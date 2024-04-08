@@ -3,8 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     const button = document.getElementById('submit-button');
     button.addEventListener("click", submitHandler);
-
-    document.getElementById('user-answer').addEventListener('keydown', function (event) {
+    let answerBox = document.getElementById('user-answer');
+    answerBox.value = '';
+    answerBox.focus();
+    answerBox.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             submitHandler(event);
         }
@@ -223,7 +225,18 @@ function sampleStringToData(sampleString) {
     for (let index in keys) {
         sampleData[keys[index]] = data[index];
     }
+    sampleData.artist = primaryArtist(sampleData.artist);
     return sampleData;
+}
+
+/**
+ * This addresses the issue of answers like 2Pac featuring...
+ * it replaces the string by just the primary artist
+ */
+function primaryArtist (artistString) {
+    let primaryArtist = artistString.split(' featuring')[0];
+    primaryArtist = primaryArtist.split(' feat')[0];
+    return primaryArtist
 }
 
 // perhaps this should be broken into two pieces, one 
@@ -234,7 +247,6 @@ function fetchSolutions(songName) {
     if (songName === 'Oh No') {
         //let solutions = [];
         songName = titleSwap(songName);
-        console.log(songName);
         const rawSolutions = transformWikiData(songName);
         let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
         console.log(artistList);
