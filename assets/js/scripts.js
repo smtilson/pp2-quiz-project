@@ -10,14 +10,12 @@ function submitHandler(event){
     // this will involve a loop and give text inputs all a 
     // class to loop through and then run something to get 
     // the data from those upon the click of the submit button
-    let userAnswer = document.getElementById('artist').value;
-    console.log(this.id, "was clicked");
-    console.log(userAnswer);
+    // or should we only have one input box?
+    const userAnswer = document.getElementById('artist').value;
     checkAnswer(userAnswer,'Oh No');
 }
 
 // get data from "form"
-
 
 // Functions related to checking answers
 
@@ -42,14 +40,6 @@ function checkAnswer(userAnswer,songName) {
     }
 }
 
-function fetchSolutions(songName) {
-    if (songName === 'Oh No') {
-        return ['black sabbath'];
-    } else {
-        alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
-        throw `The fetchSolutions function hasn't been implemented for ${songName} yet. Aborting.`;
-    }
-}
 
 /**
  * This function increments the correct and incorrect answers
@@ -98,6 +88,39 @@ function cleanString(string) {
 }
 
 /**
+ * this swaps dashes for spaces and vice versa,
+ * also capitalizes first letters or makes them lower case.
+ * @param {a string with dashes and no spaces or spaces and no dashes} sampleString 
+ */
+function titleSwap (sampleString) {
+    const hasDash = sampleString.includes('-');
+    const hasSpace = sampleString.includes(' ');
+    if (hasDash && hasSpace) {
+        alert(`${sampleString} contains both spaces and dashes. This function can not transform it.`)
+        return sampleString;
+    } else if (hasDash) {
+        return sampleString.toLowerCase().replace('-', ' ');
+    } else if (hasSpace) {
+        sampleString = sampleString.replace(' ', '-');
+        return toTitle(sampleString);
+    } else {
+        alert('Not sure how we got here, the string has neither.');
+        return sampleString;
+    }
+
+}
+
+function capitalize(word) {
+    return word[0].toUpperCase()+word.slice(1);
+}
+
+function toTitle(string) {
+    let words = string.split(' ');
+    words = words.map(w=>capitalize(w));
+    return words.join(' ');
+}
+
+/**
  * This function produces an js object containing start of sample,
  * end of sample, artist, and song sampled.
  * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
@@ -115,16 +138,23 @@ function sampleStringToData(sampleString) {
     return sampleData;
 }
 
-/**
- * This function should produce the solutions
- * from the html document, it is not currently implemented
- */
-function getSolutions() {
-    alert('This function is not yet implemented.');
-    throw 'This function is not yet implemented.';
-    let raw = document.getElementById('hidden-solutions').textContent;
-    console.log(answers)
+// perhaps this should be broken into two pieces, one 
+// that gets the solutions when the song starts/page loads 
+// while the other would check the solutions for the song
+// I am having a hard time articulating this.
+function fetchSolutions(songName) {
+    if (songName === 'Oh No') {
+        let solutions = [];
+        songName = swapDash(songName);
+        const rawSolutions = transformWikiData(songName);
+        return ['black sabbath'];
+    } else {
+        alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
+        throw `The fetchSolutions function hasn't been implemented for ${songName} yet. Aborting.`;
+    }
 }
+
+
 
 /**
  * This setup function is called when DOM loads.
@@ -132,5 +162,4 @@ function getSolutions() {
  * and collects solutions from html document.
  */
 function setup() {
-    getSolutions();
 }
