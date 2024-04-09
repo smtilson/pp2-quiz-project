@@ -21,7 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function playSongQuiz(songName) {
     // this function should:
     // - set focus
-    // - fetch answers
+    // - fetch answers once!
+    //   - this way they can be sort of stored here 
+    //     while the game play loop runs and I don't 
+    //     have to fetch them over and over, hopefully
     // - run main gameplay loop
     // - control stopping and starting of video with 
     //   respect to other songs
@@ -87,16 +90,26 @@ function compareGuess(userAnswer, answerArray) {
     standardizedUserAnswer = userAnswer.toLowerCase();
     standardizedUserAnswer = standardizedUserAnswer.replace(' ', '');
     standardizedUserAnswer = removeThe(standardizedUserAnswer);
+    // when adding functionality to log songs and artists separately, 
+    // have this return an array where the second value dictates 
+    // if it is a song or an artist
     // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
-   
-    for (let term of answerArray) {
+    for (let song of answerArray.song){
         // creates testTerm in standardized form
-        // console.log(`checking ${term} against ${userAnswer}`);
-        testTerm = term.toLowerCase();
+        testTerm = song.toLowerCase();
         testTerm = removeThe(testTerm);
         testTerm = testTerm.replace(' ', '');
         if (standardizedUserAnswer === testTerm) {
-            return term;
+            return song;
+        }
+    }
+    for (let artist of answerArray.artist) {
+        // creates testTerm in standardized form
+        testTerm = artist.toLowerCase();
+        testTerm = removeThe(testTerm);
+        testTerm = testTerm.replace(' ', '');
+        if (standardizedUserAnswer === testTerm) {
+            return artist;
         }
     }
     return '';
@@ -311,12 +324,14 @@ function primaryArtist (artistString) {
 // I am having a hard time articulating this.
 function fetchSolutions(songName) {
     if (songName === 'Oh No') {
-        //let solutions = [];
         songName = titleSwap(songName);
         const rawSolutions = transformWikiData(songName);
-        let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
-        console.log(artistList);
-        return artistList;
+        // maybe this can be changed to a computed property thing?
+        const artistList = rawSolutions.map((entry) => entry.artist);
+        const songList = rawSolutions.map((entry)=> entry.song);
+        return {song: songList,
+                artist: artistList,
+        };
     } else {
         alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
         throw `The fetchSolutions function hasn't been implemented for ${songName} yet. Aborting.`;
