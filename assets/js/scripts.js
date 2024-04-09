@@ -131,7 +131,7 @@ function addGuess(guess, correctness) {
         incrementScores(correctness);
     } else {
         let submissions = text.split('; ');
-        submissions = submissions.map((word) => word.toLowerCase());
+        submissions = submissions.map((word) => utility.norm(word));
         // if it is not already present then we add it
         // if it is already present then we do nothing
         if (!submissions.includes(normedGuess)) {
@@ -400,6 +400,10 @@ testSuite = {
         testSuite.compareScores(2,0);
         checkAnswer("Ramones", "Oh No"); // repeat
         testSuite.compareScores(2,0);
+        checkAnswer("Black Sabbath", "Oh No"); // +1 correct
+        testSuite.compareScores(3,0);
+        checkAnswer("Black Sabbath", "Oh No"); // repeat
+        testSuite.compareScores(3,0);
         checkAnswer("2asd", "Oh No"); // +1 incorrect
         testSuite.compareScores(2,1);
         checkAnswer("2asd", "Oh No"); // repeat
