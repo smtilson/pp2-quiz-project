@@ -82,38 +82,25 @@ function checkAnswer(userAnswer, songName) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
-    standardizedUserAnswer = standardize(userAnswer);
+    standardizedUserAnswer = utility.norm(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
     for (let song of answerArray.song) {
-        testTerm = standardize(song);
-        if (standardizedUserAnswer === testTerm) {
+        testTerm = utility.norm(song);
+        if (utility.standardizedUserAnswer === testTerm) {
             return song;
         }
     }
     for (let artist of answerArray.artist) {
         // creates testTerm in standardized form
-        testTerm = standardize(artist);
+        testTerm = utility.norm(artist);
         if (standardizedUserAnswer === testTerm) {
             return artist;
         }
     }
     return '';
-}
-
-/**
- * Removes the from the string for comparison purposes.
- * Specifically, this addresses things like Ramones vs the Ramones.
- * @param {string in lower case, either solution or user submitted answer} possibleAnswer 
- */
-function removeThe(possibleAnswer) {
-    //console.log('calling removeThe');
-    //console.log('removeThe of ', possibleAnswer);
-    possibleAnswer = possibleAnswer.replace('the', '');
-    //console.log('returns ', possibleAnswer);
-    return possibleAnswer;
 }
 
 /**
@@ -140,7 +127,7 @@ function addGuess(guess, correctness) {
     // the guess
     let text = span.innerText;
     if (text === '') {
-        text = toTitle(guess);
+        text = utility.toTitle(guess);
         incrementScores(correctness);
     } else {
         let submissions = text.split('; ');
@@ -149,7 +136,7 @@ function addGuess(guess, correctness) {
         // if it is already present then we do nothing
         if (!submissions.includes(guess)) {
             // use ; in case , is in a song or artist name
-            text += '; ' + toTitle(guess);
+            text += '; ' + utility.toTitle(guess);
             incrementScores(correctness);
         } else {
             // discourages guessing the same thing
@@ -204,8 +191,8 @@ function checkAlreadyGuessed(guess, correctness) {
 }
 
 /**
- * This function increments the correct and incorrect answers
- * @param {a boolean determining if the answer was correct} result 
+ * Increments correct or incorrect answer tally
+ * @param {boolean: the answer was correct} result 
  */
 function incrementScores(result) {
     if (result) {
@@ -220,13 +207,13 @@ function incrementScores(result) {
 }
 
 
-// obtaining processable version of data data
+// obtaining processable version of data
 function transformWikiData(songName) {
     let raw = document.getElementById(songName).textContent;
     raw = raw.trim();
     let sampleList = raw.split('\n');
     // cleans each string in the array
-    sampleList = sampleList.map((item) => cleanString(item));
+    sampleList = sampleList.map((item) => utility.cleanString(item));
     // replaces strings with JS objects
     sampleList = sampleList.map((item) => sampleStringToData(item));
     return sampleList;
@@ -248,114 +235,11 @@ function sampleStringToData(sampleString) {
     for (let index in keys) {
         sampleData[keys[index]] = data[index];
     }
-    sampleData.artist = primaryArtist(sampleData.artist);
+    sampleData.artist = utility.primaryArtist(sampleData.artist);
     return sampleData;
 }
 
-/**
- * This is a utility function for standardizing the sample data 
- * obtained from the fandom wiki.
- * @param {string to be cleaned} string 
- * @returns string without special dash characters or double quotes
- */
-// utility function
-function cleanString(string) {
-    // replaces special dashes with normal dash
-    string = string.replace(/\u2013|\u2012|\u2014/g, ";");
-    /* if removing the double quotes in this way causes an issue, 
-    then it can be done later after the dictionary is built by 
-    just slicing off the first and last character of the string */
-    while (string.includes('"')) {
-        string = string.replace('"', '');
-    }
-    return string;
-}
 
-/**
- * this swaps dashes for spaces and vice versa,
- * also capitalizes first letters or makes them lower case.
- * @param {a string with dashes and no spaces or spaces and no dashes} sampleString 
- */
-// utility function
-function titleSwap(sampleString) {
-    const hasDash = sampleString.includes('-');
-    const hasSpace = sampleString.includes(' ');
-    if (hasDash && hasSpace) {
-        alert(`${sampleString} contains both spaces and dashes. This function can not transform it.`)
-        return sampleString;
-    } else if (hasDash) {
-        sampleString = sampleString.replace('-', ' ');
-        sampleString = toTitle(sampleString);
-        return sampleString;
-    } else if (hasSpace) {
-        sampleString = sampleString.replace(' ', '-');
-        sampleString = sampleString.toLowerCase();
-        return sampleString;
-    } else {
-        alert('Not sure how we got here, the string has neither.');
-        return sampleString;
-    }
-
-}
-
-// utility function
-// this was throwing some weird error that I couldn't find
-// this is because the word was empty?
-// it should work now, but there is this debuggy stuff 
-// in here jsut in case, to catch it if it happens again.
-function capitalize(word) {
-    if (word === '') {
-        alert('capitalize was passed an empty word.')
-        return '';
-    } else if (typeof (word) === 'string') {
-        return word[0].toUpperCase() + word.slice(1);
-    } else {
-        console.log(word);
-        console.log(word[0]);
-        console.log(typeof word);
-        alert('capitalize was passed a non string')
-        throw `${word} is not a string, it is a ${typeof word}.`
-    }
-}
-
-// utility function
-function toTitle(string) {
-    let words = string.split(' ');
-    words = words.map(w => capitalize(w));
-    return words.join(' ');
-}
-
-/**
- * This addresses the issue of answers like 2Pac featuring...
- * it replaces the string by just the primary artist
- */
-// utility function
-function primaryArtist(artistString) {
-    let primaryArtist = artistString.split(' featuring')[0];
-    primaryArtist = primaryArtist.split(' feat')[0];
-    return primaryArtist
-}
-
-/**
- * This function is to keep standardization of 
- * individual strings in one place. It returns a string in lower case,
- * with no spaces, and without common words.
- * @param {string to be standardized for comparison} string 
- */
-function standardize(string) {
-    let commonWords = ['the'];
-    standardString = string.toLowerCase();
-    for (let word of commonWords) {
-        standardString = standardString.replace(word, '');
-    }
-    // we remove common words before spacing in case the 
-    // removal of spaces causes some common words to appeaer 
-    // when they wouldn't otherwise
-    while (standardString.includes(' ')) {
-        standardString = standardString.replace(' ', '');
-    }
-    return standardString;
-}
 
 // perhaps this should be broken into two pieces, one 
 // that gets the solutions when the song starts/page loads 
@@ -363,7 +247,7 @@ function standardize(string) {
 // I am having a hard time articulating this.
 function fetchSolutions(songName) {
     if (songName === 'Oh No') {
-        songName = titleSwap(songName);
+        songName = utility.titleSwap(songName);
         const rawSolutions = transformWikiData(songName);
         // maybe this can be changed to a computed property thing?
         const artistList = rawSolutions.map((entry) => entry.artist);
@@ -378,10 +262,112 @@ function fetchSolutions(songName) {
     }
 }
 
+// This utility object is to keep utility functions in one place
+// All functions take a string and return a string in a different 
+// format
+utility = {
+    /**
+     * Returns normalized version of string
+     * suitable for comparison purposes
+     * @param {string to be normalized} string 
+     */
+    norm: function (string) {
+        let commonWords = ['the'];
+        string = string.toLowerCase();
+        for (let word of commonWords) {
+            string = string.replace(word, '');
+        }
+        // we remove common words before spacing in case the 
+        // removal of spaces causes some common words to appeaer 
+        // when they wouldn't otherwise
+        while (string.includes(' ')) {
+            string = string.replace(' ', '');
+        }
+        return string;
+    },
 
-/**
- * This setup function is called when DOM loads.
- * It adds event listeners, initializes the game,
- * and collects solutions from html document.
- */
-function setup() {}
+    /**
+     * Removes " and special dash characters from strings
+     * @param {string} string 
+     */
+    cleanString: function (string) {
+        // replaces special dashes with normal dash
+        string = string.replace(/\u2013|\u2012|\u2014/g, ";");
+        /* if removing the double quotes in this way causes an issue, 
+        then it can be done later after the dictionary is built by 
+        just slicing off the first and last character of the string */
+        while (string.includes('"')) {
+            string = string.replace('"', '');
+        }
+        return string;
+    },
+
+    /**
+     * Swaps title format and html format
+     * ex: Oh No with oh-no.
+     * If string is not in one of the formats, it will be 
+     * returned unmodified
+     * @param {string in either format} string
+     */
+    // utility function
+    titleSwap: function (string) {
+        const hasDash = string.includes('-');
+        const hasSpace = string.includes(' ');
+        if (hasDash && hasSpace) {
+            alert(`${string} contains both spaces and dashes. This function can not transform it.`)
+            return string;
+        } else if (hasDash) {
+            string = string.replace('-', ' ');
+            string = utility.toTitle(string);
+            return string;
+        } else if (hasSpace) {
+            string = string.replace(' ', '-');
+            string = string.toLowerCase();
+            return string;
+        } else {
+            alert('Not sure how we got here, the string has neither.');
+            return string;
+        }
+    },
+
+    /**
+     * 
+     * @param {string} word 
+     * @returns 
+     */
+    capitalize: function (word) {
+        if (word === '') {
+            alert('capitalize was passed an empty word.')
+            return '';
+        } else if (typeof (word) === 'string') {
+            // normal behavior
+            // everything else in the function body is to catch a bug
+            return word[0].toUpperCase() + word.slice(1);
+        } else {
+            console.log(word);
+            console.log(word[0]);
+            console.log(typeof word);
+            alert('capitalize was passed a non string')
+            throw `${word} is not a string, it is a ${typeof word}.`
+        }
+    },
+
+    /**
+     * Capitalizes first letter of each word.
+     */
+    toTitle: function (string) {
+        let words = string.split(' ');
+        words = words.map(w => utility.capitalize(w));
+        return words.join(' ');
+    },
+
+    /**
+     * This addresses the issue of answers like 2Pac featuring...
+     * it replaces the string by just the primary artist
+     */
+    primaryArtist: function (artistString) {
+        let primaryArtist = artistString.split(' featuring')[0];
+        primaryArtist = primaryArtist.split(' feat')[0];
+        return primaryArtist;
+    },
+}
