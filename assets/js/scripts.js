@@ -273,16 +273,15 @@ utility = {
      * @param {string to be normalized} string 
      */
     norm: function (string) {
-        let commonWords = ['the'];
-        string = string.toLowerCase();
-        for (let word of commonWords) {
-            string = string.replace(word, '');
-        }
         // we remove common words before spacing in case the 
         // removal of spaces causes some common words to appeaer 
         // when they wouldn't otherwise
-        while (string.includes(' ')) {
-            string = string.replace(' ', '');
+        let removeStrings = ['the', '-', ' '];
+        string = string.toLowerCase();
+        for (let word of removeStrings) {
+            while (string.includes(word)) {
+                string = string.replace(word, '');
+            }
         }
         return string;
     },
@@ -376,6 +375,7 @@ utility = {
 testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
+    // I should come up with more test cases for artist names
     testSongs: function () {
         testSuite.resetScores();
         checkAnswer("war pigs", "Oh No"); //+1 correct
@@ -387,29 +387,33 @@ testSuite = {
     },
     testArtists: function () {
         this.resetScores();
-        testSuite.compareScores(0,0);
+        testSuite.compareScores(0, 0);
         checkAnswer("2pac", "Oh No"); //+1 correct
-        testSuite.compareScores(1,0);
+        testSuite.compareScores(1, 0);
         checkAnswer("2pa c", "Oh No"); // repeat
-        testSuite.compareScores(1,0);
+        testSuite.compareScores(1, 0);
         checkAnswer("2Pac", "Oh No"); // repeat
-        testSuite.compareScores(1,0);
+        testSuite.compareScores(1, 0);
         checkAnswer("2 Pac", "Oh No"); // repeat
-        testSuite.compareScores(1,0);
+        testSuite.compareScores(1, 0);
         checkAnswer("the Ramones", "Oh No"); // +1 correct
-        testSuite.compareScores(2,0);
+        testSuite.compareScores(2, 0);
         checkAnswer("Ramones", "Oh No"); // repeat
-        testSuite.compareScores(2,0);
+        testSuite.compareScores(2, 0);
         checkAnswer("Black Sabbath", "Oh No"); // +1 correct
-        testSuite.compareScores(3,0);
+        testSuite.compareScores(3, 0);
         checkAnswer("Black Sabbath", "Oh No"); // repeat
-        testSuite.compareScores(3,0);
+        testSuite.compareScores(3, 0);
+        checkAnswer("Jay-Z", "Oh No"); // +1 correct
+        testSuite.compareScores(4, 0);
+        checkAnswer("Jay Z", "Oh No"); // repeat
+        testSuite.compareScores(4, 0);
         checkAnswer("2asd", "Oh No"); // +1 incorrect
-        testSuite.compareScores(2,1);
+        testSuite.compareScores(4, 1);
         checkAnswer("2asd", "Oh No"); // repeat
-        testSuite.compareScores(2,1);
+        testSuite.compareScores(4, 1);
         checkAnswer("asd", "Oh No"); // +1 incorrect
-        testSuite.compareScores(2,2); 
+        testSuite.compareScores(4, 2);
     },
     fetchScores: function () {
         return [document.getElementById('correct-answer-score').textContent,
