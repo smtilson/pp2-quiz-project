@@ -64,7 +64,6 @@ function checkAnswer(userAnswer, songName) {
             alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
             addGuess(userAnswer,false);
         }
-        incrementScores(answer);
     } else {
         alert(`The checkAnswer function hasn't been implemented for ${songName} yet.`);
         throw `The checkAnswer function hasn't been implemented for ${songName} yet. Aborting.`;
@@ -137,6 +136,7 @@ function addGuess(guess, correctness) {
     let text = span.innerText;
     if (text === '') {
         text = toTitle(guess);
+        incrementScores(correctness);
     } else {
         let submissions = text.split('; ');
         submissions = submissions.map((word)=>word.toLowerCase());
@@ -145,6 +145,7 @@ function addGuess(guess, correctness) {
         if (!submissions.includes(guess)) {
             // use ; in case , is in a song or artist name
             text += '; ' + toTitle(guess);
+            incrementScores(correctness);
         }
     }
     span.innerText = text;
