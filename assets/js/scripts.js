@@ -377,31 +377,55 @@ testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
     testSongs: function () {
+        testSuite.resetScores();
         checkAnswer("war pigs", "Oh No"); //+1 correct
+        testSuite.compareScores(1, 0);
         checkAnswer("war pIGs the", "Oh No"); // repeat
+        testSuite.compareScores(1, 0);
         checkAnswer("w ar  pigs", "Oh No"); // repeat
+        testSuite.compareScores(1, 0);
     },
     testArtists: function () {
+        this.resetScores();
+        testSuite.compareScores(0,0);
         checkAnswer("2pac", "Oh No"); //+1 correct
+        testSuite.compareScores(1,0);
         checkAnswer("2pa c", "Oh No"); // repeat
+        testSuite.compareScores(1,0);
         checkAnswer("2Pac", "Oh No"); // repeat
+        testSuite.compareScores(1,0);
         checkAnswer("2 Pac", "Oh No"); // repeat
-        checkAnswer("the Ramones", "Oh No");
+        testSuite.compareScores(1,0);
+        checkAnswer("the Ramones", "Oh No"); // +1 correct
+        testSuite.compareScores(2,0);
         checkAnswer("Ramones", "Oh No"); // repeat
-        checkAnswer("2asd", "Oh No");
+        testSuite.compareScores(2,0);
+        checkAnswer("2asd", "Oh No"); // +1 incorrect
+        testSuite.compareScores(2,1);
         checkAnswer("2asd", "Oh No"); // repeat
-        checkAnswer("asd", "Oh No");
+        testSuite.compareScores(2,1);
+        checkAnswer("asd", "Oh No"); // +1 incorrect
+        testSuite.compareScores(2,2); 
     },
     fetchScores: function () {
-        const correct = document.getElementById('correct-answer-score').textContent;
-        const incorrect = document.getElementById('incorrect-answer-score').textContent;
-        console.log('Correct answers: ', correct);
-        console.log('incorrect answers: ', incorrect);
-        return [correct, incorrect];
+        return [document.getElementById('correct-answer-score').textContent,
+            document.getElementById('incorrect-answer-score').textContent
+        ];
     },
     fetchAnswers: function () {
-        const correct = document.getElementById("correct-submissions");
-        const incorrect = document.getElementById("incorrect-submissions");
+        const correct = document.getElementById("correct-submissions").textContent.split(';');
+        const incorrect = document.getElementById("incorrect-submissions").textContent.split(';');
         return [correct, incorrect];
     },
+    resetScores: function () {
+        document.getElementById('correct-answer-score').textContent = 0;
+        document.getElementById('incorrect-answer-score').textContent = 0;
+    },
+    compareScores: function (cScore, iScore) {
+        let correct = testSuite.fetchScores()[0];
+        let incorrect = testSuite.fetchScores()[1];
+        console.log(`correct should be ${cScore}, it is `, correct);
+        console.log(`incorrect should be ${iScore}, it is `, incorrect);
+    }
+
 }
