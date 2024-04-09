@@ -60,12 +60,9 @@ function checkAnswer(userAnswer, songName) {
         //should I strip off the? maybe reference in instructions.
         const answer = compareGuess(userAnswer, solutions);
         if (answer) {
-            alert('That is correct!');
             addGuess(answer, true);
         } else {
-            // issue with the grammar of was vs were
-            alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
-            addGuess(userAnswer,false);
+            addGuess(userAnswer, false);
         }
     } else {
         alert(`The checkAnswer function hasn't been implemented for ${songName} yet.`);
@@ -85,29 +82,20 @@ function checkAnswer(userAnswer, songName) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
-    // console.log('compareGuess was passed the answerArray ', answerArray);
-    // puts userAnswer in standardized form
-    standardizedUserAnswer = userAnswer.toLowerCase();
-    standardizedUserAnswer = standardizedUserAnswer.replace(' ', '');
-    standardizedUserAnswer = removeThe(standardizedUserAnswer);
+    standardizedUserAnswer = standardize(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
-    for (let song of answerArray.song){
-        // creates testTerm in standardized form
-        testTerm = song.toLowerCase();
-        testTerm = removeThe(testTerm);
-        testTerm = testTerm.replace(' ', '');
+    for (let song of answerArray.song) {
+        testTerm = standardize(song);
         if (standardizedUserAnswer === testTerm) {
             return song;
         }
     }
     for (let artist of answerArray.artist) {
         // creates testTerm in standardized form
-        testTerm = artist.toLowerCase();
-        testTerm = removeThe(testTerm);
-        testTerm = testTerm.replace(' ', '');
+        testTerm = standardize(artist);
         if (standardizedUserAnswer === testTerm) {
             return artist;
         }
@@ -120,7 +108,7 @@ function compareGuess(userAnswer, answerArray) {
  * Specifically, this addresses things like Ramones vs the Ramones.
  * @param {string in lower case, either solution or user submitted answer} possibleAnswer 
  */
-function removeThe (possibleAnswer) {
+function removeThe(possibleAnswer) {
     //console.log('calling removeThe');
     //console.log('removeThe of ', possibleAnswer);
     possibleAnswer = possibleAnswer.replace('the', '');
@@ -133,16 +121,20 @@ function removeThe (possibleAnswer) {
  * @param {user answer standardized to title case string} guess 
  * @param {boolean depending on answer} correctness 
  */
+// it feels like this function is doing too much
 function addGuess(guess, correctness) {
-    // should I be adding their guess or the correct answer?
     let span;
+
     // changes guess to a standardized form
     guess = guess.toLowerCase();
     // checks which span to access
     if (correctness) {
         span = document.getElementById('correct-submissions');
+        alertText = "That is correct!";
     } else {
         span = document.getElementById('incorrect-submissions');
+        // issue with the grammar of was vs were
+        alertText = `That is incorrect. ${guess} was not sampled for this song.`;
     }
     // checks to see if text is empty or if it already contains
     // the guess
@@ -152,25 +144,48 @@ function addGuess(guess, correctness) {
         incrementScores(correctness);
     } else {
         let submissions = text.split('; ');
-        submissions = submissions.map((word)=>word.toLowerCase());
+        submissions = submissions.map((word) => word.toLowerCase());
         // if it is not already present then we add it
         // if it is already present then we do nothing
         if (!submissions.includes(guess)) {
             // use ; in case , is in a song or artist name
             text += '; ' + toTitle(guess);
             incrementScores(correctness);
+        } else {
+            // discourages guessing the same thing
+            alertText += `You already guessed ${guess}.`;
+            if (correctness) {
+                alertText += " Stop trying to pad your score!";
+            } else {
+                alertText += " Try thinking of something else.";
+            }
         }
     }
+    // writes to appropriate span element
     span.innerText = text;
+    alert(alertText);
+}
+
+/**
+ * Checks to see if answer was previously guessed.
+ * Returns body for span as well as alertText for an alert.
+ * @param {standardized string} guess 
+ * @param {string of previous guesses} spanContents
+ * @param {boolean} correctness 
+ */
+function previousGuesses(guess, spanContents, correctness) {
 
 }
 
 /**
  * checks if answer was already guessed
  */
+// I guess I replaced this function?
+// maybe I should use it again?
 function checkAlreadyGuessed(guess, correctness) {
     let span;
     let text;
+    let alreadyGuessed;
     if (correctness) {
         span = document.getElementById("correct-submissions");
     } else {
@@ -179,10 +194,13 @@ function checkAlreadyGuessed(guess, correctness) {
     let submissions = span.innerText.split('; ');
     if (submissions.includes(guess)) {
         text = '';
+        alreadyGuessed = true;
     } else {
         text = '; ' + guess;
+        alreadyGuessed = false;
     }
     span.innerText += text;
+    return [correctness, alreadyGuessed];
 }
 
 /**
@@ -289,15 +307,15 @@ function capitalize(word) {
     if (word === '') {
         alert('capitalize was passed an empty word.')
         return '';
-    } else if (typeof(word)==='string'){
+    } else if (typeof (word) === 'string') {
         return word[0].toUpperCase() + word.slice(1);
     } else {
-            console.log(word);
-            console.log(word[0]);
-            console.log(typeof word);
-            alert('capitalize was passed a non string')
-            throw `${word} is not a string, it is a ${typeof word}.`
-        }
+        console.log(word);
+        console.log(word[0]);
+        console.log(typeof word);
+        alert('capitalize was passed a non string')
+        throw `${word} is not a string, it is a ${typeof word}.`
+    }
 }
 
 // utility function
@@ -312,10 +330,31 @@ function toTitle(string) {
  * it replaces the string by just the primary artist
  */
 // utility function
-function primaryArtist (artistString) {
+function primaryArtist(artistString) {
     let primaryArtist = artistString.split(' featuring')[0];
     primaryArtist = primaryArtist.split(' feat')[0];
     return primaryArtist
+}
+
+/**
+ * This function is to keep standardization of 
+ * individual strings in one place. It returns a string in lower case,
+ * with no spaces, and without common words.
+ * @param {string to be standardized for comparison} string 
+ */
+function standardize(string) {
+    let commonWords = ['the'];
+    standardString = string.toLowerCase();
+    for (let word of commonWords) {
+        standardString = standardString.replace(word, '');
+    }
+    // we remove common words before spacing in case the 
+    // removal of spaces causes some common words to appeaer 
+    // when they wouldn't otherwise
+    while (standardString.includes(' ')) {
+        standardString = standardString.replace(' ', '');
+    }
+    return standardString;
 }
 
 // perhaps this should be broken into two pieces, one 
@@ -328,9 +367,10 @@ function fetchSolutions(songName) {
         const rawSolutions = transformWikiData(songName);
         // maybe this can be changed to a computed property thing?
         const artistList = rawSolutions.map((entry) => entry.artist);
-        const songList = rawSolutions.map((entry)=> entry.song);
-        return {song: songList,
-                artist: artistList,
+        const songList = rawSolutions.map((entry) => entry.song);
+        return {
+            song: songList,
+            artist: artistList,
         };
     } else {
         alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
