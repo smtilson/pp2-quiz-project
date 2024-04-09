@@ -54,7 +54,6 @@ function submitHandler(event) {
  * @param {name of current track/question user is on.} songName 
  */
 function checkAnswer(userAnswer, songName) {
-    userAnswer = userAnswer.toLowerCase();
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
@@ -82,21 +81,22 @@ function checkAnswer(userAnswer, songName) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
-    standardizedUserAnswer = utility.norm(userAnswer);
+    normedUserAnswer = utility.norm(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
     for (let song of answerArray.song) {
         testTerm = utility.norm(song);
-        if (utility.standardizedUserAnswer === testTerm) {
+        console.log()
+        if (normedUserAnswer === testTerm) {
             return song;
         }
     }
     for (let artist of answerArray.artist) {
         // creates testTerm in standardized form
         testTerm = utility.norm(artist);
-        if (standardizedUserAnswer === testTerm) {
+        if (normedUserAnswer === testTerm) {
             return artist;
         }
     }
@@ -111,9 +111,9 @@ function compareGuess(userAnswer, answerArray) {
 // it feels like this function is doing too much
 function addGuess(guess, correctness) {
     let span;
-
-    // changes guess to a standardized form
-    guess = guess.toLowerCase();
+    // check to see where guess comes from, if this is necessary
+    guess = utility.toTitle(guess);
+    const normedGuess = utility.norm(guess);
     // checks which span to access
     if (correctness) {
         span = document.getElementById('correct-submissions');
@@ -134,7 +134,7 @@ function addGuess(guess, correctness) {
         submissions = submissions.map((word) => word.toLowerCase());
         // if it is not already present then we add it
         // if it is already present then we do nothing
-        if (!submissions.includes(guess)) {
+        if (!submissions.includes(normedGuess)) {
             // use ; in case , is in a song or artist name
             text += '; ' + utility.toTitle(guess);
             incrementScores(correctness);
@@ -161,7 +161,7 @@ function addGuess(guess, correctness) {
  * @param {boolean} correctness 
  */
 function previousGuesses(guess, spanContents, correctness) {
-
+    throw "The function previousGuesses has not yet been implemented."
 }
 
 /**
@@ -196,11 +196,11 @@ function checkAlreadyGuessed(guess, correctness) {
  */
 function incrementScores(result) {
     if (result) {
-        let scoreBox = document.getElementById('right');
+        let scoreBox = document.getElementById('correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     } else {
-        let scoreBox = document.getElementById('wrong');
+        let scoreBox = document.getElementById('incorrect-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     }
@@ -262,10 +262,11 @@ function fetchSolutions(songName) {
     }
 }
 
-// This utility object is to keep utility functions in one place
-// All functions take a string and return a string in a different 
-// format
+
 utility = {
+    // This utility object is to keep utility functions in one place
+    // All functions take a string and return a string in a different 
+    // format
     /**
      * Returns normalized version of string
      * suitable for comparison purposes
@@ -369,5 +370,38 @@ utility = {
         let primaryArtist = artistString.split(' featuring')[0];
         primaryArtist = primaryArtist.split(' feat')[0];
         return primaryArtist;
+    },
+}
+
+testSuite = {
+    // note that there is no difference between incorrect
+    // songs and artists
+    testSongs: function () {
+        checkAnswer("war pigs", "Oh No"); //+1 correct
+        checkAnswer("war pIGs the", "Oh No"); // repeat
+        checkAnswer("w ar  pigs", "Oh No"); // repeat
+    },
+    testArtists: function () {
+        checkAnswer("2pac", "Oh No"); //+1 correct
+        checkAnswer("2pa c", "Oh No"); // repeat
+        checkAnswer("2Pac", "Oh No"); // repeat
+        checkAnswer("2 Pac", "Oh No"); // repeat
+        checkAnswer("the Ramones", "Oh No");
+        checkAnswer("Ramones", "Oh No"); // repeat
+        checkAnswer("2asd", "Oh No");
+        checkAnswer("2asd", "Oh No"); // repeat
+        checkAnswer("asd", "Oh No");
+    },
+    fetchScores: function () {
+        const correct = document.getElementById('correct-answer-score').textContent;
+        const incorrect = document.getElementById('incorrect-answer-score').textContent;
+        console.log('Correct answers: ', correct);
+        console.log('incorrect answers: ', incorrect);
+        return [correct, incorrect];
+    },
+    fetchAnswers: function () {
+        const correct = document.getElementById("correct-submissions");
+        const incorrect = document.getElementById("incorrect-submissions");
+        return [correct, incorrect];
     },
 }
