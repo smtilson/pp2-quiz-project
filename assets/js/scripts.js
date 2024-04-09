@@ -55,19 +55,65 @@ function checkAnswer(userAnswer, songName) {
     if (songName === 'Oh No') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
-        const correctness = solutions.includes(userAnswer);
-        if (correctness) {
+        const answer = compareGuess(userAnswer, solutions);
+        if (answer) {
             alert('That is correct!');
+            addGuess(answer, true);
         } else {
             // issue with the grammar of was vs were
             alert(`That is incorrect. ${userAnswer} was not sampled for ${songName}.`)
+            addGuess(userAnswer,false);
         }
-        incrementScores(correctness);
-        addGuess(userAnswer, correctness)
+        incrementScores(answer);
     } else {
         alert(`The checkAnswer function hasn't been implemented for ${songName} yet.`);
         throw `The checkAnswer function hasn't been implemented for ${songName} yet. Aborting.`;
     }
+}
+
+/**
+ * Compares user submitted answer to possible solutions.
+ * what does this return? boolean and string answer? 
+ * probably just the string anser and then we can use 
+ * truthy/falsyness of the return value
+ * 
+ * Maybe this should take an array as a second parameter so 
+ * it can be used when adding guess to the display
+ * @param {user submitted string not standardized} userAnswer 
+ * @param {array of strings not standardized} answerArray 
+ */
+function compareGuess(userAnswer, answerArray) {
+    // console.log('compareGuess was passed the answerArray ', answerArray);
+    // puts userAnswer in standardized form
+    standardizedUserAnswer = userAnswer.toLowerCase();
+    standardizedUserAnswer = standardizedUserAnswer.replace(' ', '');
+    standardizedUserAnswer = removeThe(standardizedUserAnswer);
+    // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
+   
+    for (let term of answerArray) {
+        // creates testTerm in standardized form
+        // console.log(`checking ${term} against ${userAnswer}`);
+        testTerm = term.toLowerCase();
+        testTerm = removeThe(testTerm);
+        testTerm = testTerm.replace(' ', '');
+        if (standardizedUserAnswer === testTerm) {
+            return term;
+        }
+    }
+    return '';
+}
+
+/**
+ * Removes the from the string for comparison purposes.
+ * Specifically, this addresses things like Ramones vs the Ramones.
+ * @param {string in lower case, either solution or user submitted answer} possibleAnswer 
+ */
+function removeThe (possibleAnswer) {
+    //console.log('calling removeThe');
+    //console.log('removeThe of ', possibleAnswer);
+    possibleAnswer = possibleAnswer.replace('the', '');
+    //console.log('returns ', possibleAnswer);
+    return possibleAnswer;
 }
 
 /**
@@ -221,8 +267,23 @@ function titleSwap(sampleString) {
 }
 
 // utility function
+// this was throwing some weird error that I couldn't find
+// this is because the word was empty?
+// it should work now, but there is this debuggy stuff 
+// in here jsut in case, to catch it if it happens again.
 function capitalize(word) {
-    return word[0].toUpperCase() + word.slice(1);
+    if (word === '') {
+        alert('capitalize was passed an empty word.')
+        return '';
+    } else if (typeof(word)==='string'){
+        return word[0].toUpperCase() + word.slice(1);
+    } else {
+            console.log(word);
+            console.log(word[0]);
+            console.log(typeof word);
+            alert('capitalize was passed a non string')
+            throw `${word} is not a string, it is a ${typeof word}.`
+        }
 }
 
 // utility function
