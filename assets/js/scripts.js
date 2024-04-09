@@ -33,10 +33,7 @@ function playSongQuiz(songName) {
 
 // event handlers
 function submitHandler(event) {
-    // this will involve a loop and give text inputs all a 
-    // class to loop through and then run something to get 
-    // the data from those upon the click of the submit button
-    // or should we only have one input box?
+    // this function feels like it is doing too much
 
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
@@ -144,7 +141,8 @@ function incrementScores(result) {
     }
 }
 
-// serialize data
+
+// obtaining processable version of data data
 function transformWikiData(songName) {
     let raw = document.getElementById(songName).textContent;
     raw = raw.trim();
@@ -157,11 +155,32 @@ function transformWikiData(songName) {
 }
 
 /**
- * This is a utility function for reformatting the sample data 
+ * This function produces an js object containing start of sample,
+ * end of sample, artist, and song sampled.
+ * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
+ */
+// utility function
+function sampleStringToData(sampleString) {
+    let data = sampleString.split(" ; ");
+    /* should I validate data is of the correct form?*/
+    let sampleData = {};
+    // single quotes matter here because of the form
+    // the data is in.
+    let keys = ['start', 'end', 'artist', 'song'];
+    for (let index in keys) {
+        sampleData[keys[index]] = data[index];
+    }
+    sampleData.artist = primaryArtist(sampleData.artist);
+    return sampleData;
+}
+
+/**
+ * This is a utility function for standardizing the sample data 
  * obtained from the fandom wiki.
  * @param {string to be cleaned} string 
  * @returns string without special dash characters or double quotes
  */
+// utility function
 function cleanString(string) {
     // replaces special dashes with normal dash
     string = string.replace(/\u2013|\u2012|\u2014/g, ";");
@@ -179,6 +198,7 @@ function cleanString(string) {
  * also capitalizes first letters or makes them lower case.
  * @param {a string with dashes and no spaces or spaces and no dashes} sampleString 
  */
+// utility function
 function titleSwap(sampleString) {
     const hasDash = sampleString.includes('-');
     const hasSpace = sampleString.includes(' ');
@@ -200,10 +220,12 @@ function titleSwap(sampleString) {
 
 }
 
+// utility function
 function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
+// utility function
 function toTitle(string) {
     let words = string.split(' ');
     words = words.map(w => capitalize(w));
@@ -211,28 +233,10 @@ function toTitle(string) {
 }
 
 /**
- * This function produces an js object containing start of sample,
- * end of sample, artist, and song sampled.
- * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
- */
-function sampleStringToData(sampleString) {
-    let data = sampleString.split(" ; ");
-    /* should I validate data is of the correct form?*/
-    let sampleData = {};
-    // single quotes matter here because of the form
-    // the data is in.
-    let keys = ['start', 'end', 'artist', 'song'];
-    for (let index in keys) {
-        sampleData[keys[index]] = data[index];
-    }
-    sampleData.artist = primaryArtist(sampleData.artist);
-    return sampleData;
-}
-
-/**
  * This addresses the issue of answers like 2Pac featuring...
  * it replaces the string by just the primary artist
  */
+// utility function
 function primaryArtist (artistString) {
     let primaryArtist = artistString.split(' featuring')[0];
     primaryArtist = primaryArtist.split(' feat')[0];
@@ -251,13 +255,11 @@ function fetchSolutions(songName) {
         let artistList = rawSolutions.map((entry) => entry.artist.toLowerCase());
         console.log(artistList);
         return artistList;
-        return ['black sabbath'];
     } else {
         alert(`The fetchSolutions function hasn't been implemented for ${songName} yet.`);
         throw `The fetchSolutions function hasn't been implemented for ${songName} yet. Aborting.`;
     }
 }
-
 
 
 /**
