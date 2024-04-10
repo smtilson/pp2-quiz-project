@@ -40,7 +40,9 @@ function submitHandler(event) {
 
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
-    checkAnswer(userAnswer, 'Oh No');
+    // pay attention to what checkAnswer is fed 
+    // in terms of the format of the string
+    checkAnswer(userAnswer, 'ohNo');
     answerBox.value = '';
 }
 
@@ -54,7 +56,7 @@ function submitHandler(event) {
  * @param {name of current track/question user is on.} songName 
  */
 function checkAnswer(userAnswer, songName) {
-    if (songName === 'Oh No') {
+    if (songName === 'ohNo') {
         const solutions = fetchSolutions(songName);
         //should I strip off the? maybe reference in instructions.
         const answer = compareGuess(userAnswer, solutions);
@@ -209,9 +211,8 @@ function incrementScores(result) {
 
 // obtaining processable version of data
 function transformWikiData(songName) {
-    let raw = document.getElementById(songName).textContent;
-    raw = raw.trim();
-    let sampleList = raw.split('\n');
+    // if (songName === '') {
+    let sampleList = rawSolutions[songName].split('\n');
     // cleans each string in the array
     sampleList = sampleList.map((item) => utility.cleanString(item));
     // replaces strings with JS objects
@@ -245,10 +246,12 @@ function sampleStringToData(sampleString) {
 // that gets the solutions when the song starts/page loads 
 // while the other would check the solutions for the song
 // I am having a hard time articulating this.
+
+// what format should the input for this be?
+// keep track of this variable and make it "more efficient"
 function fetchSolutions(songName) {
-    if (songName === 'Oh No') {
-        songName = utility.titleSwap(songName);
-        const rawSolutions = transformWikiData(songName);
+    if (songName === 'ohNo') {
+        const preSolutions = transformWikiData(songName);
         // maybe this can be changed to a computed property thing?
         const artistList = rawSolutions.map((entry) => entry.artist);
         const songList = rawSolutions.map((entry) => entry.song);
@@ -262,8 +265,8 @@ function fetchSolutions(songName) {
     }
 }
 
-
-utility = {
+// should this be a const?
+let utility = {
     // This utility object is to keep utility functions in one place
     // All functions take a string and return a string in a different 
     // format
@@ -291,6 +294,8 @@ utility = {
      * @param {string} string 
      */
     cleanString: function (string) {
+        // does this trim do anything?
+        string = string.trim();
         // replaces special dashes with normal dash
         string = string.replace(/\u2013|\u2012|\u2014/g, ";");
         /* if removing the double quotes in this way causes an issue, 
@@ -372,7 +377,10 @@ utility = {
     },
 }
 
-testSuite = {
+/**
+ * This object contains various tests
+ */
+let testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
     // I should come up with more test cases for artist names
@@ -435,5 +443,36 @@ testSuite = {
         console.log(`correct should be ${cScore}, it is `, correct);
         console.log(`incorrect should be ${iScore}, it is `, incorrect);
     }
+}
 
+/**
+ * This objecct contains all the solutions for the quiz in the initial raw form
+ */
+
+const rawSolutions = {
+    ohNo: `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
+    0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
+    0:15 ‒ 0:16 — Jay-Z – "99 Problems"
+    0:20 ‒ 2:02 — Ludacris featuring Mystikal and I-20 – "Move Bitch"
+    0:20 ‒ 0:53 — JC featuring Yung Joc – "Vote 4 Me"
+    1:01 ‒ 2:00 — Jay-Z featuring Alicia Keys – "Empire State of Mind"
+    2:02 ‒ 2:42 — N.W.A – "Express Yourself" (Extended Mix)
+    2:03 ‒ 2:45 — David Banner featuring Chris Brown and Yung Joc – "Get Like Me"
+    2:04 ‒ 2:39 — Eminem featuring Dr. Dre and 50 Cent – "Crack a Bottle"
+    2:05 ‒ 2:40 — Cali Swag District – "Teach Me How to Dougie"
+    2:12 ‒ 2:13 — The Pack – "This Shit Slappin"
+    2:13 ‒ 2:34 — Jane's Addiction – "Jane Says"
+    2:40 ‒ 2:42 — M.I.A. – "Paper Planes"
+    2:43 ‒ 2:45 — Jimmy Smith – "I'm Gonna Love You Just a Little More Babe"
+    2:45 ‒ 4:11 — The Brothers Johnson – "Strawberry Letter 23"
+    2:46 ‒ 4:13 — Dorrough – "Ice Cream Paint Job"
+    3:49 ‒ 4:10 — 2Pac featuring Dramacydal – "Me Against the World"
+    4:00 ‒ 5:39 — J-Kwon – "Tipsy '09"
+    4:11 ‒ 5:38 — Ramones – "Blitzkrieg Bop"
+    4:15 ‒ 4:18 — Doug E. Fresh and Slick Rick – "La Di Da Di"
+    4:19 ‒ 4:45 — The Doors – "Waiting for the Sun"
+    4:21 ‒ 4:50 — Aaliyah – "Try Again"
+    4:45 ‒ 4:50 — Trina featuring Killer Mike – "Look Back at Me"
+    4:53 ‒ 4:53 — N.W.A – "Appetite for Destruction"
+    4:56 ‒ 5:39 — Missy Elliott – "Get Ur Freak On"`,
 }
