@@ -253,8 +253,8 @@ function fetchSolutions(songName) {
     if (songName === 'ohNo') {
         const preSolutions = transformWikiData(songName);
         // maybe this can be changed to a computed property thing?
-        const artistList = rawSolutions.map((entry) => entry.artist);
-        const songList = rawSolutions.map((entry) => entry.song);
+        const artistList = preSolutions.map((entry) => entry.artist);
+        const songList = preSolutions.map((entry) => entry.song);
         return {
             song: songList,
             artist: artistList,
@@ -379,6 +379,7 @@ let utility = {
 
 /**
  * This object contains various tests
+ * need to add tests for each song.
  */
 let testSuite = {
     // note that there is no difference between incorrect
@@ -386,41 +387,41 @@ let testSuite = {
     // I should come up with more test cases for artist names
     testSongs: function () {
         testSuite.resetScores();
-        checkAnswer("war pigs", "Oh No"); //+1 correct
+        checkAnswer("war pigs", "ohNo"); //+1 correct
         testSuite.compareScores(1, 0);
-        checkAnswer("war pIGs the", "Oh No"); // repeat
+        checkAnswer("war pIGs the", "ohNo"); // repeat
         testSuite.compareScores(1, 0);
-        checkAnswer("w ar  pigs", "Oh No"); // repeat
+        checkAnswer("w ar  pigs", "ohNo"); // repeat
         testSuite.compareScores(1, 0);
     },
     testArtists: function () {
         this.resetScores();
         testSuite.compareScores(0, 0);
-        checkAnswer("2pac", "Oh No"); //+1 correct
+        checkAnswer("2pac", "ohNo"); //+1 correct
         testSuite.compareScores(1, 0);
-        checkAnswer("2pa c", "Oh No"); // repeat
+        checkAnswer("2pa c", "ohNo"); // repeat
         testSuite.compareScores(1, 0);
-        checkAnswer("2Pac", "Oh No"); // repeat
+        checkAnswer("2Pac", "ohNo"); // repeat
         testSuite.compareScores(1, 0);
-        checkAnswer("2 Pac", "Oh No"); // repeat
+        checkAnswer("2 Pac", "ohNo"); // repeat
         testSuite.compareScores(1, 0);
-        checkAnswer("the Ramones", "Oh No"); // +1 correct
+        checkAnswer("the Ramones", "ohNo"); // +1 correct
         testSuite.compareScores(2, 0);
-        checkAnswer("Ramones", "Oh No"); // repeat
+        checkAnswer("Ramones", "ohNo"); // repeat
         testSuite.compareScores(2, 0);
-        checkAnswer("Black Sabbath", "Oh No"); // +1 correct
+        checkAnswer("Black Sabbath", "ohNo"); // +1 correct
         testSuite.compareScores(3, 0);
-        checkAnswer("Black Sabbath", "Oh No"); // repeat
+        checkAnswer("Black Sabbath", "ohNo"); // repeat
         testSuite.compareScores(3, 0);
-        checkAnswer("Jay-Z", "Oh No"); // +1 correct
+        checkAnswer("Jay-Z", "ohNo"); // +1 correct
         testSuite.compareScores(4, 0);
-        checkAnswer("Jay Z", "Oh No"); // repeat
+        checkAnswer("Jay Z", "ohNo"); // repeat
         testSuite.compareScores(4, 0);
-        checkAnswer("2asd", "Oh No"); // +1 incorrect
+        checkAnswer("2asd", "ohNo"); // +1 incorrect
         testSuite.compareScores(4, 1);
-        checkAnswer("2asd", "Oh No"); // repeat
+        checkAnswer("2asd", "ohNo"); // repeat
         testSuite.compareScores(4, 1);
-        checkAnswer("asd", "Oh No"); // +1 incorrect
+        checkAnswer("asd", "ohNo"); // +1 incorrect
         testSuite.compareScores(4, 2);
     },
     fetchScores: function () {

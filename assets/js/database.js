@@ -364,6 +364,7 @@ const rawSolutions = {
 4:51 ‒ 4:52 — Master P featuring 5th Ward Weebie – "Ooohhhwee"`,
 }
 
+// maybe add special scripts for this to direct people to the wiki.
 const unknownSamples = {
     unkown: `8Ball & MJG featuring P. Diddy – "You Don't Want Drama"
     Art of Noise – "Moments in Love"
