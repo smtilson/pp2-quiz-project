@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // main game play loop function
+// this will be executed each time enter is hit
+    // or submit is clicked
+    // this function should:
+    // - run main game play loop
+    // - control stopping and starting of video with 
+    //   respect to other songs
+    // should this take an event instead and then 
+    // the song can be accessed from the this keyword
 /**
  * 
  * @param {string all lower case, no spaces} songName
@@ -32,43 +40,17 @@ function playSongQuiz(event) {
     songName = utility.toJS(songName);
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
-    console.log("answer: ", answer);
     const correct = (answer) ? true : false;
-    console.log('correct: ', correct);
-    console.log('answer: ', answer);
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
-    console.log("answer: ", answer);
-    already = alreadyGuessed(answer, correct);
-    console.log(already);
     let guessed = alreadyGuessed(answer, correct);
-    console.log('guessed: ', guessed);
     alert(generateFeedback(answer, 'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
     }
-    /*alert(generateFeedback(answer, "Oh No", guessed, correct));*/
     answerBox.value = '';
     answerBox.focus();
-    // this will be executed each time enter is hit
-    // or submit is clicked
-    // this function should:
-    // - set focus
-    // - fetch answers once!
-    //   - this way they can be sort of stored here 
-    //     while the game play loop runs and I don't 
-    //     have to fetch them over and over, hopefully
-    // - run main game play loop
-    //   - check answers
-    //   - update scores
-    //   - give feedback
-    // - control stopping and starting of video with 
-    //   respect to other songs
-    // should this take an event instead and then 
-    // the song can be accessed from the this keyword
-    alert('playSongQuiz is not yet finished.');
-    //throw 'this function is not yet implemented. Aborting.';
 }
 
 /**
@@ -77,11 +59,17 @@ function playSongQuiz(event) {
  * @param {*} songName 
  */
 
-function checkAnswer(answer, songName) {
-    const songSolutions = formatSolutions(songName);
-    answer = compareGuess(answer, songSolutions);
+function checkAnswer(userAnswer) {
+    const songSolutions = formatSolutions("ohNo");
+    let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
-    incrementScores(correct);
+    answer = (answer) ? answer : userAnswer;
+    const guessed = alreadyGuessed(answer, correct);
+    alert(generateFeedback(answer, 'Oh No', guessed, correct));
+    if (!guessed) {
+        incrementScores(correct);
+        addGuess2(answer, correct);
+    }
 }
 
 
@@ -465,11 +453,11 @@ const testSuite = {
     // I should come up with more test cases for artist names
     testSongs: function () {
         testSuite.resetScores();
-        checkAnswer("war pigs", "ohNo"); //+1 correct
+        checkAnswer("war pigs"); //+1 correct
         testSuite.compareScores(1, 0);
-        checkAnswer("war pIGs the", "ohNo"); // repeat
+        checkAnswer("war pIGs the"); // repeat
         testSuite.compareScores(1, 0);
-        checkAnswer("w ar  pigs", "ohNo"); // repeat
+        checkAnswer("w ar  pigs"); // repeat
         testSuite.compareScores(1, 0);
     },
     testArtists: function () {
@@ -492,7 +480,7 @@ const testSuite = {
         testSuite.compareScores(0, 0);
         for (let index in artistNames) {
             console.log("index is ", index);
-            checkAnswer(artistNames[index], "ohNo");
+            checkAnswer(artistNames[index]);
             testSuite.compareScores(compareValues[index][0], compareValues[index][1]);
         }
     },
