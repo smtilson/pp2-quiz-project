@@ -3,15 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
     const button = document.getElementById('submit-button');
-    button.addEventListener("click", submitHandler);
+    button.addEventListener("click", playSongQuiz);
     let answerBox = document.getElementById('user-answer');
     answerBox.value = '';
     answerBox.focus();
     answerBox.addEventListener('keydown', function (event) {
-        alert('listener being added');
         if (event.key === 'Enter') {
             playSongQuiz(event);
-            alert('added');
         }
     });
 });
@@ -154,7 +152,6 @@ function alreadyGuessed(guess, correctness) {
     }
     let submissions = span.innerText.split('; ');
     submissions = submissions.map((word) => utility.norm(word));
-    // if it is already present then we do nothing
     if (submissions.includes(normedGuess)) {
         return true;
     } else {
@@ -165,6 +162,7 @@ function alreadyGuessed(guess, correctness) {
 /**
  * This justs adds guess
  */
+
 function addGuess2(answer, correctness) {
     let span;
     if (correctness) {
