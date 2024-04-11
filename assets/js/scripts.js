@@ -29,23 +29,22 @@ function playSongQuiz(event) {
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
+    console.log('correct: ', correct);
+    console.log('answer: ', answer);
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
     already = alreadyGuessed(answer, correct);
     console.log(already);
-    let text;
     let alertText;
-    let guessed;
-    [text, alertText, guessed] = alreadyGuessed(answer, correct);
-    console.log(text, guessed);
+    let guessed = alreadyGuessed(answer, correct);
+    console.log('guessed: ', guessed);
     alert(alertText);
-    incrementScores(correct);
-    if (correct) {
-        addGuess(answer, correct);
-    } else {
-        addGuess(userAnswer, correct);
-    }
+    if (!guessed) {
+        incrementScores(correct);
+        addGuess2(answer, correct);
+    }    
     answerBox.value = '';
+    answerBox.focus();
     // this will be executed each time enter is hit
     // or submit is clicked
     // this function should:
@@ -126,6 +125,7 @@ function compareGuess(userAnswer, answerArray) {
  * This should only check if a guess was already guessed
  * maybe it should provide alert text?
  * or maybe addGuess should do that
+ * I do not think I need this to return a text string
  * @param {*} guess 
  * @param {*} correctness 
  */
@@ -146,17 +146,17 @@ function alreadyGuessed(guess, correctness) {
     }
     let text = span.innerText;
     if (text === '') {
-        text = utility.toTitle(guess);
+        guessed = false;
     } else {
         let submissions = text.split('; ');
         submissions = submissions.map((word) => utility.norm(word));
         // if it is not already present then we add it
         // if it is already present then we do nothing
         if (!submissions.includes(normedGuess)) {
-            // use ; in case , is in a song or artist name
-            text += '; ' + utility.toTitle(guess);
+            guessed = false;
         } else {
             // discourages guessing the same thing
+            guessed = true;
             alertText += `You already guessed ${guess}.`;
             if (correctness) {
                 alertText += " Stop trying to pad your score!";
@@ -165,7 +165,20 @@ function alreadyGuessed(guess, correctness) {
             }
         }
     }
-    return [text, alertText, guessed];
+    return [alertText, guessed];
+}
+
+/**
+ * This justs adds guess
+ */
+function addGuess2(answer, correctness) {
+    let span;
+    if (correctness) {
+        span = document.getElementById('correct-submissions');
+    } else {
+        span = document.getElementById('incorrect-submissions');
+    }
+    span.innerText += '; '+answer;
 }
 
 /**
@@ -278,13 +291,11 @@ function incrementScores(result) {
 // I use a different form for the database
 function transformWikiData(songName) {
     // if (songName === '') {
-    console.log(songName);
     let sampleList = rawSolutions[songName].split('\n');
     // cleans each string in the array
     sampleList = sampleList.map((item) => utility.cleanString(item));
     // replaces strings with JS objects
     sampleList = sampleList.map((item) => sampleStringToData(item));
-    console.log(typeof sampleList);
     return sampleList;
 }
 
@@ -326,7 +337,7 @@ function formatSolutions(songName) {
 }
 
 // should this be a const?
-let utility = {
+const utility = {
     // This utility object is to keep utility functions in one place
     // All functions take a string and return a string in a different 
     // format
