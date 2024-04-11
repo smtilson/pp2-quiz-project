@@ -43,7 +43,7 @@ function playSongQuiz(event) {
     console.log(already);
     let guessed = alreadyGuessed(answer, correct);
     console.log('guessed: ', guessed);
-    alert(generateFeedback(answer,'Oh No', guessed, correct));
+    alert(generateFeedback(answer, 'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
@@ -77,7 +77,7 @@ function playSongQuiz(event) {
  * @param {*} songName 
  */
 
-function checkAnswer(answer,songName) {
+function checkAnswer(answer, songName) {
     const songSolutions = formatSolutions(songName);
     answer = compareGuess(answer, songSolutions);
     const correct = (answer) ? true : false;
@@ -458,7 +458,7 @@ const utility = {
  * This object contains various tests
  * need to add tests for each song.
  */
-/*
+
 const testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
@@ -474,13 +474,26 @@ const testSuite = {
     },
     testArtists: function () {
         this.resetScores();
-        let artistNames = ["2pac", "2pa c","2Pac","the Ramones", "Ramones", "Black Sabbath", "Black Sabbath","Jay-Z", "Jay z","2asd","2asd","asd",]
-        let compareVals = [[1,0],[1,0],[1,0], [2,0].[2,0],[3,0],[3,0],[4,0],[4,0],[4,1],[4,1],[4,2],]
-        testSuite.compareVals(0,0);
+        let artistNames = ["2pac", "2pa c", "2Pac", "the Ramones", "Ramones", "Black Sabbath", "Black Sabbath", "Jay-Z", "Jay z", "2asd", "2asd", "asd", ];
+        let compareValues = [
+            [1, 0],
+            [1, 0],
+            [1, 0],
+            [2, 0],
+            [2, 0],
+            [3, 0],
+            [3, 0],
+            [4, 0],
+            [4, 0],
+            [4, 1],
+            [4, 1],
+            [4, 2],
+        ];
+        testSuite.compareScores(0, 0);
         for (let index in artistNames) {
-            console.log("index is ",index);
+            console.log("index is ", index);
             checkAnswer(artistNames[index], "ohNo");
-            testSuite.compareScores(compareVals[index][0],compareVals[index][1]); 
+            testSuite.compareScores(compareValues[index][0], compareValues[index][1]);
         }
     },
     fetchScores: function () {
@@ -502,8 +515,9 @@ const testSuite = {
         let incorrect = testSuite.fetchScores()[1];
         console.log(`correct should be ${cScore}, it is `, correct);
         console.log(`incorrect should be ${iScore}, it is `, incorrect);
-    }
-}*/
+    },
+}
+
 /**
  * This object contains all the solutions for the quiz in the initial raw form
  * It is only hear temporarily, maybe.
