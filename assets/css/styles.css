@@ -28,6 +28,8 @@ body {
 /* header styles */
 header {
     display: flex;
+    position:fixed;
+    z-index: 10;
     flex-direction: column;
     justify-content: center;
     background-color: #012D52;
@@ -46,7 +48,6 @@ header h1,h2 {
 }
 
 #subtitle {
-    width: 87%;
     padding: 8px 40px;
     font-size: 115%;
     margin-top: -7px;
@@ -55,8 +56,29 @@ header h1,h2 {
 
 /* main styles */
 main {
-    margin-top: 11px;
+    margin-top: 8em;
     display: flex;
     flex-direction: column;
     position: relative;
+    justify-content: center;
+}
+
+.container {
+    border: solid 3px;
+    border-radius: 15px;
+    width: 80%;
+    align-self: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-header {
+    align-self: center;
+    padding-top: 5px;
+}
+
+.content {
+    padding: 5px 18px 13px 18px;
 }
