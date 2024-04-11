@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
@@ -14,46 +15,35 @@
 <body>
     <h1 id="logo">He Sampled WHAT??</h1>
     <h2 id="subtitle">The Girl Talk quiz we all play in our heads.</h2>
-    <div id="introduction">
-        <p id="instructions">
-            Girl Talk is the most widely recognized mash-up artist. He makes music by sampling different
-            songs to construct an original collage filled with nostalgia triggers. This goal of this game is to score
-            points
-            by accurately guessing artists and songs he samples on each of the following tracks. Only primary artists
-            are
-            accepted (as opposed to featured artists) and the answers are not case sensitive. Answers can be submitted
-            by
-            hitting "Enter" or clicking on the "Submit" button. Submit artist names and song names separately. (rules to
-            be updated as more
-            features for the game are implemented.)
-        </p>
-        <p id="difficulty">A word on the difficulty of this quiz. This quiz is just for fun. It is, in a sense, a
-            celebration of Girl Talk's music. It is not intentionally difficult, but it implicitly is as a result of his
-            eclectic taste in music. If you get two correct answers on a song and you are not familiar with Girl Talk or
-            a <em>lot</em> of hip-hop, then you should be happy about your score. In the making of this quiz, I learned
-            that I was wrong about an artist and a song title! So don't feel bad. Just listen to the song, and when you
-            think you know something, enter it as a guess to see if you are right.</p>
-    </div>
-
-    <div class="question-div">
-        <div class="song-video-div">
-            <iframe id="oh-no-video" width="420" height="315" src="https://www.youtube.com/embed/26Ps_k1KpKw">
-            </iframe>
+        <div id="introduction">
+            <p id="instructions">
+                Girl Talk is the most widely recognized mash-up artist. He makes music by sampling different
+                songs to construct an original collage filled with nostalgia triggers. This goal of this game is to
+                score
+                points
+                by accurately guessing artists and songs he samples on each of the following tracks. Only primary
+                artists
+                are
+                accepted (as opposed to featured artists) and the answers are not case sensitive. Answers can be
+                submitted
+                by
+                hitting "Enter" or clicking on the "Submit" button. Submit artist names and song names separately.
+                (rules to
+                be updated as more
+                features for the game are implemented.)
+            </p>
+            <p id="difficulty">A word on the difficulty of this quiz. This quiz is just for fun. It is, in a sense, a
+                celebration of Girl Talk's music. It is not intentionally difficult, but it implicitly is as a result of
+                his
+                eclectic taste in music. If you get two correct answers on a song and you are not familiar with Girl
+                Talk or
+                a <em>lot</em> of hip-hop, then you should be happy about your score. In the making of this quiz, I
+                learned
+                that I was wrong about an artist and a song title! So don't feel bad. Just listen to the song, and when
+                you
+                think you know something, enter it as a guess to see if you are right.</p>
         </div>
-        <div id="answer-area">
-            <input type="text" id="user-answer">
-            <button type="submit" id="submit-button">Submit Answer</button>
-        </div>
-        <div id="scores-div">
-            <p class="scores">Number Correct: <span id="correct-answer-score">0</span></p>
-            <p class="scores">Number Incorrect: <span id="incorrect-answer-score">0</span></p>
-        </div>
-        <!-- make this just a string list for now -->
-        <div class="submitted-answers">
-            <p>Was Sampled: <span id="correct-submissions"></span></p>
-            <p>Was Not Sampled: <span id="incorrect-submissions"></span></p>
-        </div>
-    </div>
+        <a href="game.html"><button>I am ready to play!</button></a>
     <script src="assets/js/scripts.js"></script>
 </body>
 

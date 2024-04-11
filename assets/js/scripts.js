@@ -26,6 +26,9 @@ function playSongQuiz(songName) {
     //     while the game play loop runs and I don't 
     //     have to fetch them over and over, hopefully
     // - run main gameplay loop
+    //   - check answers
+    //   - update scores
+    //   - give feedback
     // - control stopping and starting of video with 
     //   respect to other songs
     // should this take an event instead and then 
