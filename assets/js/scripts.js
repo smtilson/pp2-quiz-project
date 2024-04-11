@@ -1,4 +1,5 @@
 // Initial setup
+alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     answerBox.focus();
     answerBox.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
+            alert("enter key event hit");
             playSongQuiz(event);
         }
     });
@@ -22,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function playSongQuiz(event) {
     // these need to be changed so that they access stuff 
     // from the event object
+    alert('main function hit');
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
@@ -40,11 +43,12 @@ function playSongQuiz(event) {
     console.log(already);
     let guessed = alreadyGuessed(answer, correct);
     console.log('guessed: ', guessed);
-    /*alert(generateFeedback(answer,'Oh No', guessed, correct));*/
+    alert(generateFeedback(answer,'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
     }
+    /*alert(generateFeedback(answer, "Oh No", guessed, correct));*/
     answerBox.value = '';
     answerBox.focus();
     // this will be executed each time enter is hit
@@ -74,10 +78,10 @@ function playSongQuiz(event) {
  */
 
 function checkAnswer(answer,songName) {
-    //const songSolutions = formatSolutions(songName);
-    //let answer = compareGuess(userAnswer, songSolutions);
-    //const correct = (answer) ? true : false;
-    //incrementScores(correct);
+    const songSolutions = formatSolutions(songName);
+    answer = compareGuess(answer, songSolutions);
+    const correct = (answer) ? true : false;
+    incrementScores(correct);
 }
 
 
@@ -102,7 +106,7 @@ function compareGuess(userAnswer, answerArray) {
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     for (let answer of answerArray) {
-        let testTerm = utility.norm(answer);
+        const testTerm = utility.norm(answer);
         if (normedUserAnswer === testTerm) {
             return answer;
         }
@@ -118,11 +122,11 @@ function compareGuess(userAnswer, answerArray) {
  * @param {boolean} guessed 
  * @param {boolean} correct 
  */
-/*
+
 function generateFeedback(answer, songName, guessed, correct) {
-    let message;
     // the songName input needs to be addressed here.
     answer = utility.toTitle(answer);
+    let message;
     if (correct) {
         message = `That is correct! ${answer} was sampled for ${songName}.`;
     } else {
@@ -133,7 +137,7 @@ function generateFeedback(answer, songName, guessed, correct) {
         message += ' You already guessed that. Try guessing something new.'
     }
     return message;
-} */
+}
 
 /**
  * This should only check if a guess was already guessed
@@ -455,7 +459,7 @@ const utility = {
  * need to add tests for each song.
  */
 /*
-let testSuite = {
+const testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
     // I should come up with more test cases for artist names
@@ -470,33 +474,14 @@ let testSuite = {
     },
     testArtists: function () {
         this.resetScores();
-        testSuite.compareScores(0, 0);
-        checkAnswer("2pac", "ohNo"); //+1 correct
-        testSuite.compareScores(1, 0);
-        checkAnswer("2pa c", "ohNo"); // repeat
-        testSuite.compareScores(1, 0);
-        checkAnswer("2Pac", "ohNo"); // repeat
-        testSuite.compareScores(1, 0);
-        checkAnswer("2 Pac", "ohNo"); // repeat
-        testSuite.compareScores(1, 0);
-        checkAnswer("the Ramones", "ohNo"); // +1 correct
-        testSuite.compareScores(2, 0);
-        checkAnswer("Ramones", "ohNo"); // repeat
-        testSuite.compareScores(2, 0);
-        checkAnswer("Black Sabbath", "ohNo"); // +1 correct
-        testSuite.compareScores(3, 0);
-        checkAnswer("Black Sabbath", "ohNo"); // repeat
-        testSuite.compareScores(3, 0);
-        checkAnswer("Jay-Z", "ohNo"); // +1 correct
-        testSuite.compareScores(4, 0);
-        checkAnswer("Jay Z", "ohNo"); // repeat
-        testSuite.compareScores(4, 0);
-        checkAnswer("2asd", "ohNo"); // +1 incorrect
-        testSuite.compareScores(4, 1);
-        checkAnswer("2asd", "ohNo"); // repeat
-        testSuite.compareScores(4, 1);
-        checkAnswer("asd", "ohNo"); // +1 incorrect
-        testSuite.compareScores(4, 2);
+        let artistNames = ["2pac", "2pa c","2Pac","the Ramones", "Ramones", "Black Sabbath", "Black Sabbath","Jay-Z", "Jay z","2asd","2asd","asd",]
+        let compareVals = [[1,0],[1,0],[1,0], [2,0].[2,0],[3,0],[3,0],[4,0],[4,0],[4,1],[4,1],[4,2],]
+        testSuite.compareVals(0,0);
+        for (let index in artistNames) {
+            console.log("index is ",index);
+            checkAnswer(artistNames[index], "ohNo");
+            testSuite.compareScores(compareVals[index][0],compareVals[index][1]); 
+        }
     },
     fetchScores: function () {
         return [document.getElementById('correct-answer-score').textContent,
@@ -518,8 +503,7 @@ let testSuite = {
         console.log(`correct should be ${cScore}, it is `, correct);
         console.log(`incorrect should be ${iScore}, it is `, incorrect);
     }
-}
-*/
+}*/
 /**
  * This object contains all the solutions for the quiz in the initial raw form
  * It is only hear temporarily, maybe.
