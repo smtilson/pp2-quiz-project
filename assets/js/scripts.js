@@ -25,7 +25,7 @@ function playSongQuiz(event) {
     const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
     let songName = 'oh-no';
-    songName = utility.htmlSwapJS(songName);
+    songName = utility.toJS(songName);
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
@@ -38,11 +38,11 @@ function playSongQuiz(event) {
     let alertText;
     let guessed = alreadyGuessed(answer, correct);
     console.log('guessed: ', guessed);
-    alert(alertText);
+    alert(generateFeedback(answer,'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
-    }    
+    }
     answerBox.value = '';
     answerBox.focus();
     // this will be executed each time enter is hit
@@ -81,20 +81,6 @@ function submitHandler(event) {
 
 // Functions related to checking answers
 
-/** superfluous
- * This checks if userAnswer is a sample from the songName
- * @param {string submitted by user.} userAnswer 
- * @param {name of current track/question user is on.} songName 
- */
-function checkAnswer(userAnswer, songSolutions) {
-    const answer = compareGuess(userAnswer, songSolutions);
-    if (answer) {
-        addGuess(answer, true);
-    } else {
-        addGuess(userAnswer, false);
-    }
-}
-
 /**
  * Compares user submitted answer to possible solutions.
  * what does this return? boolean and string answer? 
@@ -111,10 +97,9 @@ function compareGuess(userAnswer, answerArray) {
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
-    // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
     for (let answer of answerArray) {
-        testTerm = utility.norm(answer);
-        if (normedUserAnswer === testTerm) {
+        answer = utility.norm(answer);
+        if (normedUserAnswer === answer) {
             return answer;
         }
     }
@@ -122,10 +107,32 @@ function compareGuess(userAnswer, answerArray) {
 }
 
 /**
+ * Generates feedback text to either be alerted to user
+ * or populate a html element.
+ * @param {string} answer 
+ * @param {string} songName
+ * @param {boolean} guessed 
+ * @param {boolean} correct 
+ */
+function generateFeedback(answer, songName, guessed, correct) {
+    let message;
+    // the songName input needs to be addressed here.
+    answer = utility.toTitle(answer);
+    if (correct) {
+        message = `That is correct! ${answer} was sampled for ${songName}.`;
+    } else {
+        message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
+    }
+    console.log(guessed);
+    if (guessed) {
+        message += ' You already guessed . Try guessing something new.'
+    }
+    return message;
+}
+
+/**
  * This should only check if a guess was already guessed
  * maybe it should provide alert text?
- * or maybe addGuess should do that
- * I do not think I need this to return a text string
  * @param {*} guess 
  * @param {*} correctness 
  */
@@ -165,7 +172,7 @@ function alreadyGuessed(guess, correctness) {
             }
         }
     }
-    return [alertText, guessed];
+    return guessed;
 }
 
 /**
@@ -178,7 +185,7 @@ function addGuess2(answer, correctness) {
     } else {
         span = document.getElementById('incorrect-submissions');
     }
-    span.innerText += '; '+answer;
+    span.innerText += '; ' + answer;
 }
 
 /**
@@ -378,24 +385,15 @@ const utility = {
         return string;
     },
     /**
-     * converts html format to JS format
+     * converts a string to JS format
      * @param {string in either format} string 
      */
-    htmlSwapJS: function (string) {
-        if (string.includes(' ')) {
-            alert("This string is not of the correct format");
-            return string;
-        } else if (string.includes('-')) {
-            string = string.replace('-', ' ');
-            string = utility.toTitle(string);
-            string = string[0].toLowerCase() + string.slice(1);
-            string = string.replace(' ', '');
-            return string;
-        } else {
-            string = string.replace(' ', '-');
-            string = string.toLowerCase();
-            return string;
-        }
+    toJS: function (string) {
+        string = string.replace('-', ' ');
+        string = utility.toTitle(string);
+        string = string[0].toLowerCase() + string.slice(1);
+        string = string.replace(' ', '');
+        return string;
     },
     /**
      * Swaps title format and html format
