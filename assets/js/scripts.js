@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function playSongQuiz(event) {
     // these need to be changed so that they access stuff 
     // from the event object
-    alert('function hit');
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
@@ -73,14 +72,14 @@ function playSongQuiz(event) {
  * @param {*} answer 
  * @param {*} songName 
  */
-/*
+
 function checkAnswer(answer,songName) {
     //const songSolutions = formatSolutions(songName);
     //let answer = compareGuess(userAnswer, songSolutions);
     //const correct = (answer) ? true : false;
     //incrementScores(correct);
 }
-*/
+
 
 // get data from "form"
 
@@ -103,8 +102,8 @@ function compareGuess(userAnswer, answerArray) {
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     for (let answer of answerArray) {
-        answer = utility.norm(answer);
-        if (normedUserAnswer === answer) {
+        let testTerm = utility.norm(answer);
+        if (normedUserAnswer === testTerm) {
             return answer;
         }
     }
