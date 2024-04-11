@@ -27,9 +27,24 @@ function playSongQuiz(event) {
     let songName = 'oh-no';
     songName = utility.htmlSwapJS(songName);
     const songSolutions = formatSolutions(songName);
-    console.log(songSolutions);
-    const answer = compareGuess(userAnswer, songSolutions);
-    const correct = (answer) ? true:false
+    let answer = compareGuess(userAnswer, songSolutions);
+    const correct = (answer) ? true : false;
+    // resets answer to userAnswer if the guess was incorrect   
+    answer = (answer) ? answer : userAnswer;
+    already = alreadyGuessed(answer, correct);
+    console.log(already);
+    let text;
+    let alertText;
+    let guessed;
+    [text, alertText, guessed] = alreadyGuessed(answer, correct);
+    console.log(text, guessed);
+    alert(alertText);
+    incrementScores(correct);
+    if (correct) {
+        addGuess(answer, correct);
+    } else {
+        addGuess(userAnswer, correct);
+    }
     answerBox.value = '';
     // this will be executed each time enter is hit
     // or submit is clicked
@@ -47,7 +62,7 @@ function playSongQuiz(event) {
     //   respect to other songs
     // should this take an event instead and then 
     // the song can be accessed from the this keyword
-    alert('this function is not yet finished.');
+    alert('playSongQuiz is not yet finished.');
     //throw 'this function is not yet implemented. Aborting.';
 }
 
@@ -98,20 +113,59 @@ function compareGuess(userAnswer, answerArray) {
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     // console.log('userAnswer post standardization is ', standardizedUserAnswer, ' in compareGuess function');
-    for (let song of answerArray.song) {
-        testTerm = utility.norm(song);
+    for (let answer of answerArray) {
+        testTerm = utility.norm(answer);
         if (normedUserAnswer === testTerm) {
-            return song;
-        }
-    }
-    for (let artist of answerArray.artist) {
-        // creates testTerm in standardized form
-        testTerm = utility.norm(artist);
-        if (normedUserAnswer === testTerm) {
-            return artist;
+            return answer;
         }
     }
     return '';
+}
+
+/**
+ * This should only check if a guess was already guessed
+ * maybe it should provide alert text?
+ * or maybe addGuess should do that
+ * @param {*} guess 
+ * @param {*} correctness 
+ */
+function alreadyGuessed(guess, correctness) {
+    let span;
+    // I think the below line is no longer necessary
+    // guess = utility.toTitle(guess);
+    const normedGuess = utility.norm(guess);
+    let alertText;
+    let guessed;
+    if (correctness) {
+        span = document.getElementById('correct-submissions');
+        alertText = "That is correct!";
+    } else {
+        span = document.getElementById('incorrect-submissions');
+        // issue with the grammar of was vs were
+        alertText = `That is incorrect. ${guess} was not sampled for this song.`;
+    }
+    let text = span.innerText;
+    if (text === '') {
+        text = utility.toTitle(guess);
+    } else {
+        let submissions = text.split('; ');
+        submissions = submissions.map((word) => utility.norm(word));
+        // if it is not already present then we add it
+        // if it is already present then we do nothing
+        if (!submissions.includes(normedGuess)) {
+            // use ; in case , is in a song or artist name
+            text += '; ' + utility.toTitle(guess);
+        } else {
+            // discourages guessing the same thing
+            alertText += `You already guessed ${guess}.`;
+            if (correctness) {
+                alertText += " Stop trying to pad your score!";
+            } else {
+                alertText += " Try thinking of something else.";
+            }
+        }
+    }
+    return [text, alertText, guessed];
 }
 
 /**
@@ -268,10 +322,7 @@ function formatSolutions(songName) {
     // maybe this can be changed to a computed property thing?
     const artistList = preSolutions.map((entry) => entry.artist);
     const songList = preSolutions.map((entry) => entry.song);
-    return {
-        song: songList,
-        artist: artistList,
-    }
+    return artistList.concat(songList);
 }
 
 // should this be a const?
@@ -326,7 +377,7 @@ let utility = {
         } else if (string.includes('-')) {
             string = string.replace('-', ' ');
             string = utility.toTitle(string);
-            string = string[0].toLowerCase()+string.slice(1);
+            string = string[0].toLowerCase() + string.slice(1);
             string = string.replace(' ', '');
             return string;
         } else {
@@ -370,6 +421,7 @@ let utility = {
      */
     capitalize: function (word) {
         if (word === '') {
+            // hit this with "war pig"
             alert('capitalize was passed an empty word.')
             return '';
         } else if (typeof (word) === 'string') {
