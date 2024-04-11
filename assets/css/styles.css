@@ -28,16 +28,18 @@ body {
 /* header styles */
 header {
     display: flex;
-    position:fixed;
+    position: fixed;
     z-index: 10;
     flex-direction: column;
     justify-content: center;
     background-color: #012D52;
     color: #FEFBFD;
     border-bottom: solid #E5ECFD 5px;
+    width: 100%;
 }
 
-header h1,h2 {
+header h1,
+h2 {
     text-align: center;
 }
 
@@ -61,6 +63,7 @@ main {
     flex-direction: column;
     position: relative;
     justify-content: center;
+    gap: 1em;
 }
 
 .container {
@@ -81,4 +84,24 @@ main {
 
 .content {
     padding: 5px 18px 13px 18px;
+}
+
+
+@media screen and (min-width: 760px) {
+    body {
+        background-color: #011633;
+    }
+    header {
+        width: 60%;
+        margin-top: 1em;
+        align-self: center;
+        border: solid #E5ECFD 6px;
+        border-radius: 15px;
+        /* I am not sure if I like that color */
+        background-color: #012D52;
+    }
+
+    .container {
+        background-color: #012D52;
+    }
 }
