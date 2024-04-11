@@ -32,29 +32,34 @@ document.addEventListener("DOMContentLoaded", function () {
 function playSongQuiz(event) {
     // these need to be changed so that they access stuff 
     // from the event object
-    alert('main function hit');
+    
+    // fetches userAnswer
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
     let songName = 'oh-no';
     songName = utility.toJS(songName);
+    // fetches solutions
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct);
+    // delivers feedback
     alert(generateFeedback(answer, 'Oh No', guessed, correct));
+    // adjusts score and log area appropriately
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
     }
+    // resets game for next guess
     answerBox.value = '';
     answerBox.focus();
 }
 
 /**
- * This is now only used for testing
+ * This is only used for testing
  * @param {*} answer 
  * @param {*} songName 
  */
