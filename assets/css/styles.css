@@ -1,0 +1,62 @@
+/* base styles */
+/* colors:
+- darker blue: # 011222 or # 011633
+- other blue: # 012D52
+- lightest blue on page: # 04528C or # 0A5694
+- white text: # E5ECFD or the brighter # FEFBFD (maybe for focus)
+- black: # 00111C*/
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    /* not sure if this is necessary
+    min-height: 100vh;*/
+    background-color: #012D52;
+    color: #FEFBFD;
+}
+
+* * {
+    background-color: inherit;
+    color: inherit;
+}
+
+/* header styles */
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #012D52;
+    color: #FEFBFD;
+    border-bottom: solid #E5ECFD 5px;
+}
+
+header h1,h2 {
+    text-align: center;
+}
+
+#logo {
+    padding: 6px;
+    margin-top: 10px;
+    font-size: 180%;
+}
+
+#subtitle {
+    width: 87%;
+    padding: 8px 40px;
+    font-size: 115%;
+    margin-top: -7px;
+    align-self: center;
+}
+
+/* main styles */
+main {
+    margin-top: 11px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
