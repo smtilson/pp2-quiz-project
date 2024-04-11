@@ -1,19 +1,22 @@
 // Initial setup
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
+    alert("loaded");
     const button = document.getElementById('submit-button');
     button.addEventListener("click", submitHandler);
     let answerBox = document.getElementById('user-answer');
     answerBox.value = '';
     answerBox.focus();
     answerBox.addEventListener('keydown', function (event) {
+        alert('listener being added');
         if (event.key === 'Enter') {
             playSongQuiz(event);
+            alert('added');
         }
     });
 });
 
-// main gameplay loop function
+// main game play loop function
 /**
  * 
  * @param {string all lower case, no spaces} songName
@@ -21,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function playSongQuiz(event) {
     // these need to be changed so that they access stuff 
     // from the event object
+    alert('function hit');
     const answerBox = document.getElementById('user-answer');
     const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
@@ -28,17 +32,18 @@ function playSongQuiz(event) {
     songName = utility.toJS(songName);
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
+    console.log("answer: ", answer);
     const correct = (answer) ? true : false;
     console.log('correct: ', correct);
     console.log('answer: ', answer);
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
+    console.log("answer: ", answer);
     already = alreadyGuessed(answer, correct);
     console.log(already);
-    let alertText;
     let guessed = alreadyGuessed(answer, correct);
     console.log('guessed: ', guessed);
-    alert(generateFeedback(answer,'Oh No', guessed, correct));
+    /*alert(generateFeedback(answer,'Oh No', guessed, correct));*/
     if (!guessed) {
         incrementScores(correct);
         addGuess2(answer, correct);
@@ -53,7 +58,7 @@ function playSongQuiz(event) {
     //   - this way they can be sort of stored here 
     //     while the game play loop runs and I don't 
     //     have to fetch them over and over, hopefully
-    // - run main gameplay loop
+    // - run main game play loop
     //   - check answers
     //   - update scores
     //   - give feedback
@@ -65,17 +70,19 @@ function playSongQuiz(event) {
     //throw 'this function is not yet implemented. Aborting.';
 }
 
-// event handlers
-function submitHandler(event) {
-    // this function feels like it is doing too much
-
-    const answerBox = document.getElementById('user-answer');
-    const userAnswer = answerBox.value;
-    // pay attention to what checkAnswer is fed 
-    // in terms of the format of the string
-    checkAnswer(userAnswer, 'ohNo');
-    answerBox.value = '';
+/**
+ * This is now only used for testing
+ * @param {*} answer 
+ * @param {*} songName 
+ */
+/*
+function checkAnswer(answer,songName) {
+    //const songSolutions = formatSolutions(songName);
+    //let answer = compareGuess(userAnswer, songSolutions);
+    //const correct = (answer) ? true : false;
+    //incrementScores(correct);
 }
+*/
 
 // get data from "form"
 
@@ -84,7 +91,7 @@ function submitHandler(event) {
 /**
  * Compares user submitted answer to possible solutions.
  * what does this return? boolean and string answer? 
- * probably just the string anser and then we can use 
+ * probably just the string answer and then we can use 
  * truthy/falsyness of the return value
  * 
  * Maybe this should take an array as a second parameter so 
@@ -114,6 +121,7 @@ function compareGuess(userAnswer, answerArray) {
  * @param {boolean} guessed 
  * @param {boolean} correct 
  */
+/*
 function generateFeedback(answer, songName, guessed, correct) {
     let message;
     // the songName input needs to be addressed here.
@@ -125,10 +133,10 @@ function generateFeedback(answer, songName, guessed, correct) {
     }
     console.log(guessed);
     if (guessed) {
-        message += ' You already guessed . Try guessing something new.'
+        message += ' You already guessed that. Try guessing something new.'
     }
     return message;
-}
+} */
 
 /**
  * This should only check if a guess was already guessed
@@ -138,41 +146,20 @@ function generateFeedback(answer, songName, guessed, correct) {
  */
 function alreadyGuessed(guess, correctness) {
     let span;
-    // I think the below line is no longer necessary
-    // guess = utility.toTitle(guess);
     const normedGuess = utility.norm(guess);
-    let alertText;
-    let guessed;
     if (correctness) {
         span = document.getElementById('correct-submissions');
-        alertText = "That is correct!";
     } else {
         span = document.getElementById('incorrect-submissions');
-        // issue with the grammar of was vs were
-        alertText = `That is incorrect. ${guess} was not sampled for this song.`;
     }
-    let text = span.innerText;
-    if (text === '') {
-        guessed = false;
+    let submissions = span.innerText.split('; ');
+    submissions = submissions.map((word) => utility.norm(word));
+    // if it is already present then we do nothing
+    if (submissions.includes(normedGuess)) {
+        return true;
     } else {
-        let submissions = text.split('; ');
-        submissions = submissions.map((word) => utility.norm(word));
-        // if it is not already present then we add it
-        // if it is already present then we do nothing
-        if (!submissions.includes(normedGuess)) {
-            guessed = false;
-        } else {
-            // discourages guessing the same thing
-            guessed = true;
-            alertText += `You already guessed ${guess}.`;
-            if (correctness) {
-                alertText += " Stop trying to pad your score!";
-            } else {
-                alertText += " Try thinking of something else.";
-            }
-        }
+        return false;
     }
-    return guessed;
 }
 
 /**
@@ -403,23 +390,23 @@ const utility = {
      * @param {string in either format} string
      */
     // utility function
-    titleSwap: function (string) {
-        const hasDash = string.includes('-');
-        const hasSpace = string.includes(' ');
+    titleSwap: function (sampleString) {
+        const hasDash = sampleString.includes('-');
+        const hasSpace = sampleString.includes(' ');
         if (hasDash && hasSpace) {
-            alert(`${string} contains both spaces and dashes. This function can not transform it.`)
-            return string;
+            alert(`${sampleString} contains both spaces and dashes. This function can not transform it.`)
+            return sampleString;
         } else if (hasDash) {
-            string = string.replace('-', ' ');
-            string = utility.toTitle(string);
-            return string;
+            sampleString = sampleString.replace('-', ' ');
+            sampleString = utility.toTitle(sampleString);
+            return sampleString;
         } else if (hasSpace) {
-            string = string.replace(' ', '-');
-            string = string.toLowerCase();
-            return string;
+            sampleString = sampleString.replace(' ', '-');
+            sampleString = sampleString.toLowerCase();
+            return sampleString;
         } else {
             alert('Not sure how we got here, the string has neither.');
-            return string;
+            return sampleString;
         }
     },
 
@@ -470,6 +457,7 @@ const utility = {
  * This object contains various tests
  * need to add tests for each song.
  */
+/*
 let testSuite = {
     // note that there is no difference between incorrect
     // songs and artists
@@ -534,7 +522,7 @@ let testSuite = {
         console.log(`incorrect should be ${iScore}, it is `, incorrect);
     }
 }
-
+*/
 /**
  * This object contains all the solutions for the quiz in the initial raw form
  * It is only hear temporarily, maybe.
