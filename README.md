@@ -17,6 +17,11 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 
 ## Features <a name="features"></a>
 
+### User stories
+As a user, I type an answer and hit enter
+
+As a user, I type an answer and click the button
+
 ## Testing <a name="testing"></a>
 
 ## Deployment <a name="deployment"></a>

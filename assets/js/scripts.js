@@ -21,17 +21,24 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("sections found");
     for (let section of sections) {
         section.addEventListener("mouseenter", function () {
+            alert(`mouse enter is being triggered for ${this.id}`);
             //alert(`section ${this.id} mouse over trigger hit`)
             const songName = this.id;
             // this needs to be fixed.
-            // const button = section.getElementsByClassName('submit-button')[0];
-            // button.addEventListener("click", playSongQuiz);
+            const button = section.getElementsByClassName('submit-button')[0];
+            alert("button event about to be added");
+            button.addEventListener("click", function (event){
+                alert("event triggered by button click")
+                playSongQuiz(songName)});
             console.log(songName);
+            alert("button event already added");
             let answerBox = section.getElementsByClassName('user-answer')[0];
             answerBox.value = '';
             answerBox.focus();
+            alert("answerbox event about to be added");
             answerBox.addEventListener('keydown', function (event) {
                 if (event.key === 'Enter') {
+                    alert("play song triggered by enter key press")
                     // this can be done better using the event
                     playSongQuiz(songName);
                 }
@@ -44,8 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // main game play loop function
 // this will be executed each time enter is hit
 // or submit is clicked
-// this function should:
-// - run main game play loop
 // - control stopping and starting of video with 
 //   respect to other songs
 // should this take an event instead and then 
@@ -55,6 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
  * @param {string html format} songName
  */
 function playSongQuiz(songHTML) {
+    alert(`playsong triggered with ${songHTML}`);
+    let answerBox = getElementBySongAndClass(songHTML, "user-answer");
+    const userAnswer = answerBox.value;
+    // this is a temp fix for the event being triggered 
+    // when the listener is added
+    /*if (userAnswer === '') {
+        answerBox.value = '';
+        answerBox.focus();
+        return '';
+    }*/
     // these need to be changed so that they access stuff 
     // from the event object
     // fetches userAnswer
@@ -62,8 +77,7 @@ function playSongQuiz(songHTML) {
     const songJS = toJS(songHTML);
     // fetches solutions
     const songSolutions = formatSolutions(songJS);
-    let answerBox = getElementBySongAndClass(songHTML, "user-answer");
-    const userAnswer = answerBox.value;
+
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
