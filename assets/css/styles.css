@@ -97,6 +97,13 @@ main {
     margin-bottom: 1em;
 }
 
+/* game page styles */
+.video-answer-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 @media screen and (min-width: 760px) {
     body {
