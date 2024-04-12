@@ -3,48 +3,60 @@ alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
-    const button = document.getElementById('submit-button');
-    button.addEventListener("click", playSongQuiz);
-    let answerBox = document.getElementById('user-answer');
-    answerBox.value = '';
-    answerBox.focus();
-    answerBox.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            alert("enter key event hit");
-            playSongQuiz(event);
-        }
-    });
+    let sections = document.getElementsByTagName('section');
+    alert("sections found");
+    for (let section of sections) {
+        section.addEventListener("mouseenter", function () {
+            //alert(`section ${this.id} mouse over trigger hit`)
+            const songName = this.id;
+            // this needs to be fixed.
+            // const button = section.getElementsByClassName('submit-button')[0];
+            // button.addEventListener("click", playSongQuiz);
+            
+            let answerBox = section.getElementsByClassName('user-answer')[0];
+            answerBox.value = '';
+            answerBox.focus();
+            answerBox.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    alert(`enter key event hit ${answerBox.value}`);
+                    // this can be done better using the event
+                    alert(`function will be passed ${songName} as songName.`);
+                    playSongQuiz(answerBox.value, songName);
+                }
+            });
+        });
+    }
 });
+
 
 // main game play loop function
 // this will be executed each time enter is hit
-    // or submit is clicked
-    // this function should:
-    // - run main game play loop
-    // - control stopping and starting of video with 
-    //   respect to other songs
-    // should this take an event instead and then 
-    // the song can be accessed from the this keyword
+// or submit is clicked
+// this function should:
+// - run main game play loop
+// - control stopping and starting of video with 
+//   respect to other songs
+// should this take an event instead and then 
+// the song can be accessed from the this keyword
 /**
  * 
  * @param {string all lower case, no spaces} songName
  */
-function playSongQuiz(event) {
+function playSongQuiz(userAnswer,songName) {
     // these need to be changed so that they access stuff 
     // from the event object
-    
     // fetches userAnswer
-    const answerBox = document.getElementById('user-answer');
-    const userAnswer = answerBox.value;
     // This should be changed to being accessed from the event
-    let songName = 'oh-no';
+    
     songName = utility.toJS(songName);
     // fetches solutions
     const songSolutions = formatSolutions(songName);
     let answer = compareGuess(userAnswer, songSolutions);
+    alert(answer);
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
+    alert(answer);
     let guessed = alreadyGuessed(answer, correct);
     // delivers feedback
     alert(generateFeedback(answer, 'Oh No', guessed, correct));
@@ -94,6 +106,7 @@ function checkAnswer(userAnswer) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
+    alert(`compare guess hit with ${userAnswer}`)
     normedUserAnswer = utility.norm(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
