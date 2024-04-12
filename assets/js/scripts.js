@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
     let sections = document.getElementsByTagName('section');
-    alert("sections found");
     for (let section of sections) {
         section.addEventListener("mouseenter", function () {
             //alert(`section ${this.id} mouse over trigger hit`)
@@ -28,10 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
             answerBox.focus();
             answerBox.addEventListener('keydown', function (event) {
                 if (event.key === 'Enter') {
-                    alert(`enter key event hit ${answerBox.value}`);
                     // this can be done better using the event
-                    alert(`function will be passed ${songName} as songName.`);
-                    playSongQuiz(answerBox.value, songName);
+                    playSongQuiz(songName);
                 }
             });
         });
@@ -50,30 +47,29 @@ document.addEventListener("DOMContentLoaded", function () {
 // the song can be accessed from the this keyword
 /**
  * 
- * @param {string all lower case, no spaces} songName
+ * @param {string html format} songName
  */
-function playSongQuiz(userAnswer, songName) {
+function playSongQuiz(songHTML) {
     // these need to be changed so that they access stuff 
     // from the event object
     // fetches userAnswer
     // This should be changed to being accessed from the event
-
-    songName = utility.toJS(songName);
+    const songJS = utility.toJS(songHTML);
     // fetches solutions
-    const songSolutions = formatSolutions(songName);
+    const songSolutions = formatSolutions(songJS);
+    let answerBox = getElementBySongAndClass(songHTML, "user-answer");
+    const userAnswer = answerBox.value;
     let answer = compareGuess(userAnswer, songSolutions);
-    alert(answer);
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
-    alert(answer);
-    let guessed = alreadyGuessed(answer, correct);
+    let guessed = alreadyGuessed(answer, correct, songHTML);
     // delivers feedback
-    alert(generateFeedback(answer, 'Oh No', guessed, correct));
+    alert(generateFeedback(answer, utility.toTitle(songHTML), guessed, correct));
     // adjusts score and log area appropriately
     if (!guessed) {
-        incrementScores(correct);
-        addGuess2(answer, correct);
+        incrementScores(correct, songHTML);
+        addGuess(answer, correct, songHTML);
     }
     // resets game for next guess
     answerBox.value = '';
@@ -95,7 +91,7 @@ function checkAnswer(userAnswer) {
     alert(generateFeedback(answer, 'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
-        addGuess2(answer, correct);
+        addGuess(answer, correct);
     }
 }
 
@@ -116,7 +112,6 @@ function checkAnswer(userAnswer) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
-    alert(`compare guess hit with ${userAnswer}`)
     normedUserAnswer = utility.norm(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
@@ -148,7 +143,6 @@ function generateFeedback(answer, songName, guessed, correct) {
     } else {
         message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
     }
-    console.log(guessed);
     if (guessed) {
         message += ' You already guessed that. Try guessing something new.'
     }
@@ -161,13 +155,13 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {*} guess 
  * @param {*} correctness 
  */
-function alreadyGuessed(guess, correctness) {
+function alreadyGuessed(guess, correctness, songHTML) {
     let span;
     const normedGuess = utility.norm(guess);
     if (correctness) {
-        span = document.getElementById('correct-submissions');
+        span = getElementBySongAndClass(songHTML, 'correct-submissions');
     } else {
-        span = document.getElementById('incorrect-submissions');
+        span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
     }
     let submissions = span.innerText.split('; ');
     submissions = submissions.map((word) => utility.norm(word));
@@ -182,119 +176,43 @@ function alreadyGuessed(guess, correctness) {
  * This justs adds guess
  */
 
-function addGuess2(answer, correctness) {
+function addGuess(answer, correctness, songHTML) {
     let span;
     if (correctness) {
-        span = document.getElementById('correct-submissions');
+        span = getElementBySongAndClass(songHTML, 'correct-submissions');
     } else {
-        span = document.getElementById('incorrect-submissions');
+        span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
     }
     span.innerText += '; ' + answer;
 }
 
-/**
- * 
- * @param {user answer standardized to title case string} guess 
- * @param {boolean depending on answer} correctness 
- */
-// it feels like this function is doing too much
-function addGuess(guess, correctness) {
-    let span;
-    // check to see where guess comes from, if this is necessary
-    guess = utility.toTitle(guess);
-    const normedGuess = utility.norm(guess);
-    // checks which span to access
-    if (correctness) {
-        span = document.getElementById('correct-submissions');
-        alertText = "That is correct!";
-    } else {
-        span = document.getElementById('incorrect-submissions');
-        // issue with the grammar of was vs were
-        alertText = `That is incorrect. ${guess} was not sampled for this song.`;
-    }
-    // checks to see if text is empty or if it already contains
-    // the guess
-    let text = span.innerText;
-    if (text === '') {
-        text = utility.toTitle(guess);
-        incrementScores(correctness);
-    } else {
-        let submissions = text.split('; ');
-        submissions = submissions.map((word) => utility.norm(word));
-        // if it is not already present then we add it
-        // if it is already present then we do nothing
-        if (!submissions.includes(normedGuess)) {
-            // use ; in case , is in a song or artist name
-            text += '; ' + utility.toTitle(guess);
-            incrementScores(correctness);
-        } else {
-            // discourages guessing the same thing
-            alertText += `You already guessed ${guess}.`;
-            if (correctness) {
-                alertText += " Stop trying to pad your score!";
-            } else {
-                alertText += " Try thinking of something else.";
-            }
-        }
-    }
-    // writes to appropriate span element
-    span.innerText = text;
-    alert(alertText);
-}
-
-/**
- * Checks to see if answer was previously guessed.
- * Returns body for span as well as alertText for an alert.
- * @param {standardized string} guess 
- * @param {string of previous guesses} spanContents
- * @param {boolean} correctness 
- */
-function previousGuesses(guess, spanContents, correctness) {
-    throw "The function previousGuesses has not yet been implemented."
-}
-
-/**
- * checks if answer was already guessed
- */
-// I guess I replaced this function?
-// maybe I should use it again?
-function checkAlreadyGuessed(guess, correctness) {
-    let span;
-    let text;
-    let alreadyGuessed;
-    if (correctness) {
-        span = document.getElementById("correct-submissions");
-    } else {
-        span = document.getElementById("incorrect-submissions");
-    }
-    let submissions = span.innerText.split('; ');
-    if (submissions.includes(guess)) {
-        text = '';
-        alreadyGuessed = true;
-    } else {
-        text = '; ' + guess;
-        alreadyGuessed = false;
-    }
-    span.innerText += text;
-    return [correctness, alreadyGuessed];
-}
 
 /**
  * Increments correct or incorrect answer tally
  * @param {boolean: the answer was correct} result 
  */
-function incrementScores(result) {
+function incrementScores(result, songHTML) {
     if (result) {
-        let scoreBox = document.getElementById('correct-answer-score');
+        let scoreBox = getElementBySongAndClass(songHTML, 'correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     } else {
-        let scoreBox = document.getElementById('incorrect-answer-score');
+        let scoreBox = getElementBySongAndClass(songHTML, 'incorrect-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     }
 }
 
+/**
+ * Returns appropriate element.
+ * @param {html format string} songName 
+ * @param {html format string} className 
+ */
+function getElementBySongAndClass(songName, className) {
+    const section = document.querySelector(`#${songName}`);
+    const element = section.querySelector(`.${className}`);
+    return element;
+}
 
 // obtaining processable version of data
 // maybe combine this and formatSolutions into one function.
@@ -393,10 +311,14 @@ const utility = {
      * @param {string in either format} string 
      */
     toJS: function (string) {
-        string = string.replace('-', ' ');
+        while (string.includes('-')) {
+            string = string.replace('-', ' ');
+        }
         string = utility.toTitle(string);
         string = string[0].toLowerCase() + string.slice(1);
-        string = string.replace(' ', '');
+        while (string.includes(' ')) {
+            string = string.replace(' ', '');
+        }
         return string;
     },
     /**
@@ -513,18 +435,18 @@ const testSuite = {
         }
     },
     fetchScores: function () {
-        return [document.getElementById('correct-answer-score').textContent,
-            document.getElementById('incorrect-answer-score').textContent
+        return [getElementBySongAndClass('oh-no', 'correct-answer-score').textContent,
+            getElementBySongAndClass('oh-no', 'incorrect-answer-score').textContent
         ];
     },
     fetchAnswers: function () {
-        const correct = document.getElementById("correct-submissions").textContent.split(';');
-        const incorrect = document.getElementById("incorrect-submissions").textContent.split(';');
+        const correct = getElementBySongAndClass('oh-no', "correct-submissions").textContent.split(';');
+        const incorrect = getElementBySongAndClass('oh-no', "incorrect-submissions").textContent.split(';');
         return [correct, incorrect];
     },
     resetScores: function () {
-        document.getElementById('correct-answer-score').textContent = 0;
-        document.getElementById('incorrect-answer-score').textContent = 0;
+        getElementBySongAndClass('oh-no', 'correct-answer-score').textContent = 0;
+        getElementBySongAndClass('oh-no', 'incorrect-answer-score').textContent = 0;
     },
     compareScores: function (cScore, iScore) {
         let correct = testSuite.fetchScores()[0];
