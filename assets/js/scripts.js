@@ -1,4 +1,14 @@
 // Initial setup
+
+// writes game page sections
+/*alert(`${window.location.pathname}`);
+if (window.location.pathname === '/game.html') {
+    alert(`Success ${window.location.pathname}`);
+} else {
+    alert('not yet correct');
+    alert(`${window.location.pathname}`);
+}*/
+
 alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
@@ -12,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // this needs to be fixed.
             // const button = section.getElementsByClassName('submit-button')[0];
             // button.addEventListener("click", playSongQuiz);
-            
+
             let answerBox = section.getElementsByClassName('user-answer')[0];
             answerBox.value = '';
             answerBox.focus();
@@ -42,12 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
  * 
  * @param {string all lower case, no spaces} songName
  */
-function playSongQuiz(userAnswer,songName) {
+function playSongQuiz(userAnswer, songName) {
     // these need to be changed so that they access stuff 
     // from the event object
     // fetches userAnswer
     // This should be changed to being accessed from the event
-    
+
     songName = utility.toJS(songName);
     // fetches solutions
     const songSolutions = formatSolutions(songName);

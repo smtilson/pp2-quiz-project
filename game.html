@@ -21,7 +21,7 @@
             <h2 id="subtitle">The Girl Talk quiz we all play in our heads.</h2>
         </div>
         <section id="oh-no">
-            <div id="main-content-div">
+            <div class="main-content-div">
                 <div class="left-panel">
                     <p class="content container instructions">
                         Simple version of instructions</p>
@@ -40,13 +40,44 @@
                 </div>
                 <div class="content container feedback-div">
                     <div class="scores-div">
-                        <p class="scores">Number Correct: <span id="correct-answer-score">0</span></p>
-                        <p class="scores">Number Incorrect: <span id="incorrect-answer-score">0</span></p>
+                        <p class="scores">Number Correct: <span class="correct-answer-score">0</span></p>
+                        <p class="scores">Number Incorrect: <span class="incorrect-answer-score">0</span></p>
                     </div>
                     <!-- make this just a string list for now -->
                     <div class="submitted-answers">
-                        <p>Was Sampled: <span id="correct-submissions"></span></p>
-                        <p>Was Not Sampled: <span id="incorrect-submissions"></span></p>
+                        <p>Was Sampled: <span class="correct-submissions"></span></p>
+                        <p>Was Not Sampled: <span class="incorrect-submissions"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="let-it-out">
+            <div class="main-content-div">
+                <div class="left-panel">
+                    <p class="content container instructions">
+                        Simple version of instructions</p>
+                    <p class="content container difficulty">a word about difficulty, or not</p>
+                </div>
+                <div class="video-answer-div">
+                    <div class="video-div">
+                        <iframe id="let-it-out-video" width="420" height="315"
+                            src="https://www.youtube.com/embed/9YyAQTmTxAc">
+                        </iframe>
+                    </div>
+                    <div class="answer-area container">
+                        <input type="text" class="user-answer">
+                        <button type="submit" class="submit-button">Submit Answer</button>
+                    </div>
+                </div>
+                <div class="content container feedback-div">
+                    <div class="scores-div">
+                        <p class="scores">Number Correct: <span class="correct-answer-score">0</span></p>
+                        <p class="scores">Number Incorrect: <span class="incorrect-answer-score">0</span></p>
+                    </div>
+                    <!-- make this just a string list for now -->
+                    <div class="submitted-answers">
+                        <p>Was Sampled: <span class="correct-submissions"></span></p>
+                        <p>Was Not Sampled: <span class="incorrect-submissions"></span></p>
                     </div>
                 </div>
             </div>

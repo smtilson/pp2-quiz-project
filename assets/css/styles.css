@@ -66,7 +66,7 @@ main {
     gap: 1em;
 }
 
-#main-content-div {
+.main-content-div {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -126,7 +126,7 @@ main {
     font-size: 200%;
     }
 
-    main {}
+    /*main {}*/
 
     #subtitle-div {
         margin-top: 2em;
@@ -135,7 +135,7 @@ main {
         width: 50%;
     }
 
-    #main-content-div {
+    .main-content-div {
         flex-direction: row;
         gap: 18px;
         align-items: flex-start;
