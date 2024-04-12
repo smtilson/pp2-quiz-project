@@ -66,6 +66,12 @@ main {
     gap: 1em;
 }
 
+#main-content-div {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
 .container {
     border: solid 3px;
     border-radius: 15px;
@@ -101,6 +107,9 @@ main {
         background-color: #012D52;
     }
 
+    #main-content-div {
+        flex-direction: row;
+    }
     .container {
         background-color: #012D52;
     }
