@@ -3,7 +3,9 @@
 // I can't get the localhost to load while here at ukm, so I will
 // copy the relevant files here in advance.
 
-const rawSolutions = {
+alert("Database Loaded");
+
+const rawSolutionsRaw = {
     ohNo: `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
     0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
     0:15 ‒ 0:16 — Jay-Z – "99 Problems"
@@ -402,3 +404,21 @@ const unknownSamples = {
     will.i.am and Nicki Minaj – "Check It Out"
     Zapp – "Doo Wa Ditty (Blow That Thing)"`,
 }
+
+var trackList = `"Oh No" – 5:39
+"Let It Out" – 6:29
+"That's Right" – 5:22
+"Jump on Stage" – 6:22
+"This Is the Remix" – 6:02
+"On and On" – 5:09
+"Get It Get It" – 5:33
+"Down for the Count" – 6:37
+"Make Me Wanna" – 6:23
+"Steady Shock" – 5:47
+"Triple Double" – 6:27
+"Every Day" – 5:10]`;
+trackList = trackList.split('\n');
+trackList = trackList.map((track) => trackToHTML(track));
+console.log("logging tracklist from db file");
+console.log(trackList);
+alert("db finished loading");

@@ -1,13 +1,17 @@
 // Initial setup
 
 // writes game page sections
-/*alert(`${window.location.pathname}`);
+alert(`${window.location.pathname}`);
 if (window.location.pathname === '/game.html') {
     alert(`Success ${window.location.pathname}`);
 } else {
     alert('not yet correct');
     alert(`${window.location.pathname}`);
-}*/
+}
+
+console.log(trackList);
+
+
 
 alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
@@ -54,7 +58,7 @@ function playSongQuiz(songHTML) {
     // from the event object
     // fetches userAnswer
     // This should be changed to being accessed from the event
-    const songJS = utility.toJS(songHTML);
+    const songJS = toJS(songHTML);
     // fetches solutions
     const songSolutions = formatSolutions(songJS);
     let answerBox = getElementBySongAndClass(songHTML, "user-answer");
@@ -65,7 +69,7 @@ function playSongQuiz(songHTML) {
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct, songHTML);
     // delivers feedback
-    alert(generateFeedback(answer, utility.toTitle(songHTML), guessed, correct));
+    alert(generateFeedback(answer, toTitle(songHTML), guessed, correct));
     // adjusts score and log area appropriately
     if (!guessed) {
         incrementScores(correct, songHTML);
@@ -112,12 +116,12 @@ function checkAnswer(userAnswer) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
-    normedUserAnswer = utility.norm(userAnswer);
+    normedUserAnswer = norm(userAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
     for (let answer of answerArray) {
-        const testTerm = utility.norm(answer);
+        const testTerm = norm(answer);
         if (normedUserAnswer === testTerm) {
             return answer;
         }
@@ -136,7 +140,7 @@ function compareGuess(userAnswer, answerArray) {
 
 function generateFeedback(answer, songName, guessed, correct) {
     // the songName input needs to be addressed here.
-    answer = utility.toTitle(answer);
+    answer = toTitle(answer);
     let message;
     if (correct) {
         message = `That is correct! ${answer} was sampled for ${songName}.`;
@@ -157,14 +161,14 @@ function generateFeedback(answer, songName, guessed, correct) {
  */
 function alreadyGuessed(guess, correctness, songHTML) {
     let span;
-    const normedGuess = utility.norm(guess);
+    const normedGuess = norm(guess);
     if (correctness) {
         span = getElementBySongAndClass(songHTML, 'correct-submissions');
     } else {
         span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
     }
     let submissions = span.innerText.split('; ');
-    submissions = submissions.map((word) => utility.norm(word));
+    submissions = submissions.map((word) => norm(word));
     if (submissions.includes(normedGuess)) {
         return true;
     } else {
@@ -222,7 +226,7 @@ function transformWikiData(songName) {
     // if (songName === '') {
     let sampleList = rawSolutions[songName].split('\n');
     // cleans each string in the array
-    sampleList = sampleList.map((item) => utility.cleanString(item));
+    sampleList = sampleList.map((item) => cleanString(item));
     // replaces strings with JS objects
     sampleList = sampleList.map((item) => sampleStringToData(item));
     return sampleList;
@@ -244,7 +248,7 @@ function sampleStringToData(sampleString) {
     for (let index in keys) {
         sampleData[keys[index]] = data[index];
     }
-    sampleData.artist = utility.primaryArtist(sampleData.artist);
+    sampleData.artist = primaryArtist(sampleData.artist);
     return sampleData;
 }
 
@@ -265,132 +269,6 @@ function formatSolutions(songName) {
     return artistList.concat(songList);
 }
 
-// should this be a const?
-const utility = {
-    // This utility object is to keep utility functions in one place
-    // All functions take a string and return a string in a different 
-    // format
-    /**
-     * Returns normalized version of string
-     * suitable for comparison purposes
-     * @param {string to be normalized} string 
-     */
-    norm: function (string) {
-        // we remove common words before spacing in case the 
-        // removal of spaces causes some common words to appeaer 
-        // when they wouldn't otherwise
-        let removeStrings = ['the', '-', ' '];
-        string = string.toLowerCase();
-        for (let word of removeStrings) {
-            while (string.includes(word)) {
-                string = string.replace(word, '');
-            }
-        }
-        return string;
-    },
-
-    /**
-     * Removes " and special dash characters from strings
-     * @param {string} string 
-     */
-    cleanString: function (string) {
-        // does this trim do anything?
-        string = string.trim();
-        // replaces special dashes with normal dash
-        string = string.replace(/\u2013|\u2012|\u2014/g, ";");
-        /* if removing the double quotes in this way causes an issue, 
-        then it can be done later after the dictionary is built by 
-        just slicing off the first and last character of the string */
-        while (string.includes('"')) {
-            string = string.replace('"', '');
-        }
-        return string;
-    },
-    /**
-     * converts a string to JS format
-     * @param {string in either format} string 
-     */
-    toJS: function (string) {
-        while (string.includes('-')) {
-            string = string.replace('-', ' ');
-        }
-        string = utility.toTitle(string);
-        string = string[0].toLowerCase() + string.slice(1);
-        while (string.includes(' ')) {
-            string = string.replace(' ', '');
-        }
-        return string;
-    },
-    /**
-     * Swaps title format and html format
-     * ex: Oh No with oh-no.
-     * If string is not in one of the formats, it will be 
-     * returned unmodified
-     * @param {string in either format} string
-     */
-    // utility function
-    titleSwap: function (sampleString) {
-        const hasDash = sampleString.includes('-');
-        const hasSpace = sampleString.includes(' ');
-        if (hasDash && hasSpace) {
-            alert(`${sampleString} contains both spaces and dashes. This function can not transform it.`)
-            return sampleString;
-        } else if (hasDash) {
-            sampleString = sampleString.replace('-', ' ');
-            sampleString = utility.toTitle(sampleString);
-            return sampleString;
-        } else if (hasSpace) {
-            sampleString = sampleString.replace(' ', '-');
-            sampleString = sampleString.toLowerCase();
-            return sampleString;
-        } else {
-            alert('Not sure how we got here, the string has neither.');
-            return sampleString;
-        }
-    },
-
-    /**
-     * 
-     * @param {string} word 
-     * @returns 
-     */
-    capitalize: function (word) {
-        if (word === '') {
-            // hit this with "war pig"
-            alert('capitalize was passed an empty word.')
-            return '';
-        } else if (typeof (word) === 'string') {
-            // normal behavior
-            // everything else in the function body is to catch a bug
-            return word[0].toUpperCase() + word.slice(1);
-        } else {
-            console.log(word);
-            console.log(word[0]);
-            console.log(typeof word);
-            alert('capitalize was passed a non string')
-            throw `${word} is not a string, it is a ${typeof word}.`
-        }
-    },
-
-    /**
-     * Capitalizes first letter of each word.
-     */
-    toTitle: function (string) {
-        let words = string.split(' ');
-        words = words.map(w => utility.capitalize(w));
-        return words.join(' ');
-    },
-
-    /**
-     * This addresses the issue of answers like 2Pac featuring...
-     * it replaces the string by just the primary artist
-     */
-    primaryArtist: function (artistString) {
-        let primaryArtist = artistString.split(' featuring')[0];
-        primaryArtist = primaryArtist.split(' feat')[0];
-        return primaryArtist;
-    },
-}
 
 /**
  * This object contains various tests
@@ -460,6 +338,42 @@ const testSuite = {
  * This object contains all the solutions for the quiz in the initial raw form
  * It is only hear temporarily, maybe.
  */
+
+function sectionContent(youtubeLink) {
+    let content = `<div class="main-content-div">
+<div class="left-panel">
+    <p class="content container instructions">
+        Simple version of instructions</p>
+    <p class="content container difficulty">a word about difficulty, or not</p>
+</div>
+<div class="video-answer-div">
+    <div class="video-div">
+        <iframe id="let-it-out-video" width="420" height="315"
+            src="${youtubeLink}">
+        </iframe>
+    </div>
+    <div class="answer-area container">
+        <input type="text" class="user-answer">
+        <button type="submit" class="submit-button">Submit Answer</button>
+    </div>
+</div>
+<div class="content container feedback-div">
+    <div class="scores-div">
+        <p class="scores">Number Correct: <span class="correct-answer-score">0</span></p>
+        <p class="scores">Number Incorrect: <span class="incorrect-answer-score">0</span></p>
+    </div>
+    <!-- make this just a string list for now -->
+    <div class="submitted-answers">
+        <p>Was Sampled: <span class="correct-submissions"></span></p>
+        <p>Was Not Sampled: <span class="incorrect-submissions"></span></p>
+    </div>
+</div>
+</div>
+</section>`;
+    return content
+}
+
+
 
 const rawSolutions = {
     ohNo: `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
