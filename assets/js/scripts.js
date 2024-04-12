@@ -5,22 +5,20 @@ alert(`${window.location.pathname}`);
 if (window.location.pathname === '/game.html') {
     alert(`Success ${window.location.pathname}`);
 } else if (window.location.pathname === '/test.html') {
-    let main = document.getElementsByTagName('main')[0];
-    main.innerHTML = testWriteBasicLinks();
+    let div = document.getElementById('js-generated-div');
+    div.innerHTML = testWriteBasicLinks();
 } else {
     alert('not yet correct');
     alert(`${window.location.pathname}`);
 }
 
-console.log(trackList);
-
-
-
 alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
+    console.log('started dom content loaded listener');
     let sections = document.getElementsByTagName('section');
+    console.log("sections found");
     for (let section of sections) {
         section.addEventListener("mouseenter", function () {
             //alert(`section ${this.id} mouse over trigger hit`)
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // this needs to be fixed.
             // const button = section.getElementsByClassName('submit-button')[0];
             // button.addEventListener("click", playSongQuiz);
-
+            console.log(songName);
             let answerBox = section.getElementsByClassName('user-answer')[0];
             answerBox.value = '';
             answerBox.focus();
@@ -345,7 +343,7 @@ const testSuite = {
 function testWriteBasicLinks() {
     let text = '';
     for (let key in youtubeLinks) {
-        text += basicSection(key, youtubeLinks[key]);
+        text += sectionContent(key, youtubeLinks[key]);
     }
     return text;
 }
@@ -359,7 +357,11 @@ function basicSection(songId, ytLink) {
 }
 
 
-function sectionContent(sectionId, youtubeLink) {
+/* This element was removed to speed up load time. 
+<iframe id="let-it-out-video" width="420" height="315"
+            src="${ytLink}">
+        </iframe>*/
+function sectionContent(sectionId, ytLink) {
     let content = `<section id="${sectionId}">
 <div class="main-content-div">
 <div class="left-panel">
@@ -369,9 +371,7 @@ function sectionContent(sectionId, youtubeLink) {
 </div>
 <div class="video-answer-div">
     <div class="video-div">
-        <iframe id="let-it-out-video" width="420" height="315"
-            src="${youtubeLink}">
-        </iframe>
+       IFRAME ELEMENT GOES HERE for ${sectionId}
     </div>
     <div class="answer-area container">
         <input type="text" class="user-answer">
