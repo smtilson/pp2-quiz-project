@@ -4,6 +4,9 @@
 alert(`${window.location.pathname}`);
 if (window.location.pathname === '/game.html') {
     alert(`Success ${window.location.pathname}`);
+} else if (window.location.pathname === '/test.html') {
+    let main = document.getElementsByTagName('main')[0];
+    main.innerHTML = testWriteBasicLinks();
 } else {
     alert('not yet correct');
     alert(`${window.location.pathname}`);
@@ -339,8 +342,26 @@ const testSuite = {
  * It is only hear temporarily, maybe.
  */
 
-function sectionContent(youtubeLink) {
-    let content = `<div class="main-content-div">
+function testWriteBasicLinks() {
+    let text = '';
+    for (let key in youtubeLinks) {
+        text += basicSection(key, youtubeLinks[key]);
+    }
+    return text;
+}
+
+function basicSection(songId, ytLink) {
+    return `<section id="${songId}">
+    <h2>${songId}</h2>
+    <iframe width="420" height="315" src="${ytLink}">
+            </iframe>
+            </section>`
+}
+
+
+function sectionContent(sectionId, youtubeLink) {
+    let content = `<section id="${sectionId}">
+<div class="main-content-div">
 <div class="left-panel">
     <p class="content container instructions">
         Simple version of instructions</p>

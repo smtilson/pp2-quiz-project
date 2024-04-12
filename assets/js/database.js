@@ -419,6 +419,17 @@ var trackList = `"Oh No" – 5:39
 "Every Day" – 5:10]`;
 trackList = trackList.split('\n');
 trackList = trackList.map((track) => trackToHTML(track));
-console.log("logging tracklist from db file");
-console.log(trackList);
-alert("db finished loading");
+
+const youtubeLinks = {
+    'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",
+    'let-it-out':"https://www.youtube.com/embed/FtsxfquYHf0",
+    'thats-right':"https://www.youtube.com/embed/xVmXXWcfitw",
+    'jump-on-stage':"https://www.youtube.com/embed/Ka3GznTXur8",
+    'this-is-the-remix':"https://www.youtube.com/embed/DZu_lLGFDtM",
+   'on-and-on':"https://www.youtube.com/embed/lzf8NNF1Af4",
+    'get-it-get-it':"https://www.youtube.com/embed/MRCEgD1nRRM",
+    'down-for-the-count':"https://www.youtube.com/embed/Nr2cfwR0roU",
+    'make-me-wanna':"https://www.youtube.com/embed/9DBmMoW5lSs",
+    'steady-shock':"https://www.youtube.com/embed/p1pd69r1Il8",
+    'triple-double':"https://www.youtube.com/embed/i0yY0zxk-18",
+    'every-day':"https://www.youtube.com/embed/Bo5bBq2j2EE",}

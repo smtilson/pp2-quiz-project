@@ -93,8 +93,9 @@ function titleSwap(string) {
 function trackToHTML(trackListing) {
     let string = trackListing.replace(/\u2013|\u2012|\u2014/g, ";");
     string = string.split(' ;')[0];
-    while (string.includes('"')) {
+    while (string.includes('"') || string.includes("'")) {
         string = string.replace('"', '');
+        string = string.replace("'", '');
     }
     return titleSwap(string);
 }
