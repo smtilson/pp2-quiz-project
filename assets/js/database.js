@@ -5,7 +5,7 @@
 
 alert("Database Loaded");
 
-const rawSolutionsRaw = {
+const rawSolutions = {
     ohNo: `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
     0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
     0:15 ‒ 0:16 — Jay-Z – "99 Problems"
