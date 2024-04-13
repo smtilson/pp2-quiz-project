@@ -192,7 +192,7 @@ main {
         flex-direction: row;
         gap: 18px;
         align-items: flex-start;
-        gap: 5px;
+        gap: 7.5px;
     }
 
     .container {
@@ -213,6 +213,7 @@ main {
 
     .right {
         margin-right: 15px;
+        min-height:17em;
     }
 
     .panel {

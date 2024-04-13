@@ -91,7 +91,7 @@ function playSongQuiz(songHTML) {
     // delivers feedback
     const feedback = generateFeedback(answer, titleSwap(songHTML), guessed, correct);
     console.log(feedback);
-    displayFeedback(feedback,songHTML);
+    displayFeedback(feedback, songHTML);
     // adjusts score and log area appropriately
     if (!guessed) {
         incrementScores(correct, songHTML);
@@ -181,7 +181,7 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {*} songName 
  */
 function displayFeedback(feedback, songHTML) {
-    let feedbackSpan = getElementBySongAndClass(songHTML,"feedback");
+    let feedbackSpan = getElementBySongAndClass(songHTML, "feedback");
     feedbackSpan.innerText = feedback;
     feedbackSpan.parentNode.style.display = 'flex';
 }
@@ -220,7 +220,12 @@ function addGuess(answer, correctness, songHTML) {
     } else {
         span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
     }
-    span.innerText += '; ' + answer;
+    if (span.innerText === '') {
+        span.innerText = answer;
+    } else {
+        span.innerText += '; ' + answer;
+    }
+
 }
 
 
