@@ -19,37 +19,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
     alert("loaded");
     console.log('started dom content loaded listener');
-    let sections = document.getElementsByTagName('section');
-    console.log("sections found");
-    for (let section of sections) {
-        section.addEventListener("mouseenter", function () {
-            // alert(`mouse enter is being triggered for ${this.id}`);
-            //alert(`section ${this.id} mouse over trigger hit`)
-            const songName = this.id;
-            // this needs to be fixed.
-            const button = section.getElementsByClassName('submit-button')[0];
-            // alert("button event about to be added");
-            button.addEventListener("click", function (event) {
-                alert("event triggered by button click")
-                playSongQuiz(songName)
-            });
-            console.log(songName);
-            // alert("button event already added");
-            let answerBox = section.getElementsByClassName('user-answer')[0];
-            answerBox.value = '';
-            answerBox.focus();
-            // alert("answerbox event about to be added");
-            answerBox.addEventListener('keydown', function (event) {
-                if (answerBox.value === '') {
-                    return;
-                } else if (event.key === 'Enter') {
-                    // alert("play song triggered by enter key press")
-                    // this can be done better using the event
-                    playSongQuiz(songName);
-                }
-            });
+    let section = document.getElementsByTagName('section')[0];
+    console.log("section found");
+    // should this listener be added at screen load?
+    // does it depend on the screen size?
+    section.addEventListener("mouseenter", function () {
+        // alert(`mouse enter is being triggered for ${this.id}`);
+        //alert(`section ${this.id} mouse over trigger hit`)
+        const songHTML = this.dataset.song;
+        console.log(songHTML);
+        const button = section.getElementsByClassName('submit-button')[0];
+        // alert("button event about to be added");
+        button.addEventListener("click", function () {
+            alert("event triggered by button click")
+            playSongQuiz(songHTML)
         });
-    }
+        // alert("button event already added");
+        let answerBox = document.getElementsByClassName('user-answer')[0];
+        answerBox.value = '';
+        answerBox.focus();
+        // alert("answerbox event about to be added");
+        answerBox.addEventListener('keydown', function (event) {
+            if (answerBox.value === '') {
+                return;
+            } else if (event.key === 'Enter') {
+                // alert("play song triggered by enter key press")
+                // this can be done better using the event
+                playSongQuiz(songHTML);
+            }
+        });
+    });
 });
 
 
@@ -66,8 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function playSongQuiz(songHTML) {
     alert(`playsong triggered with ${songHTML}`);
-    let answerBox = getElementBySongAndClass(songHTML, "user-answer");
+    let answerBox = document.getElementsByClassName("user-answer")[0];
     const userAnswer = answerBox.value;
+    document.getEle
     // this is a temp fix for the event being triggered 
     // when the listener is added
     /*if (userAnswer === '') {
@@ -181,7 +181,7 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {*} songName 
  */
 function displayFeedback(feedback, songHTML) {
-    let feedbackSpan = getElementBySongAndClass(songHTML, "feedback");
+    let feedbackSpan = document.getElementsByClassName("feedback")[0];
     feedbackSpan.innerText = feedback;
     feedbackSpan.parentNode.style.display = 'flex';
 }
@@ -196,9 +196,9 @@ function alreadyGuessed(guess, correctness, songHTML) {
     let span;
     const normedGuess = norm(guess);
     if (correctness) {
-        span = getElementBySongAndClass(songHTML, 'correct-submissions');
+        span = document.getElementsByClassName('correct-submissions')[0];
     } else {
-        span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
+        span = document.getElementsByClassName('incorrect-submissions')[0];
     }
     let submissions = span.innerText.split('; ');
     submissions = submissions.map((word) => norm(word));
@@ -216,16 +216,15 @@ function alreadyGuessed(guess, correctness, songHTML) {
 function addGuess(answer, correctness, songHTML) {
     let span;
     if (correctness) {
-        span = getElementBySongAndClass(songHTML, 'correct-submissions');
+        span = document.getElementsByClassName('correct-submissions')[0];
     } else {
-        span = getElementBySongAndClass(songHTML, 'incorrect-submissions');
+        span = document.getElementsByClassName('incorrect-submissions')[0];
     }
     if (span.innerText === '') {
         span.innerText = answer;
     } else {
         span.innerText += '; ' + answer;
     }
-
 }
 
 
@@ -235,11 +234,11 @@ function addGuess(answer, correctness, songHTML) {
  */
 function incrementScores(result, songHTML) {
     if (result) {
-        let scoreBox = getElementBySongAndClass(songHTML, 'correct-answer-score');
+        let scoreBox = document.getElementsByClassName('correct-answer-score')[0];
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     } else {
-        let scoreBox = getElementBySongAndClass(songHTML, 'incorrect-answer-score');
+        let scoreBox = document.getElementsByClassName('incorrect-answer-score')[0];
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     }
@@ -250,9 +249,9 @@ function incrementScores(result, songHTML) {
  * @param {html format string} songName 
  * @param {html format string} className
  */
-function getElementBySongAndClass(songHTML, className) {
-    const section = document.querySelector(`#${songHTML}`);
-    const element = section.querySelector(`.${className}`);
+function getElementBySongAndClass(songHTML,className) {
+    const section = document.getElementsByTagName('section')[0];
+    const element = document.getElementsByClassName(className)[0];
     return element;
 }
 
@@ -385,48 +384,66 @@ function testWriteBasicLinks() {
     return text;
 }
 
-function basicSection(songId, ytLink) {
-    return `<section id="${songId}">
-    <h2>${songId}</h2>
-    <iframe width="420" height="315" src="${ytLink}">
-            </iframe>
-            </section>`
+function findNextSongHTML(songHTML) {
+    const index = trackList.indexOf(songHTML);
+    if (index + 1 < trackList.length) {
+        return trackList[index + 1];
+    } else {
+        return trackList[0];
+    }
 }
 
-
-/* This element was removed to speed up load time. 
-<iframe id="let-it-out-video" width="420" height="315"
-            src="${ytLink}">
-        </iframe>*/
-function sectionContent(sectionId, ytLink) {
-    let content = `<section id="${sectionId}">
-<div class="main-content-div">
-<div class="left-panel">
-    <p class="content container instructions">
-        Simple version of instructions</p>
-    <p class="content container difficulty">a word about difficulty, or not</p>
-</div>
-<div class="video-answer-div">
-    <div class="video-div">
-       IFRAME ELEMENT GOES HERE for ${sectionId}
+function findPrevSongHTML(songHTML) {
+    const index = trackList.indexOf(songHTML);
+    if (index - 1 >= 0) {
+        return trackList[index - 1];
+    } else {
+        return trackList[trackList.length - 1];
+    }
+}
+/**
+ * Once the game page is finished, this should be updated appropriately
+ * @param {*} songHTML 
+ * @param {*} ytLink 
+ * @returns string of html for the page for the song
+ * should this be refactored into multiple functions writing different parts of the html?
+ */
+function buildPage(songHTML, ytLink) {
+    let content = `<div class="main-content-div gap5">
+    <div class="content container left panel">
+        <p class="instructions">
+            Guess the artists or songs that are being sampled.</p>
+        <!-- I think I may delete this from the gameplay 
+            <p class="content container difficulty">Have fun! </p> -->
     </div>
-    <div class="answer-area container">
-        <input type="text" class="user-answer">
-        <button type="submit" class="submit-button">Submit Answer</button>
+    <div class="video-feedback-answer-div">
+        <h3 class="song-title">
+            ${titleSwap(songHTML)} from All Day
+        </h3>
+        <div class="video-div">
+            <iframe id="${songHTML}-video" width="300" height="225"
+                src="${ytLink}">
+            </iframe>
+        </div>
+        <div class="feedback-div container content">
+            <span class="feedback"></span>
+        </div>
+        <div class="answer-area container content">
+            <input type="text" class="user-answer">
+            <button type="submit" class="submit-button">Submit Answer</button>
+        </div>
     </div>
-</div>
-<div class="content container feedback-div">
-    <div class="scores-div">
-        <p class="scores">Number Correct: <span class="correct-answer-score">0</span></p>
-        <p class="scores">Number Incorrect: <span class="incorrect-answer-score">0</span></p>
+    <div class="content container right panel records-div">
+        <!--<div class="scores-div">-->
+            <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
+            <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
+       <!-- </div>-->
+        <!-- make this just a string list for now -->
+        <!--<div class="submitted-answers">-->
+            <p>Sampled: <span class="correct-submissions"></span></p>
+            <p>Not Sampled: <span class="incorrect-submissions"></span></p>
+        <!--</div>-->
     </div>
-    <!-- make this just a string list for now -->
-    <div class="submitted-answers">
-        <p>Was Sampled: <span class="correct-submissions"></span></p>
-        <p>Was Not Sampled: <span class="incorrect-submissions"></span></p>
-    </div>
-</div>
-</div>
-</section>`;
+</div>`;
     return content
 }
