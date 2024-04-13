@@ -89,7 +89,7 @@ function playSongQuiz(songHTML) {
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct, songHTML);
     // delivers feedback
-    const feedback = generateFeedback(answer, toTitle(songHTML), guessed, correct);
+    const feedback = generateFeedback(answer, titleSwap(songHTML), guessed, correct);
     console.log(feedback);
     displayFeedback(feedback,songHTML);
     // adjusts score and log area appropriately
