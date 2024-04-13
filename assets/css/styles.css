@@ -129,6 +129,10 @@ main {
     margin-top: 1em;
 }
 
+#oh-no-video {
+    border-radius: 10px;
+}
+
 .feedback-div {
     display: none;
     padding: 5px;

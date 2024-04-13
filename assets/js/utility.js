@@ -13,7 +13,7 @@ function norm(string) {
     string = string.toLowerCase();
     let removeStrings = ['the', 'a', 'an', "'", '-', ' '];
     for (let word of removeStrings) {
-        string = removeSubstring(string, word);
+        string = replaceAll(string, word, '');
     }
     return string;
 }
@@ -22,9 +22,9 @@ function norm(string) {
  * This removes all instances of substring from the string.
  * @param {*} string 
  */
-function removeSubstring (string, substring) {
+function replaceAll(string, substring, replacement) {
     while (string.includes(substring)) {
-        string = string.replace(substring, '');
+        string = string.replace(substring, replacement);
     }
     return string;
 }
@@ -36,29 +36,27 @@ function removeSubstring (string, substring) {
 function cleanString(string) {
     // does this trim do anything?
     string = string.trim();
+    let removal = ['\u2013','\u2012','\u2014',];
     // replaces special dashes with normal dash
-    string = string.replace(/\u2013|\u2012|\u2014/g, ";");
+    for (let term of removal) {
+        string = replaceAll(string, term, ';');
+    }
     /* if removing the double quotes in this way causes an issue, 
     then it can be done later after the dictionary is built by 
     just slicing off the first and last character of the string */
-    while (string.includes('"')) {
-        string = string.replace('"', '');
-    }
+    string = replaceAll(string, '"', '');
     return string;
 }
+
 /**
  * converts a string to JS format
  * @param {string in either format} string 
  */
 function toJS(string) {
-    while (string.includes('-')) {
-        string = string.replace('-', ' ');
-    }
+    string = replaceAll(string, '-', ' ');
     string = toTitle(string);
     string = string[0].toLowerCase() + string.slice(1);
-    while (string.includes(' ')) {
-        string = string.replace(' ', '');
-    }
+    string = replaceAll(string, ' ', '');
     return string;
 }
 /**
@@ -70,28 +68,18 @@ function toJS(string) {
  */
 // utility function
 function titleSwap(string) {
-    let hasDash = string.includes('-');
-    let hasSpace = string.includes(' ');
-    if (hasDash && hasSpace) {
-        alert(`${string} contains both spaces and dashes. This function can not transform it.`)
-        return string;
-    } else if (hasDash) {
-        while (hasDasm) {
-        string = string.replace('-', ' ');
+    if (string.includes('-') && string.includes(' ')) {
+        alert(`${string} contains both spaces and dashes. This function can not transform it.`);
+    } else if (string.includes('-')) {
+        string = replaceAll(string, '-', ' ');
         string = toTitle(string);
-        hasDash = string.includes('-');
-    }
-        return string;
-    } else if (hasSpace) {
-        while (hasSpace) {
-        string = string.replace(' ', '-');
+    } else if (string.includes(' ')) {
+        string = replaceAll(string, ' ', '-');
         string = string.toLowerCase();
-        hasSpace = string.includes(' ');}
-        return string;
     } else {
         alert('Not sure how we got here, the string has neither.');
-        return string;
     }
+    return string;
 }
 
 /**
@@ -102,10 +90,8 @@ function titleSwap(string) {
 function trackToHTML(trackListing) {
     let string = trackListing.replace(/\u2013|\u2012|\u2014/g, ";");
     string = string.split(' ;')[0];
-    while (string.includes('"') || string.includes("'")) {
-        string = string.replace('"', '');
-        string = string.replace("'", '');
-    }
+    string = replaceAll(string, '"', '');
+    string = replaceAll(string, "'", '');
     return titleSwap(string);
 }
 
