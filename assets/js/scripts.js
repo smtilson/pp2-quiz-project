@@ -244,17 +244,6 @@ function incrementScores(result, songHTML) {
     }
 }
 
-/**
- * Returns appropriate element.
- * @param {html format string} songName 
- * @param {html format string} className
- */
-function getElementBySongAndClass(songHTML,className) {
-    const section = document.getElementsByTagName('section')[0];
-    const element = document.getElementsByClassName(className)[0];
-    return element;
-}
-
 // obtaining processable version of data
 // maybe combine this and formatSolutions into one function.
 // maybe not as this will likely be moved somewhere else when 
