@@ -1,19 +1,5 @@
 // Initial setup
 
-// writes game page sections
-/*
-alert(`${window.location.pathname}`);
-if (window.location.pathname === '/game.html') {
-    alert(`Success ${window.location.pathname}`);
-} else if (window.location.pathname === '/test.html') {
-    let div = document.getElementById('js-generated-div');
-    div.innerHTML = testWriteBasicLinks();
-} else {
-    alert('not yet correct');
-    alert(`${window.location.pathname}`);
-}
-*/
-
 alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     // add event listeners to elements
@@ -21,6 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log('started dom content loaded listener');
     let section = document.getElementsByTagName('section')[0];
     console.log("section found");
+    let nextButton = document.getElementById('next-button');
+    console.log(nextButton.id);
+    nextButton.addEventListener('click', nextButtonHandler);
+    let prevButton = document.getElementById('prev-button');
+    prevButton.addEventListener('click', prevButtonHandler);
     // should this listener be added at screen load?
     // does it depend on the screen size?
     section.addEventListener("mouseenter", function () {
@@ -382,6 +373,7 @@ function getSongHTML() {
 }
 
 function nextButtonHandler(event) {
+    alert('next button handler firing');
     let songHTML = getSongHTML();
     songHTML = findNextSongHTML(songHTML);
     writePage(songHTML);
@@ -422,6 +414,7 @@ function writePage(songHTML) {
     const ytlink = youtubeLinks[songHTML];
     section.innerHTML = buildHTML(songHTML, ytlink);
     section.dataset.song = songHTML;
+    setupEventHandlers();
 }
 /**
  * Once the game page is finished, this should be updated appropriately
@@ -468,6 +461,49 @@ function buildHTML(songHTML, ytLink) {
             <p>Not Sampled: <span class="incorrect-submissions"></span></p>
         <!--</div>-->
     </div>
-</div>`;
+</div>
+<div id="arrows">
+                <button id="prev-button">Prev</button>
+                <button id="next-button">Next</button>
+            </div>`;
     return content
 }
+
+function setupEventHandlers() {
+    console.log('setupEventHandler called');
+    let section = document.getElementsByTagName('section')[0];
+    let nextButton = document.getElementById('next-button');
+    nextButton.addEventListener('click', nextButtonHandler);
+    console.log('next button set');
+    let prevButton = document.getElementById('prev-button');
+    prevButton.addEventListener('click', prevButtonHandler);
+    console.log('prev button set');
+    // should this listener be added at screen load?
+    // does it depend on the screen size?
+    section.addEventListener("mouseenter", function () {
+        // alert(`mouse enter is being triggered for ${this.id}`);
+        //alert(`section ${this.id} mouse over trigger hit`)
+        const songHTML = this.dataset.song;
+        const button = section.getElementsByClassName('submit-button')[0];
+        // alert("button event about to be added");
+        // should this be refactored?
+        button.addEventListener("click", function () {
+            alert("event triggered by button click")
+            playSongQuiz(songHTML)
+        });
+        // alert("button event already added");
+        let answerBox = document.getElementsByClassName('user-answer')[0];
+        answerBox.value = '';
+        answerBox.focus();
+        // alert("answerbox event about to be added");
+        answerBox.addEventListener('keydown', function (event) {
+            if (answerBox.value === '') {
+                return;
+            } else if (event.key === 'Enter') {
+                // alert("play song triggered by enter key press")
+                // this can be done better using the event
+                playSongQuiz(songHTML);
+            }
+        });
+    });
+};
