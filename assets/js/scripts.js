@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // alert(`mouse enter is being triggered for ${this.id}`);
         //alert(`section ${this.id} mouse over trigger hit`)
         const songHTML = this.dataset.song;
-        console.log(songHTML);
         const button = section.getElementsByClassName('submit-button')[0];
         // alert("button event about to be added");
         button.addEventListener("click", function () {
@@ -60,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // should this take an event instead and then 
 // the song can be accessed from the this keyword
 /**
- * 
+ * I don't think I need to pass this any thing at all, but maybe that is faster/more efficient than calling a function over and over.
  * @param {string html format} songName
  */
 function playSongQuiz(songHTML) {
@@ -87,15 +86,15 @@ function playSongQuiz(songHTML) {
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
     answer = (answer) ? answer : userAnswer;
-    let guessed = alreadyGuessed(answer, correct, songHTML);
+    let guessed = alreadyGuessed(answer, correct);
     // delivers feedback
     const feedback = generateFeedback(answer, titleSwap(songHTML), guessed, correct);
     console.log(feedback);
-    displayFeedback(feedback, songHTML);
+    displayFeedback(feedback);
     // adjusts score and log area appropriately
     if (!guessed) {
-        incrementScores(correct, songHTML);
-        addGuess(answer, correct, songHTML);
+        incrementScores(correct);
+        addGuess(answer, correct);
     }
     // resets game for next guess
     answerBox.value = '';
@@ -180,7 +179,7 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {*} feedback 
  * @param {*} songName 
  */
-function displayFeedback(feedback, songHTML) {
+function displayFeedback(feedback) {
     let feedbackSpan = document.getElementsByClassName("feedback")[0];
     feedbackSpan.innerText = feedback;
     feedbackSpan.parentNode.style.display = 'flex';
@@ -192,7 +191,7 @@ function displayFeedback(feedback, songHTML) {
  * @param {*} guess 
  * @param {*} correctness 
  */
-function alreadyGuessed(guess, correctness, songHTML) {
+function alreadyGuessed(guess, correctness) {
     let span;
     const normedGuess = norm(guess);
     if (correctness) {
@@ -213,7 +212,7 @@ function alreadyGuessed(guess, correctness, songHTML) {
  * This justs adds guess
  */
 
-function addGuess(answer, correctness, songHTML) {
+function addGuess(answer, correctness) {
     let span;
     if (correctness) {
         span = document.getElementsByClassName('correct-submissions')[0];
@@ -232,7 +231,7 @@ function addGuess(answer, correctness, songHTML) {
  * Increments correct or incorrect answer tally
  * @param {boolean: the answer was correct} result 
  */
-function incrementScores(result, songHTML) {
+function incrementScores(result) {
     if (result) {
         let scoreBox = document.getElementsByClassName('correct-answer-score')[0];
         const oldScore = parseInt(scoreBox.innerText);
@@ -361,8 +360,8 @@ const testSuite = {
 }
 
 /**
- * This object contains all the solutions for the quiz in the initial raw form
- * It is only hear temporarily, maybe.
+ * These functions manage writing the html for the page and navigation 
+ * 
  */
 
 function testWriteBasicLinks() {
@@ -373,22 +372,56 @@ function testWriteBasicLinks() {
     return text;
 }
 
+/**
+ * 
+ * @returns returns songHTML string of current page
+ */
+function getSongHTML() {
+    const section = document.getElementsByTagName('section')[0];
+    return section.dataset.song;
+}
+
+function nextButtonHandler(event) {
+    let songHTML = getSongHTML();
+    songHTML = findNextSongHTML(songHTML);
+    writePage(songHTML);
+}
+
+function prevButtonHandler(event) {
+    let songHTML = getSongHTML();
+    songHTML = findPrevSongHTML(songHTML);
+    writePage(songHTML);
+}
+
 function findNextSongHTML(songHTML) {
-    const index = trackList.indexOf(songHTML);
+    console.log("current song is ", songHTML);
+    let index = trackList.indexOf(songHTML);
+    console.log(index);
     if (index + 1 < trackList.length) {
-        return trackList[index + 1];
+        songHTML = trackList[index + 1];
     } else {
-        return trackList[0];
+        songHTML = trackList[0];
     }
+    console.log("now it is ", songHTML);
+    return songHTML;
 }
 
 function findPrevSongHTML(songHTML) {
     const index = trackList.indexOf(songHTML);
     if (index - 1 >= 0) {
-        return trackList[index - 1];
+        songHTML = trackList[index - 1];
     } else {
-        return trackList[trackList.length - 1];
+        songHTML = trackList[0];
     }
+    console.log("now it is ", songHTML);
+    return songHTML;
+}
+
+function writePage(songHTML) {
+    let section = document.getElementsByTagName('section')[0];
+    const ytlink = youtubeLinks[songHTML];
+    section.innerHTML = buildHTML(songHTML, ytlink);
+    section.dataset.song = songHTML;
 }
 /**
  * Once the game page is finished, this should be updated appropriately
@@ -397,12 +430,14 @@ function findPrevSongHTML(songHTML) {
  * @returns string of html for the page for the song
  * should this be refactored into multiple functions writing different parts of the html?
  */
-function buildPage(songHTML, ytLink) {
+function buildHTML(songHTML, ytLink) {
+    console.log(songHTML);
+    console.log(ytLink);
     let content = `<div class="main-content-div gap5">
     <div class="content container left panel">
         <p class="instructions">
             Guess the artists or songs that are being sampled.</p>
-        <!-- I think I may delete this from the gameplay 
+        <!-- I think I may delete this from the game play 
             <p class="content container difficulty">Have fun! </p> -->
     </div>
     <div class="video-feedback-answer-div">
