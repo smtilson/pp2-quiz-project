@@ -87,7 +87,9 @@ function playSongQuiz(songHTML) {
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct, songHTML);
     // delivers feedback
-    alert(generateFeedback(answer, toTitle(songHTML), guessed, correct));
+    const feedback = generateFeedback(answer, toTitle(songHTML), guessed, correct);
+    console.log(feedback);
+    displayFeedback(feedback,songHTML);
     // adjusts score and log area appropriately
     if (!guessed) {
         incrementScores(correct, songHTML);
@@ -172,6 +174,17 @@ function generateFeedback(answer, songName, guessed, correct) {
 }
 
 /**
+ * Adds feedback string to html document
+ * @param {*} feedback 
+ * @param {*} songName 
+ */
+function displayFeedback(feedback, songHTML) {
+    let feedbackSpan = getElementBySongAndClass(songHTML,"feedback");
+    feedbackSpan.innerText = feedback;
+    feedbackSpan.style.visibility = 'visible';
+}
+
+/**
  * This should only check if a guess was already guessed
  * maybe it should provide alert text?
  * @param {*} guess 
@@ -228,10 +241,10 @@ function incrementScores(result, songHTML) {
 /**
  * Returns appropriate element.
  * @param {html format string} songName 
- * @param {html format string} className 
+ * @param {html format string} className
  */
-function getElementBySongAndClass(songName, className) {
-    const section = document.querySelector(`#${songName}`);
+function getElementBySongAndClass(songHTML, className) {
+    const section = document.querySelector(`#${songHTML}`);
     const element = section.querySelector(`.${className}`);
     return element;
 }
