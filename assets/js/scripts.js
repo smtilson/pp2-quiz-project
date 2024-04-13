@@ -21,24 +21,27 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("sections found");
     for (let section of sections) {
         section.addEventListener("mouseenter", function () {
-            alert(`mouse enter is being triggered for ${this.id}`);
+            // alert(`mouse enter is being triggered for ${this.id}`);
             //alert(`section ${this.id} mouse over trigger hit`)
             const songName = this.id;
             // this needs to be fixed.
             const button = section.getElementsByClassName('submit-button')[0];
-            alert("button event about to be added");
-            button.addEventListener("click", function (event){
+            // alert("button event about to be added");
+            button.addEventListener("click", function (event) {
                 alert("event triggered by button click")
-                playSongQuiz(songName)});
+                playSongQuiz(songName)
+            });
             console.log(songName);
-            alert("button event already added");
+            // alert("button event already added");
             let answerBox = section.getElementsByClassName('user-answer')[0];
             answerBox.value = '';
             answerBox.focus();
-            alert("answerbox event about to be added");
+            // alert("answerbox event about to be added");
             answerBox.addEventListener('keydown', function (event) {
-                if (event.key === 'Enter') {
-                    alert("play song triggered by enter key press")
+                if (answerBox.value === '') {
+                    return;
+                } else if (event.key === 'Enter') {
+                    // alert("play song triggered by enter key press")
                     // this can be done better using the event
                     playSongQuiz(songName);
                 }

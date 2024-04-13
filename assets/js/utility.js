@@ -10,12 +10,21 @@ function norm(string) {
     // we remove common words before spacing in case the 
     // removal of spaces causes some common words to appeaer 
     // when they wouldn't otherwise
-    let removeStrings = ['the', 'a', 'an', "'", '-', ' '];
     string = string.toLowerCase();
+    let removeStrings = ['the', 'a', 'an', "'", '-', ' '];
     for (let word of removeStrings) {
-        while (string.includes(word)) {
-            string = string.replace(word, '');
-        }
+        string = removeSubstring(string, word);
+    }
+    return string;
+}
+
+/**
+ * This removes all instances of substring from the string.
+ * @param {*} string 
+ */
+function removeSubstring (string, substring) {
+    while (string.includes(substring)) {
+        string = string.replace(substring, '');
     }
     return string;
 }
