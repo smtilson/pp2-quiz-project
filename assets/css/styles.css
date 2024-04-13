@@ -130,7 +130,7 @@ main {
 }
 
 #oh-no-video {
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .feedback-div {
@@ -179,7 +179,7 @@ main {
         font-size: 200%;
     }
 
-    /*main {}*/
+    /* main */
 
     #subtitle-div {
         margin-top: 2em;
@@ -192,9 +192,36 @@ main {
         flex-direction: row;
         gap: 18px;
         align-items: flex-start;
+        gap: 5px;
     }
 
     .container {
         background-color: #012D52;
+        padding: 10px;
     }
+
+    /* video, feedback, answer area styles */
+
+    #oh-no-video {
+        width: 420px;
+        height: 315px;
+    }
+
+    .left {
+        margin-left: 15px;
+    }
+
+    .right {
+        margin-right: 15px;
+    }
+
+    .panel {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        position: relative;
+        top: 4em;
+        width:30%;
+    }
+    /* records area styles */
 }
