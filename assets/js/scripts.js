@@ -183,7 +183,7 @@ function generateFeedback(answer, songName, guessed, correct) {
 function displayFeedback(feedback, songHTML) {
     let feedbackSpan = getElementBySongAndClass(songHTML,"feedback");
     feedbackSpan.innerText = feedback;
-    feedbackSpan.parentNode.style.visibility = 'visible';
+    feedbackSpan.parentNode.style.display = 'flex';
 }
 
 /**
