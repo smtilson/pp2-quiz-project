@@ -1,6 +1,7 @@
 // Initial setup
 
 // writes game page sections
+/*
 alert(`${window.location.pathname}`);
 if (window.location.pathname === '/game.html') {
     alert(`Success ${window.location.pathname}`);
@@ -11,6 +12,7 @@ if (window.location.pathname === '/game.html') {
     alert('not yet correct');
     alert(`${window.location.pathname}`);
 }
+*/
 
 alert('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
@@ -181,7 +183,7 @@ function generateFeedback(answer, songName, guessed, correct) {
 function displayFeedback(feedback, songHTML) {
     let feedbackSpan = getElementBySongAndClass(songHTML,"feedback");
     feedbackSpan.innerText = feedback;
-    feedbackSpan.style.visibility = 'visible';
+    feedbackSpan.parentNode.style.visibility = 'visible';
 }
 
 /**
