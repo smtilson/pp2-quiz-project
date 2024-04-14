@@ -108,6 +108,14 @@ main {
     margin-bottom: 1em;
 }
 
+#play-game {
+    margin-top: .75em;
+    font-size: 1.5em;
+    border: solid 5px;
+    padding: 7px 13px;
+    border-radius: 15px;
+}
+
 /* game page styles */
 .left-panel {
     display: flex;
@@ -164,7 +172,7 @@ main {
     }
 
     header {
-        width: 50%;
+        width: 44%;
         margin-top: 1em;
         align-self: center;
         border: solid #E5ECFD 6px;
@@ -180,12 +188,19 @@ main {
     }
 
     /* main */
+    main {
+        margin-top: 7em;
+    }
 
     #subtitle-div {
         margin-top: 2em;
         font-size: 1.2em;
         padding: 5px;
         width: 50%;
+    }
+
+    .landing {
+        min-height: 21.6em;
     }
 
     .main-content-div {
@@ -200,9 +215,18 @@ main {
         padding: 10px;
     }
 
+    #play-game {
+        font-size: 2em;
+        border: 4px solid;
+        padding: 10px 23px;
+        background-color: #012D52;
+        border-radius: 15px;
+        margin-top: 1em;
+    }
+
     /* video, feedback, answer area styles */
 
-    #oh-no-video {
+    #song-video {
         width: 420px;
         height: 315px;
     }
@@ -213,17 +237,24 @@ main {
 
     .right {
         margin-right: 15px;
-        min-height:17em;
+        min-height: 17em;
         padding-left: 10px;
     }
 
     .panel {
         display: flex;
         flex-direction: column;
-        align-items:initial;
+        align-items: initial;
         position: relative;
         top: 4em;
-        width:30%;
+        width: 30%;
     }
+
     /* records area styles */
+}
+
+@media screen and (min-width: 900px) {
+    .landing {
+        min-height: 18em;
+    }
 }

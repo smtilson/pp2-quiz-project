@@ -36,7 +36,7 @@ function replaceAll(string, substring, replacement) {
 function cleanString(string) {
     // does this trim do anything?
     string = string.trim();
-    let removal = ['\u2013','\u2012','\u2014',];
+    let removal = ['\u2013', '\u2012', '\u2014',];
     // replaces special dashes with normal dash
     for (let term of removal) {
         string = replaceAll(string, term, ';');
@@ -52,33 +52,33 @@ function cleanString(string) {
  * converts a string to JS format
  * @param {string in either format} string 
  */
-function toJS(string) {
+function htmlToJS(string) {
     string = replaceAll(string, '-', ' ');
     string = toTitle(string);
     string = string[0].toLowerCase() + string.slice(1);
     string = replaceAll(string, ' ', '');
     return string;
 }
+
 /**
- * Swaps title format and html format
- * ex: Oh No with oh-no.
- * If string is not in one of the formats, it will be 
- * returned unmodified
- * @param {string in either format} string
+ * Transforms string from html format to title format
+ * @param {string in html format} string 
+ * @returns 
  */
-// utility function
-function titleSwap(string) {
-    if (string.includes('-') && string.includes(' ')) {
-        alert(`${string} contains both spaces and dashes. This function can not transform it.`);
-    } else if (string.includes('-')) {
-        string = replaceAll(string, '-', ' ');
-        string = toTitle(string);
-    } else if (string.includes(' ')) {
-        string = replaceAll(string, ' ', '-');
-        string = string.toLowerCase();
-    } else {
-        alert('Not sure how we got here, the string has neither.');
-    }
+function htmlToTitle(string) {
+    string = replaceAll(string, '-', ' ');
+    string = toTitle(string);
+    return string;
+}
+
+/**
+ * 
+ * @param {string in title format} string 
+ * @returns string in html format
+ */
+function titleToHTML(string) {
+    string = replaceAll(string, ' ', '-');
+    string = string.toLowerCase();
     return string;
 }
 
@@ -92,7 +92,7 @@ function trackToHTML(trackListing) {
     string = string.split(' ;')[0];
     string = replaceAll(string, '"', '');
     string = replaceAll(string, "'", '');
-    return titleSwap(string);
+    return titleToHTML(string);
 }
 
 /**

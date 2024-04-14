@@ -69,7 +69,7 @@ function playSongQuiz(songHTML) {
     // from the event object
     // fetches userAnswer
     // This should be changed to being accessed from the event
-    const songJS = toJS(songHTML);
+    const songJS = htmlToJS(songHTML);
     // fetches solutions
     const songSolutions = formatSolutions(songJS);
 
@@ -435,10 +435,10 @@ function buildHTML(songHTML, ytLink) {
     </div>
     <div class="video-feedback-answer-div">
         <h3 class="song-title">
-            ${titleSwap(songHTML)} from All Day
+            ${htmlToTitle(songHTML)} from All Day
         </h3>
         <div class="video-div">
-            <iframe id="${songHTML}-video" width="300" height="225"
+            <iframe id="song-video" width="300" height="225"
                 src="${ytLink}">
             </iframe>
         </div>
