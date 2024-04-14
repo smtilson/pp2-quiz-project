@@ -1,77 +1,31 @@
 // Initial setup
 
-alert('initial setup');
+console.log('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
-    // add event listeners to elements
-    alert("loaded");
+    console.log("loaded");
     console.log('started dom content loaded listener');
-    let section = document.getElementsByTagName('section')[0];
-    console.log("section found");
-    let nextButton = document.getElementById('next-button');
-    console.log(nextButton.id);
-    nextButton.addEventListener('click', nextButtonHandler);
-    let prevButton = document.getElementById('prev-button');
-    prevButton.addEventListener('click', prevButtonHandler);
-    // should this listener be added at screen load?
-    // does it depend on the screen size?
-    section.addEventListener("mouseenter", function () {
-        // alert(`mouse enter is being triggered for ${this.id}`);
-        //alert(`section ${this.id} mouse over trigger hit`)
-        const songHTML = this.dataset.song;
-        const button = section.getElementsByClassName('submit-button')[0];
-        // alert("button event about to be added");
-        button.addEventListener("click", function () {
-            alert("event triggered by button click")
-            playSongQuiz(songHTML)
-        });
-        // alert("button event already added");
-        let answerBox = document.getElementsByClassName('user-answer')[0];
-        answerBox.value = '';
-        answerBox.focus();
-        // alert("answerbox event about to be added");
-        answerBox.addEventListener('keydown', function (event) {
-            if (answerBox.value === '') {
-                return;
-            } else if (event.key === 'Enter') {
-                // alert("play song triggered by enter key press")
-                // this can be done better using the event
-                playSongQuiz(songHTML);
-            }
-        });
-    });
+    if (window.screen.width>= 768){
+        adjustRecordsForLargeScreens();
+    }
+    setupEventHandlers();    
 });
 
 
-// main game play loop function
-// this will be executed each time enter is hit
-// or submit is clicked
-// - control stopping and starting of video with 
-//   respect to other songs
-// should this take an event instead and then 
-// the song can be accessed from the this keyword
 /**
  * I don't think I need to pass this any thing at all, but maybe that is faster/more efficient than calling a function over and over.
  * @param {string html format} songName
  */
 function playSongQuiz(songHTML) {
-    alert(`playsong triggered with ${songHTML}`);
+    console.log(`playsong triggered with ${songHTML}`);
     let answerBox = document.getElementsByClassName("user-answer")[0];
     const userAnswer = answerBox.value;
-    document.getEle
-    // this is a temp fix for the event being triggered 
-    // when the listener is added
-    /*if (userAnswer === '') {
-        answerBox.value = '';
-        answerBox.focus();
-        return '';
-    }*/
     // these need to be changed so that they access stuff 
     // from the event object
     // fetches userAnswer
     // This should be changed to being accessed from the event
-    const songJS = htmlToJS(songHTML);
+    // const songJS = htmlToJS(songHTML);
     // fetches solutions
-    const songSolutions = formatSolutions(songJS);
+    const songSolutions = solutions[songHTML];
 
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
@@ -97,22 +51,18 @@ function playSongQuiz(songHTML) {
  * @param {*} answer 
  * @param {*} songName 
  */
-
 function checkAnswer(userAnswer) {
     const songSolutions = formatSolutions("ohNo");
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
     answer = (answer) ? answer : userAnswer;
     const guessed = alreadyGuessed(answer, correct);
-    alert(generateFeedback(answer, 'Oh No', guessed, correct));
+    console.log(generateFeedback(answer, 'Oh No', guessed, correct));
     if (!guessed) {
         incrementScores(correct);
         addGuess(answer, correct);
     }
 }
-
-
-// get data from "form"
 
 // Functions related to checking answers
 
@@ -234,57 +184,6 @@ function incrementScores(result) {
     }
 }
 
-// obtaining processable version of data
-// maybe combine this and formatSolutions into one function.
-// maybe not as this will likely be moved somewhere else when 
-// I use a different form for the database
-function transformWikiData(songName) {
-    // if (songName === '') {
-    let sampleList = rawSolutions[songName].split('\n');
-    // cleans each string in the array
-    sampleList = sampleList.map((item) => cleanString(item));
-    // replaces strings with JS objects
-    sampleList = sampleList.map((item) => sampleStringToData(item));
-    return sampleList;
-}
-
-/**
- * This function produces an js object containing start of sample,
- * end of sample, artist, and song sampled.
- * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
- */
-// utility function
-function sampleStringToData(sampleString) {
-    let data = sampleString.split(" ; ");
-    /* should I validate data is of the correct form?*/
-    let sampleData = {};
-    // single quotes matter here because of the form
-    // the data is in.
-    let keys = ['start', 'end', 'artist', 'song'];
-    for (let index in keys) {
-        sampleData[keys[index]] = data[index];
-    }
-    sampleData.artist = primaryArtist(sampleData.artist);
-    return sampleData;
-}
-
-
-
-// perhaps this should be broken into two pieces, one 
-// that gets the solutions when the song starts/page loads 
-// while the other would check the solutions for the song
-// I am having a hard time articulating this.
-
-// what format should the input for this be?
-// keep track of this variable and make it "more efficient"
-function formatSolutions(songName) {
-    const preSolutions = transformWikiData(songName);
-    // maybe this can be changed to a computed property thing?
-    const artistList = preSolutions.map((entry) => entry.artist);
-    const songList = preSolutions.map((entry) => entry.song);
-    return artistList.concat(songList);
-}
-
 
 /**
  * This object contains various tests
@@ -373,7 +272,7 @@ function getSongHTML() {
 }
 
 function nextButtonHandler(event) {
-    alert('next button handler firing');
+    console.log('next button handler firing');
     let songHTML = getSongHTML();
     songHTML = findNextSongHTML(songHTML);
     writePage(songHTML);
@@ -476,7 +375,7 @@ function adjustRecordsForLargeScreens(){
     let targetDiv = document.getElementById('main-content-div');
     targetDiv.appendChild(right);
     targetDiv.insertBefore(left, targetDiv.firstChild);
-    recordsDiv.setAttribute('display',none);
+    recordsDiv.setAttribute('display','none');
 }
 
 /**
@@ -496,26 +395,26 @@ function setupEventHandlers() {
     // should this listener be added at screen load?
     // does it depend on the screen size?
     section.addEventListener("mouseenter", function () {
-        // alert(`mouse enter is being triggered for ${this.id}`);
-        //alert(`section ${this.id} mouse over trigger hit`)
+        // console.log(`mouse enter is being triggered for ${this.id}`);
+        //console.log(`section ${this.id} mouse over trigger hit`)
         const songHTML = this.dataset.song;
         const button = section.getElementsByClassName('submit-button')[0];
-        // alert("button event about to be added");
+        // console.log("button event about to be added");
         // should this be refactored?
         button.addEventListener("click", function () {
-            alert("event triggered by button click")
+            console.log("event triggered by button click")
             playSongQuiz(songHTML)
         });
-        // alert("button event already added");
+        // console.log("button event already added");
         let answerBox = document.getElementsByClassName('user-answer')[0];
         answerBox.value = '';
         answerBox.focus();
-        // alert("answerbox event about to be added");
+        // console.log("answerbox event about to be added");
         answerBox.addEventListener('keydown', function (event) {
             if (answerBox.value === '') {
                 return;
             } else if (event.key === 'Enter') {
-                // alert("play song triggered by enter key press")
+                // console.log("play song triggered by enter key press")
                 // this can be done better using the event
                 playSongQuiz(songHTML);
             }

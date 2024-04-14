@@ -6,7 +6,7 @@
 alert("Database Loaded");
 
 const rawSolutions = {
-    ohNo: `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
+    'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
     0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
     0:15 ‒ 0:16 — Jay-Z – "99 Problems"
     0:20 ‒ 2:02 — Ludacris featuring Mystikal and I-20 – "Move Bitch"
@@ -31,7 +31,7 @@ const rawSolutions = {
     4:45 ‒ 4:50 — Trina featuring Killer Mike – "Look Back at Me"
     4:53 ‒ 4:53 — N.W.A – "Appetite for Destruction"
     4:56 ‒ 5:39 — Missy Elliott – "Get Ur Freak On"`,
-    letItOut: `0:00 ‒ 0:01 — Ramones – "Blitzkrieg Bop"
+    'let-it-out': `0:00 ‒ 0:01 — Ramones – "Blitzkrieg Bop"
 0:00 ‒ 0:05 — Missy Elliott – "Get Ur Freak On"
 0:00 ‒ 0:09 — Busta Rhymes featuring Spliff Star – "Make It Clap"
 0:01 ‒ 0:10 — Bun B featuring Juvenile and Webbie – "Pop It 4 Pimp"
@@ -62,7 +62,7 @@ const rawSolutions = {
 5:25 ‒ 6:28 — Fugazi – "Waiting Room"
 5:34 ‒ 5:35 — Dr. Octagon – "Blue Flowers"
 5:36 ‒ 6:29 — Rihanna – "Rude Boy"`,
-    thatsRight: `0:00 ‒ 0:19 — Sir Mix-a-Lot – "Posse on Broadway"
+    'thats-right': `0:00 ‒ 0:19 — Sir Mix-a-Lot – "Posse on Broadway"
 0:00 ‒ 0:16 — Boogie Down Productions – "South Bronx"
 0:00 ‒ 0:18 — Whodini – "I'm a Ho"
 0:00 ‒ 0:18 — Rihanna – "Rude Boy"
@@ -93,7 +93,7 @@ const rawSolutions = {
 3:53 ‒ 5:22 — Miley Cyrus – "Party in the U.S.A."
 3:53 ‒ 5:22 — Whodini – "Friends"
 5:21 ‒ 5:22 — Dr. Dre featuring Snoop Dogg – "The Next Episode"`,
-    jumpOnStage: `0:00 ‒ 0:08 — Miley Cyrus – "Party in the U.S.A."
+    'jump-on-stage': `0:00 ‒ 0:08 — Miley Cyrus – "Party in the U.S.A."
 0:00 ‒ 1:08 — Portishead – "Sour Times"
 0:08 ‒ 0:09 — Naughty by Nature – "Everything's Gonna Be Alright"
 0:09 ‒ 1:23 — Big Boi featuring Cutty – "Shutterbugg"
@@ -124,7 +124,7 @@ const rawSolutions = {
 5:16 ‒ 5:17 — White Town – "Your Woman"
 5:17 ‒ 5:18 — Rob Base and DJ E-Z Rock – "Joy and Pain"
 5:18 ‒ 6:22 — Lady Gaga – "LoveGame"`,
-    thisIsTheRemix: `0:00 ‒ 0:42 — Lady Gaga – "LoveGame"
+    'this-is-the-remix': `0:00 ‒ 0:42 — Lady Gaga – "LoveGame"
 0:00 ‒ 0:04 — Herbie Hancock – "Rockit"
 0:00 ‒ 0:04 — Mr. Cheeks featuring Missy Elliott, P. Diddy, and Petey Pablo – "Lights, Camera, Action!" (Remix)
 0:04 ‒ 0:54 — Bananarama – "Cruel Summer"
@@ -161,7 +161,7 @@ const rawSolutions = {
 5:38 ‒ 5:56 — Marva Whitney – "Unwind Yourself"
 5:53 ‒ 6:02 — Lisa Lisa and Cult Jam – "Let the Beat Hit 'Em"
 5:55 ‒ 5:57 — The Notorious B.I.G. featuring Diddy, Nelly, Jagged Edge, and Avery Storm – "Nasty Girl"`,
-    onAndOn: `0:00 ‒ 1:27 — Lisa Lisa and Cult Jam – "Let the Beat Hit 'Em"
+    'on-and-on': `0:00 ‒ 1:27 — Lisa Lisa and Cult Jam – "Let the Beat Hit 'Em"
 0:00 ‒ 1:14 — Cream – "Sunshine of Your Love"
 0:03 ‒ 0:04 — The Notorious B.I.G. featuring Diddy, Nelly, Jagged Edge, and Avery Storm – "Nasty Girl"
 0:07 ‒ 1:06 — The Notorious B.I.G. – "Nasty Boy"
@@ -183,7 +183,7 @@ const rawSolutions = {
 4:52 ‒ 4:54 — DJ OGB featuring Francisco and Gemeni – "Hands Up"
 4:59 ‒ 5:09 — Aphex Twin – "Windowlicker"
 5:01 ‒ 5:09 — Lady Gaga – "Bad Romance"`,
-    getItGetIt: `0:00 ‒ 1:31 — Aphex Twin – "Windowlicker"
+    'get-it-get-it': `0:00 ‒ 1:31 — Aphex Twin – "Windowlicker"
 0:00 ‒ 0:09 — Lady Gaga – "Bad Romance"
 0:08 ‒ 1:16 — Soulja Boy – "Pretty Boy Swag"
 0:47 ‒ 0:47 — George Clinton – "Atomic Dog"
@@ -215,7 +215,7 @@ const rawSolutions = {
 5:25 ‒ 5:33 — MGMT – "Kids"
 5:31 ‒ 5:33 — The Grass Roots – "Let's Live for Today"
 5:32 ‒ 5:33 — Luke featuring 2 Live Crew – "Banned in the U.S.A."`,
-    downForTheCount: `0:00 ‒ 1:54 — Afro-Rican – "Give It All You Got (Doggy Style)"
+    'down-for-the-count': `0:00 ‒ 1:54 — Afro-Rican – "Give It All You Got (Doggy Style)"
 0:00 ‒ 0:22 — Belinda Carlisle – "Heaven Is a Place on Earth"
 0:00 ‒ 0:18 — Run-DMC – "It's Tricky"
 0:00 ‒ 0:18 — Young Jeezy – "Bottom of the Map"
@@ -255,7 +255,7 @@ const rawSolutions = {
 6:16 ‒ 6:35 — 2 Live Crew – "Get It Girl"
 6:30 ‒ 6:37 — Ghost Town DJ's – "My Boo"
 6:37 ‒ 6:37 — Johnny Kemp – "Just Got Paid"`,
-    makeMeWanna: `0:00 ‒ 1:17 — Ghost Town DJ's – "My Boo"
+    'make-me-wanna': `0:00 ‒ 1:17 — Ghost Town DJ's – "My Boo"
 0:00 ‒ 1:11 — Cyndi Lauper – "Time After Time"
 0:00 ‒ 1:24 — T.I. featuring Keri Hilson – "Got Your Back"
 0:04 ‒ 1:09 — Young Dro featuring T.I. and Gucci Mane – "Freeze Me" (Remix)
@@ -281,7 +281,7 @@ const rawSolutions = {
 5:25 ‒ 6:23 — J. Cole – "Blow Up"
 5:27 ‒ 5:29 — Jordan Knight – "Give It to You"
 5:29 ‒ 6:22 — Travis Porter – "Go Shorty Go"`,
-    steadyShock: `0:00 ‒ 0:13 — J. Cole – "Blow Up"
+    'steady-shock': `0:00 ‒ 0:13 — J. Cole – "Blow Up"
 0:00 ‒ 0:13 — Travis Porter – "Go Shorty Go"
 0:06 ‒ 0:56 — Blue Öyster Cult – "(Don't Fear) The Reaper"
 0:13 ‒ 0:54 — Usher featuring Nicki Minaj – "Lil Freak"
@@ -306,7 +306,7 @@ const rawSolutions = {
 4:32 ‒ 5:46 — Three 6 Mafia – "Who Run It"
 5:34 ‒ 5:47 — Phoenix – "1901"
 5:47 ‒ 5:47 — Ludacris featuring Nicki Minaj – "My Chick Bad"`,
-    tripleDouble: `0:00 ‒ 1:28 — Phoenix – "1901"
+    'triple-double': `0:00 ‒ 1:28 — Phoenix – "1901"
 0:00 ‒ 0:12 — Beyoncé – "Diva"
 0:07 ‒ 0:53 — Ludacris – "How Low"
 0:10 ‒ 0:13 — Diamond – "Lotta Money"
@@ -335,7 +335,7 @@ const rawSolutions = {
 5:17 ‒ 5:17 — The Young Rascals – "Good Lovin'"
 6:23 ‒ 6:26 — Van Halen – "Jump"
 6:26 ‒ 6:27 — Fine Young Cannibals – "Good Thing"`,
-    everyDay: `0:00 ‒ 0:00 — Gucci Mane – "Making Love to the Money"
+    'every-day': `0:00 ‒ 0:00 — Gucci Mane – "Making Love to the Money"
 0:00 ‒ 1:18 — Fine Young Cannibals – "Good Thing" (Prince Paul Remix)
 0:02 ‒ 1:11 — Gucci Mane featuring Swizz Beatz – "Gucci Time"
 0:46 ‒ 0:46 — Darude – "Sandstorm"
@@ -367,7 +367,7 @@ const rawSolutions = {
 }
 
 // maybe add special scripts for this to direct people to the wiki.
-const unknownSamples = {
+const rawUnknownSamples = {
     unkown: `8Ball & MJG featuring P. Diddy – "You Don't Want Drama"
     Art of Noise – "Moments in Love"
     Artz & Kraftz – "Surely"
@@ -405,7 +405,7 @@ const unknownSamples = {
     Zapp – "Doo Wa Ditty (Blow That Thing)"`,
 }
 
-var trackList = `"Oh No" – 5:39
+const trackList = `"Oh No" – 5:39
 "Let It Out" – 6:29
 "That's Right" – 5:22
 "Jump on Stage" – 6:22
@@ -417,8 +417,23 @@ var trackList = `"Oh No" – 5:39
 "Steady Shock" – 5:47
 "Triple Double" – 6:27
 "Every Day" – 5:10]`;
-trackList = trackList.split('\n');
-trackList = trackList.map((track) => trackToHTML(track));
+
+/**
+ * Prepares solution object upon initial load of page
+ */
+let solutions = {};
+for (let songHTML in rawSolutions){
+    //console.log(rawSolutions[songHTML]);
+    let songData = transformWikiData(rawSolutions[songHTML]);
+    solutions[songHTML] = formatSolutions(songData);
+}
+
+console.log(solutions['oh-no']);
+
+let tracks = trackList.split('\n');
+tracks = tracks.map((track) => trackToHTML(track));
+console.log('tracks??');
+console.log(tracks);
 
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",

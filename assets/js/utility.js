@@ -48,6 +48,55 @@ function cleanString(string) {
     return string;
 }
 
+// obtaining processable version of data
+// maybe combine this and formatSolutions into one function.
+// maybe not as this will likely be moved somewhere else when 
+// I use a different form for the database
+function transformWikiData(rawSamples) {
+    // if (songName === '') {
+    let sampleList = rawSamples.split('\n');
+    // cleans each string in the array
+    sampleList = sampleList.map((item) => cleanString(item));
+    // replaces strings with JS objects
+    sampleList = sampleList.map((item) => sampleStringToData(item));
+    return sampleList;
+}
+
+// perhaps this should be broken into two pieces, one 
+// that gets the solutions when the song starts/page loads 
+// while the other would check the solutions for the song
+// I am having a hard time articulating this.
+
+// what format should the input for this be?
+// keep track of this variable and make it "more efficient"
+function formatSolutions(rawSongData) {
+    // maybe this can be changed to a computed property thing?
+    const artistList = rawSongData.map((entry) => entry.artist);
+    const songList = rawSongData.map((entry) => entry.song);
+    return artistList.concat(songList);
+}
+
+/**
+ * This function produces an js object containing start of sample,
+ * end of sample, artist, and song sampled.
+ * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
+ */
+// utility function
+function sampleStringToData(sampleString) {
+    let data = sampleString.split(" ; ");
+    /* should I validate data is of the correct form?*/
+    let sampleData = {};
+    // single quotes matter here because of the form
+    // the data is in.
+    let keys = ['start', 'end', 'artist', 'song'];
+    for (let index in keys) {
+        sampleData[keys[index]] = data[index];
+    }
+    sampleData.artist = primaryArtist(sampleData.artist);
+    return sampleData;
+}
+
+
 /**
  * converts a string to JS format
  * @param {string in either format} string 
