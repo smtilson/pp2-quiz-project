@@ -469,6 +469,18 @@ function buildHTML(songHTML, ytLink) {
     return content
 }
 
+function adjustRecordsForLargeScreens(){
+    let recordsDiv = document.getElementById("records-div");
+    let left = recordsDiv.children[0];
+    let right = recordsDiv.children[1];
+    let targetDiv = document.getElementById('main-content-div');
+}
+
+/**
+ * This adds all event handlers.
+ * It is done this way so that it can be called 
+ * again when the song for the game changes.
+ */
 function setupEventHandlers() {
     console.log('setupEventHandler called');
     let section = document.getElementsByTagName('section')[0];

@@ -65,7 +65,7 @@ main {
     align-items: center;
 }
 
-.main-content-div {
+#main-content-div {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -165,6 +165,10 @@ main {
 
 /* score area styles */
 
+#records-div {
+    display: flex;
+    gap: 5px;
+}
 
 @media screen and (min-width: 760px) {
     body {
@@ -203,7 +207,7 @@ main {
         min-height: 21.6em;
     }
 
-    .main-content-div {
+    #main-content-div {
         flex-direction: row;
         gap: 18px;
         align-items: flex-start;

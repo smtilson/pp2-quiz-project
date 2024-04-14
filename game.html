@@ -21,8 +21,7 @@
             <h2 id="subtitle">The Girl Talk quiz we all play in our heads.</h2>
         </div>
         <section id="game-section" data-song="oh-no">
-            <div class="main-content-div gap5">
-                
+            <div id="main-content-div" class="gap5">
                 <div class="video-feedback-answer-div">
                     <h3 class="song-title">
                         Oh No from All Day
@@ -40,25 +39,23 @@
                         <button type="submit" class="submit-button">Submit Answer</button>
                     </div>
                 </div>
-                <div class="content container left panel">
-                </div>
-                <div class="content container right panel records-div">
-                    <!--<div class="scores-div">-->
+                <div id="records-div">
+                    <div class="content container left panel">
                         <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
+                        <p>Samples: <span class="correct-submissions"></span></p>
+                    </div>
+                    <div class="content container right panel">
                         <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
-                   <!-- </div>-->
-                    <!-- make this just a string list for now -->
-                    <!--<div class="submitted-answers">-->
-                        <p>Sampled: <span class="correct-submissions"></span></p>
-                        <p>Not Sampled: <span class="incorrect-submissions"></span></p>
-                    <!--</div>-->
+                        <p>Samples: <span class="incorrect-submissions"></span></p>
+                        <!--</div>-->
+                    </div>
                 </div>
             </div>
             <div id="arrows">
                 <button id="prev-button">Prev</button>
                 <button id="next-button">Next</button>
             </div>
-        </section>        
+        </section>
     </main>
     <script src="assets/js/utility.js"></script>
     <script src="assets/js/database.js"></script>
