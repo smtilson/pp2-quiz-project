@@ -117,7 +117,7 @@ main {
 }
 
 /* game page styles */
-.left-panel {
+#left-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,7 +129,7 @@ main {
     margin-bottom: .25em;
 }
 
-.video-feedback-answer-div {
+#video-feedback-answer-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,7 +141,7 @@ main {
     border-radius: 15px;
 }
 
-.feedback-div {
+#feedback-div {
     display: none;
     padding: 5px;
     align-items: center;
@@ -152,13 +152,13 @@ main {
     width: 80%;
 }
 
-.user-answer {
+#user-answer {
     width: 60%;
     margin: 5px;
     border-radius: 5px;
 }
 
-.submit-button {
+#submit-button {
     background-color: #011633;
     border-radius: 10px;
 }
@@ -235,11 +235,11 @@ main {
         height: 315px;
     }
 
-    .left {
+    #left {
         margin-left: 15px;
     }
 
-    .right {
+    #right {
         margin-right: 15px;
         min-height: 17em;
         padding-left: 10px;

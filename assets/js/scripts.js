@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function playSongQuiz(songHTML) {
     console.log(`playsong triggered with ${songHTML}`);
-    let answerBox = document.getElementsByClassName("user-answer")[0];
+    let answerBox = document.getElementById("user-answer");
     const userAnswer = answerBox.value;
     // these need to be changed so that they access stuff 
     // from the event object
@@ -67,23 +67,14 @@ function checkAnswer(userAnswer) {
 // Functions related to checking answers
 
 /**
- * Compares user submitted answer to possible solutions.
- * what does this return? boolean and string answer? 
- * probably just the string answer and then we can use 
- * truthy/falsyness of the return value
- * 
- * Maybe this should take an array as a second parameter so 
- * it can be used when adding guess to the display
- * @param {user submitted string not standardized} userAnswer 
- * @param {array of strings not standardized} answerArray 
+ * Checks if userAnswer is in answerArray using normalized form of each 
+ * @param {user submitted string} userAnswer 
+ * @param {array of sampled asrtists and songs} answerArray 
+ * @returns correct format of answer or empty string
  */
 function compareGuess(userAnswer, answerArray) {
-    console.log(`compare fired with ${userAnswer}`)
+    // console.log(`compare fired with ${userAnswer}`)
     normedUserAnswer = norm(userAnswer);
-    console.log(normedUserAnswer);
-    // when adding functionality to log songs and artists separately, 
-    // have this return an array where the second value dictates 
-    // if it is a song or an artist
     for (let answer of answerArray) {
         const testTerm = norm(answer);
         if (normedUserAnswer === testTerm) {
@@ -123,14 +114,13 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {*} songName 
  */
 function displayFeedback(feedback) {
-    let feedbackSpan = document.getElementsByClassName("feedback")[0];
+    let feedbackSpan = document.getElementById("feedback");
     feedbackSpan.innerText = feedback;
     feedbackSpan.parentNode.style.display = 'flex';
 }
 
 /**
- * This should only check if a guess was already guessed
- * maybe it should provide alert text?
+ * This checks if a guess was already guessed.
  * @param {*} guess 
  * @param {*} correctness 
  */
@@ -138,9 +128,9 @@ function alreadyGuessed(guess, correctness) {
     let span;
     const normedGuess = norm(guess);
     if (correctness) {
-        span = document.getElementsByClassName('correct-submissions')[0];
+        span = document.getElementById('correct-submissions');
     } else {
-        span = document.getElementsByClassName('incorrect-submissions')[0];
+        span = document.getElementById('incorrect-submissions');
     }
     let submissions = span.innerText.split('; ');
     submissions = submissions.map((word) => norm(word));
@@ -158,9 +148,9 @@ function alreadyGuessed(guess, correctness) {
 function addGuess(answer, correctness) {
     let span;
     if (correctness) {
-        span = document.getElementsByClassName('correct-submissions')[0];
+        span = document.getElementById('correct-submissions');
     } else {
-        span = document.getElementsByClassName('incorrect-submissions')[0];
+        span = document.getElementById('incorrect-submissions');
     }
     if (span.innerText === '') {
         span.innerText = answer;
@@ -176,11 +166,11 @@ function addGuess(answer, correctness) {
  */
 function incrementScores(result) {
     if (result) {
-        let scoreBox = document.getElementsByClassName('correct-answer-score')[0];
+        let scoreBox = document.getElementById('correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     } else {
-        let scoreBox = document.getElementsByClassName('incorrect-answer-score')[0];
+        let scoreBox = document.getElementById('incorrect-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
     }
@@ -269,7 +259,7 @@ function testWriteBasicLinks() {
  * @returns returns songHTML string of current page
  */
 function getSongHTML() {
-    const section = document.getElementsByTagName('section')[0];
+    const section = document.getElementById('game-section');
     return section.dataset.song;
 }
 
@@ -277,13 +267,13 @@ function nextButtonHandler(event) {
     console.log('next button handler firing');
     let songHTML = getSongHTML();
     songHTML = findNextSongHTML(songHTML);
-    writePage(songHTML);
+    changeQuestion(songHTML);
 }
 
 function prevButtonHandler(event) {
     let songHTML = getSongHTML();
     songHTML = findPrevSongHTML(songHTML);
-    writePage(songHTML);
+    changeQuestion(songHTML);
 }
 
 function findNextSongHTML(songHTML) {
@@ -310,62 +300,30 @@ function findPrevSongHTML(songHTML) {
     return songHTML;
 }
 
-function writePage(songHTML) {
-    let section = document.getElementsByTagName('section')[0];
-    const ytlink = youtubeLinks[songHTML];
-    section.innerHTML = buildHTML(songHTML, ytlink);
+function changeQuestion(songHTML) {
+    let section = document.getElementById('game-section');
     section.dataset.song = songHTML;
-    if (window.screen.width >= 768) {
-        adjustRecordsForLargeScreens();
-    }
+    let titleHeader = document.getElementById('song-title');
+    titleHeader.innerText = `${htmlToTitle(songHTML)} from All Day`;
+    let iframe = document.getElementById('song-video');
+    const ytlink = youtubeLinks[songHTML];
+    iframe.setAttribute('src',ytlink);
+    resetElementById('correct-submissions');
+    resetElementById('incorrect-submissions');
     setupEventHandlers();
+    
+    
+
+    // needs to update song title
+    // needs to update youtube link
+    // needs to reset scores
+    // needs to reset feedback
+    // needs to rerun event handlers maybe?
 }
 
-/**
- * Once the game page is finished, this should be updated appropriately
- * @param {*} songHTML 
- * @param {*} ytLink 
- * @returns string of html for the page for the song
- * should this be refactored into multiple functions writing different parts of the html?
- */
-function buildHTML(songHTML, ytLink) {
-    console.log(songHTML);
-    console.log(ytLink);
-    let content = `<div id="main-content-div" class="gap5">
-                <div class="video-feedback-answer-div">
-                    <h3 class="song-title">
-                        ${htmlToTitle(songHTML)} from All Day
-                    </h3>
-                    <div class="video-div">
-                        <iframe id="song-video" width="300" height="225"
-                        src="${ytLink}">
-                        </iframe>
-                    </div>
-                    <div class="feedback-div container content">
-                        <span class="feedback"></span>
-                    </div>
-                    <div class="answer-area container content">
-                        <input type="text" class="user-answer">
-                        <button type="submit" class="submit-button">Submit Answer</button>
-                    </div>
-                </div>
-                <div id="records-div">
-                    <div class="content container left panel">
-                        <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
-                        <p>Samples: <span class="correct-submissions"></span></p>
-                    </div>
-                    <div class="content container right panel">
-                        <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
-                        <p>Samples: <span class="incorrect-submissions"></span></p>
-                        <!--</div>-->
-                    </div>
-                </div>
-                <div id="arrows">
-                    <button id="prev-button">Prev</button>
-                    <button id="next-button">Next</button>
-                </div>
-            </div>`;
-    return content
+function resetElementById(elementId){
+    let element = document.getElementById(elementId);
+    element.innerHTML = '';
 }
 
 function adjustRecordsForLargeScreens() {
@@ -385,7 +343,7 @@ function adjustRecordsForLargeScreens() {
  */
 function setupEventHandlers() {
     console.log('setupEventHandler called');
-    let section = document.getElementsByTagName('section')[0];
+    let section = document.getElementById('game-section');
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);
     console.log('next button set');
@@ -394,11 +352,13 @@ function setupEventHandlers() {
     console.log('prev button set');
     // should this listener be added at screen load?
     // does it depend on the screen size?
+    // maybe change this to be the play event of the video or a click on the video, or mousenter on the video.
+    // shit, house is this triggered on mobile??
     section.addEventListener("mouseenter", function () {
         // console.log(`mouse enter is being triggered for ${this.id}`);
         //console.log(`section ${this.id} mouse over trigger hit`)
         const songHTML = this.dataset.song;
-        const button = section.getElementsByClassName('submit-button')[0];
+        const button = document.getElementById('submit-button');
         // console.log("button event about to be added");
         // should this be refactored?
         button.addEventListener("click", function () {
@@ -406,7 +366,7 @@ function setupEventHandlers() {
             playSongQuiz(songHTML)
         });
         // console.log("button event already added");
-        let answerBox = document.getElementsByClassName('user-answer')[0];
+        let answerBox = document.getElementById('user-answer');
         answerBox.value = '';
         answerBox.focus();
         // console.log("answerbox event about to be added");

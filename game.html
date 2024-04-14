@@ -22,41 +22,43 @@
         </div>
         <section id="game-section" data-song="oh-no">
             <div id="main-content-div" class="gap5">
-                <div class="video-feedback-answer-div">
+                <div id="video-feedback-answer-div">
                     <h3 id="song-title">
                         Oh No from All Day
                     </h3>
-                    <div class="video-div">
+                    <div id="video-div">
                         <iframe id="song-video" width="300" height="225"
                             src="https://www.youtube.com/embed/26Ps_k1KpKw">
                         </iframe>
                     </div>
-                    <div class="feedback-div container content">
-                        <span class="feedback"></span>
+                    <div id="feedback-div" class="container content">
+                        <span id="feedback"></span>
                     </div>
-                    <div class="answer-area container content">
-                        <input type="text" class="user-answer">
-                        <button type="submit" class="submit-button">Submit Answer</button>
+                    <div id="answer-area" class="container content">
+                        <!-- input needs a label, Artist or Song -->
+                        <input type="text" id="user-answer">
+                        <button type="submit" id="submit-button">Submit Answer</button>
                     </div>
                 </div>
                 <div id="records-div">
-                    <div class="content container left panel">
-                        <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
-                        <p>Samples: <span class="correct-submissions"></span></p>
+                    <div id="left" class="content container panel">
+                        <p class="scores">Correct: <span id="correct-answer-score">0</span></p>
+                        <p>Samples: <span id="correct-submissions"></span></p>
                     </div>
-                    <div class="content container right panel">
-                        <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
-                        <p>Samples: <span class="incorrect-submissions"></span></p>
+                    <div id="right" class="content container panel">
+                        <p class="scores">Incorrect: <span id="incorrect-answer-score">0</span></p>
+                        <p>Samples: <span id="incorrect-submissions"></span></p>
                         <!--</div>-->
                     </div>
                 </div>
                 <div id="arrows">
-                    <button id="prev-button">Prev</button>
-                    <button id="next-button">Next</button>
+                    <button id="prev-button"><i class="fa-solid fa-arrow-left-long"></i></button>
+                    <button id="next-button"><i class="fa-solid fa-arrow-right-long"></i></button>
                 </div>
             </div>
         </section>
     </main>
+    <script src="https://kit.fontawesome.com/d2d64ef9e7.js" crossorigin="anonymous"></script>
     <script src="assets/js/utility.js"></script>
     <script src="assets/js/database.js"></script>
     <script src="assets/js/scripts.js"></script>
