@@ -103,19 +103,6 @@ function sampleStringToData(sampleString) {
     return sampleData;
 }
 
-
-/**
- * converts a string to JS format
- * @param {string in either format} string 
- */
-function htmlToJS(string) {
-    string = replaceAll(string, '-', ' ');
-    string = toTitle(string);
-    string = string[0].toLowerCase() + string.slice(1);
-    string = replaceAll(string, ' ', '');
-    return string;
-}
-
 /**
  * Transforms string from html format to title format
  * @param {string in html format} string 
@@ -178,6 +165,7 @@ function capitalize(word) {
  * Capitalizes first letter of each word.
  */
 function toTitle(string) {
+    string = string.trim();
     let words = string.split(' ');
     words = words.map(w => capitalize(w));
     return words.join(' ');
