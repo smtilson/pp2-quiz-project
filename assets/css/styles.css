@@ -125,7 +125,7 @@ main {
 }
 
 /* video, feedback, and answer area styles */
-.song-title {
+#song-title {
     margin-bottom: .25em;
 }
 

@@ -313,8 +313,12 @@ function writePage(songHTML) {
     const ytlink = youtubeLinks[songHTML];
     section.innerHTML = buildHTML(songHTML, ytlink);
     section.dataset.song = songHTML;
+    if (window.screen.width >= 768) {
+        adjustRecordsForLargeScreens();
+    }
     setupEventHandlers();
 }
+
 /**
  * Once the game page is finished, this should be updated appropriately
  * @param {*} songHTML 
