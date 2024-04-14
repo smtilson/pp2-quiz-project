@@ -474,6 +474,9 @@ function adjustRecordsForLargeScreens(){
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
     let targetDiv = document.getElementById('main-content-div');
+    targetDiv.appendChild(right);
+    targetDiv.insertBefore(left, targetDiv.firstChild);
+    recordsDiv.setAttribute('display',none);
 }
 
 /**
