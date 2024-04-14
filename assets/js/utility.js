@@ -12,9 +12,15 @@ function norm(string) {
     // removal of spaces causes some common words to appeaer 
     // when they wouldn't otherwise
     string = string.toLowerCase();
-    let removeStrings = ['the', 'a', 'an', "'", '-', ' '];
-    for (let word of removeStrings) {
-        string = replaceAll(string, word, '');
+    // adds buffer so words will be removed from beginning and end of string
+    string = ' ' + string + ' ';
+    let removeWords = [' the ', ' a ', 'an ', ' an ', "'n'", ' of ', ];
+    for (let word of removeWords) {
+        string = replaceAll(string, word, ' ');
+    }
+    let removeSymbols = ['.', ',', '"', "'", '-', ' '];
+    for (let symbol of removeSymbols) {
+        string = replaceAll(string, symbol, '');
     }
     return string;
 }
@@ -37,7 +43,7 @@ function replaceAll(string, substring, replacement) {
 function cleanString(string) {
     // does this trim do anything?
     string = string.trim();
-    let removal = ['\u2013', '\u2012', '\u2014',];
+    let removal = ['\u2013', '\u2012', '\u2014', ];
     // replaces special dashes with normal dash
     for (let term of removal) {
         string = replaceAll(string, term, ';');
@@ -153,7 +159,7 @@ function trackToHTML(trackListing) {
 function capitalize(word) {
     if (word === '') {
         // hit this with "war pig"
-        consol.log('capitalize was passed an empty word.')
+        console.log('capitalize was passed an empty word.')
         return '';
     } else if (typeof (word) === 'string') {
         // normal behavior

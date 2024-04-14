@@ -78,7 +78,9 @@ function checkAnswer(userAnswer) {
  * @param {array of strings not standardized} answerArray 
  */
 function compareGuess(userAnswer, answerArray) {
+    console.log(`compare fired with ${userAnswer}`)
     normedUserAnswer = norm(userAnswer);
+    console.log(normedUserAnswer);
     // when adding functionality to log songs and artists separately, 
     // have this return an array where the second value dictates 
     // if it is a song or an artist
