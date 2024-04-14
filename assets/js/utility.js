@@ -1,6 +1,7 @@
 // This file contains utility functions that will be used by the DB file
 // as well as the main script file. They each modify the format of a string.
 
+console.log('utility.js started loading');
 /**
  * Returns normalized version of string
  * suitable for comparison purposes
@@ -185,3 +186,5 @@ function primaryArtist(artistString) {
     primaryArtist = primaryArtist.split(' feat')[0];
     return primaryArtist;
 }
+
+console.log("utility.js finished loading");

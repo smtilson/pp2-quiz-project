@@ -4,10 +4,10 @@ console.log('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     console.log("loaded");
     console.log('started dom content loaded listener');
-    if (window.screen.width>= 768){
+    if (window.screen.width >= 768) {
         adjustRecordsForLargeScreens();
     }
-    setupEventHandlers();    
+    setupEventHandlers();
 });
 
 
@@ -286,23 +286,23 @@ function prevButtonHandler(event) {
 
 function findNextSongHTML(songHTML) {
     console.log("current song is ", songHTML);
-    let index = trackList.indexOf(songHTML);
+    let index = tracks.indexOf(songHTML);
     console.log(index);
-    if (index + 1 < trackList.length) {
-        songHTML = trackList[index + 1];
+    if (index + 1 < tracks.length) {
+        songHTML = tracks[index + 1];
     } else {
-        songHTML = trackList[0];
+        songHTML = tracks[0];
     }
     console.log("now it is ", songHTML);
     return songHTML;
 }
 
 function findPrevSongHTML(songHTML) {
-    const index = trackList.indexOf(songHTML);
+    const index = tracks.indexOf(songHTML);
     if (index - 1 >= 0) {
-        songHTML = trackList[index - 1];
+        songHTML = tracks[index - 1];
     } else {
-        songHTML = trackList[0];
+        songHTML = tracks[0];
     }
     console.log("now it is ", songHTML);
     return songHTML;
@@ -325,57 +325,51 @@ function writePage(songHTML) {
 function buildHTML(songHTML, ytLink) {
     console.log(songHTML);
     console.log(ytLink);
-    let content = `<div class="main-content-div gap5">
-    <div class="content container left panel">
-        <p class="instructions">
-            Guess the artists or songs that are being sampled.</p>
-        <!-- I think I may delete this from the game play 
-            <p class="content container difficulty">Have fun! </p> -->
-    </div>
-    <div class="video-feedback-answer-div">
-        <h3 class="song-title">
-            ${htmlToTitle(songHTML)} from All Day
-        </h3>
-        <div class="video-div">
-            <iframe id="song-video" width="300" height="225"
-                src="${ytLink}">
-            </iframe>
-        </div>
-        <div class="feedback-div container content">
-            <span class="feedback"></span>
-        </div>
-        <div class="answer-area container content">
-            <input type="text" class="user-answer">
-            <button type="submit" class="submit-button">Submit Answer</button>
-        </div>
-    </div>
-    <div class="content container right panel records-div">
-        <!--<div class="scores-div">-->
-            <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
-            <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
-       <!-- </div>-->
-        <!-- make this just a string list for now -->
-        <!--<div class="submitted-answers">-->
-            <p>Sampled: <span class="correct-submissions"></span></p>
-            <p>Not Sampled: <span class="incorrect-submissions"></span></p>
-        <!--</div>-->
-    </div>
-</div>
-<div id="arrows">
-                <button id="prev-button">Prev</button>
-                <button id="next-button">Next</button>
+    let content = `<div id="main-content-div" class="gap5">
+                <div class="video-feedback-answer-div">
+                    <h3 class="song-title">
+                        ${htmlToTitle(songHTML)} from All Day
+                    </h3>
+                    <div class="video-div">
+                        <iframe id="song-video" width="300" height="225"
+                        src="${ytLink}">
+                        </iframe>
+                    </div>
+                    <div class="feedback-div container content">
+                        <span class="feedback"></span>
+                    </div>
+                    <div class="answer-area container content">
+                        <input type="text" class="user-answer">
+                        <button type="submit" class="submit-button">Submit Answer</button>
+                    </div>
+                </div>
+                <div id="records-div">
+                    <div class="content container left panel">
+                        <p class="scores">Correct: <span class="correct-answer-score">0</span></p>
+                        <p>Samples: <span class="correct-submissions"></span></p>
+                    </div>
+                    <div class="content container right panel">
+                        <p class="scores">Incorrect: <span class="incorrect-answer-score">0</span></p>
+                        <p>Samples: <span class="incorrect-submissions"></span></p>
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div id="arrows">
+                    <button id="prev-button">Prev</button>
+                    <button id="next-button">Next</button>
+                </div>
             </div>`;
     return content
 }
 
-function adjustRecordsForLargeScreens(){
+function adjustRecordsForLargeScreens() {
     let recordsDiv = document.getElementById("records-div");
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
     let targetDiv = document.getElementById('main-content-div');
     targetDiv.appendChild(right);
     targetDiv.insertBefore(left, targetDiv.firstChild);
-    recordsDiv.setAttribute('display','none');
+    recordsDiv.setAttribute('display', 'none');
 }
 
 /**

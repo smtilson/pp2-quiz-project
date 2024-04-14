@@ -3,7 +3,7 @@
 // I can't get the localhost to load while here at ukm, so I will
 // copy the relevant files here in advance.
 
-consol.log("Database Loaded");
+console.log("Database loading");
 
 const rawSolutions = {
     'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
@@ -422,7 +422,7 @@ const trackList = `"Oh No" – 5:39
  * Prepares solution object upon initial load of page
  */
 let solutions = {};
-for (let songHTML in rawSolutions){
+for (let songHTML in rawSolutions) {
     //console.log(rawSolutions[songHTML]);
     let songData = transformWikiData(rawSolutions[songHTML]);
     solutions[songHTML] = formatSolutions(songData);
@@ -437,14 +437,17 @@ console.log(tracks);
 
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",
-    'let-it-out':"https://www.youtube.com/embed/FtsxfquYHf0",
-    'thats-right':"https://www.youtube.com/embed/xVmXXWcfitw",
-    'jump-on-stage':"https://www.youtube.com/embed/Ka3GznTXur8",
-    'this-is-the-remix':"https://www.youtube.com/embed/DZu_lLGFDtM",
-    'on-and-on':"https://www.youtube.com/embed/lzf8NNF1Af4",
-    'get-it-get-it':"https://www.youtube.com/embed/MRCEgD1nRRM",
-    'down-for-the-count':"https://www.youtube.com/embed/Nr2cfwR0roU",
-    'make-me-wanna':"https://www.youtube.com/embed/9DBmMoW5lSs",
-    'steady-shock':"https://www.youtube.com/embed/p1pd69r1Il8",
-    'triple-double':"https://www.youtube.com/embed/i0yY0zxk-18",
-    'every-day':"https://www.youtube.com/embed/Bo5bBq2j2EE",}
+    'let-it-out': "https://www.youtube.com/embed/FtsxfquYHf0",
+    'thats-right': "https://www.youtube.com/embed/xVmXXWcfitw",
+    'jump-on-stage': "https://www.youtube.com/embed/Ka3GznTXur8",
+    'this-is-the-remix': "https://www.youtube.com/embed/DZu_lLGFDtM",
+    'on-and-on': "https://www.youtube.com/embed/lzf8NNF1Af4",
+    'get-it-get-it': "https://www.youtube.com/embed/MRCEgD1nRRM",
+    'down-for-the-count': "https://www.youtube.com/embed/Nr2cfwR0roU",
+    'make-me-wanna': "https://www.youtube.com/embed/9DBmMoW5lSs",
+    'steady-shock': "https://www.youtube.com/embed/p1pd69r1Il8",
+    'triple-double': "https://www.youtube.com/embed/i0yY0zxk-18",
+    'every-day': "https://www.youtube.com/embed/Bo5bBq2j2EE",
+};
+
+console.log("db finished loading");
