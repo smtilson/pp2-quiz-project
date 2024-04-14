@@ -3,7 +3,7 @@
 // I can't get the localhost to load while here at ukm, so I will
 // copy the relevant files here in advance.
 
-alert("Database Loaded");
+consol.log("Database Loaded");
 
 const rawSolutions = {
     'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
