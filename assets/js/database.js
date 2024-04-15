@@ -428,11 +428,29 @@ for (let songHTML in rawSolutions) {
     solutions[songHTML] = formatSolutions(songData);
 }
 
+
+let maxLength=0;
+let maxSong;
+for (let song in solutions) {
+    for (let sol of solutions[song]) {
+        if (sol.length>=maxLength) {
+            console.log(sol);
+            maxLength = sol.length;
+            maxSong=sol;
+        } else {
+            continue;
+        }
+    }
+}
+console.log(maxLength);
+console.log(maxSong);
+
 console.log('solutions processed');
 
 let tracks = trackList.split('\n');
 tracks = tracks.map((track) => trackToHTML(track));
 console.log('tracks processed');
+
 
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",

@@ -81,7 +81,7 @@ function generateFeedback(answer, songName, guessed, correct) {
         message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
     }
     if (guessed) {
-        message += ' You already guessed that. Try guessing something new.'
+        message += ' You already guessed that. Try guessing something new.';
     }
     return message;
 }
@@ -130,10 +130,10 @@ function addGuess(answer, correctness) {
     let submissionList;
     if (correctness) {
         div = document.getElementById('correct-submissions');
-        listId = 'correct-list'
+        listId = 'correct-list';
     } else {
         div = document.getElementById('incorrect-submissions');
-        listId = 'incorrect-list'
+        listId = 'incorrect-list';
     }
     if (div.innerText === '') {
         submissionList = document.createElement("ul");
@@ -177,25 +177,7 @@ function computeCompletionPercentage(songHTML) {
     return percentage;
 }
 
-
-/**
- * This object contains various tests
- * need to add tests for each song.
- */
-
-
-/**
- * These functions manage writing the html for the page and navigation 
- * 
- */
-
-function testWriteBasicLinks() {
-    let text = '';
-    for (let key in youtubeLinks) {
-        text += sectionContent(key, youtubeLinks[key]);
-    }
-    return text;
-}
+// These functions manage writing the html for the page and navigation 
 
 /**
  * 
@@ -255,14 +237,6 @@ function changeQuestion(songHTML) {
     resetElementById('correct-submissions');
     resetElementById('incorrect-submissions');
     setupEventHandlers();
-
-
-
-    // needs to update song title
-    // needs to update youtube link
-    // needs to reset scores
-    // needs to reset feedback
-    // needs to rerun event handlers maybe?
 }
 
 function resetElementById(elementId) {
@@ -342,8 +316,8 @@ function setupEventHandlers() {
         // console.log("button event about to be added");
         // should this be refactored?
         button.addEventListener("click", function () {
-            console.log("event triggered by button click")
-            playSongQuiz(songHTML)
+            console.log("event triggered by button click");
+            playSongQuiz(songHTML);
         });
         // console.log("button event already added");
         let answerBox = document.getElementById('user-answer');
@@ -359,5 +333,5 @@ function setupEventHandlers() {
                 playSongQuiz(songHTML);
             }
         });
-    });
+    })
 };

@@ -12,6 +12,7 @@ function norm(string) {
     // removal of spaces causes some common words to appeaer 
     // when they wouldn't otherwise
     string = string.toLowerCase();
+    string = removeParenthetical(string);
     // adds buffer so words will be removed from beginning and end of string
     string = ' ' + string + ' ';
     let removeWords = [' the ', ' a ', 'an ', ' an ', "'n'", ' of ', ];
@@ -42,6 +43,7 @@ function replaceAll(string, substring, replacement) {
  */
 function cleanString(string) {
     // does this trim do anything?
+    string = removeParenthetical(string);
     string = string.trim();
     let removal = ['\u2013', '\u2012', '\u2014', ];
     // replaces special dashes with normal dash
@@ -179,6 +181,10 @@ function primaryArtist(artistString) {
     let primaryArtist = artistString.split(' featuring')[0];
     primaryArtist = primaryArtist.split(' feat')[0];
     return primaryArtist;
+}
+
+function removeParenthetical (songString) {
+    return songString.split('(')[0];
 }
 
 function htmlListToArray(stringHTML) {
