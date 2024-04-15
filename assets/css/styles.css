@@ -147,7 +147,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
     margin-top: 1em;
 }
 
@@ -165,11 +164,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
     background-color: #012D52;
     /* marker 2 */
     min-height: 75px;
     justify-content: space-evenly;
+}
+
+.game-gap {
+    gap: 5px;
 }
 
 #feedback-div {
@@ -251,10 +253,8 @@ main {
 @media screen and (min-width: 360px) {
     #game-content-div {
         margin-top: -.5em;
-        gap: 8px;
     }
-
-    #video-feedback-answer-div {
+    .game-gap {
         gap: 8px;
     }
 
