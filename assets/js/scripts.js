@@ -238,6 +238,8 @@ function changeQuestion(songHTML) {
     let iframe = document.getElementById('song-video');
     const ytlink = youtubeLinks[songHTML];
     iframe.setAttribute('src', ytlink);
+    let ariaLabel = `Youtube video for ${toTitle(songHTML)}, but image is just the album cover for All Day`;
+    iframe.setAttribute('aria-label', ariaLabel);
     resetElementById('correct-answer-score', '0');
     resetElementById('completion-percentage', '0');
     resetElementById('correct-submissions', '');
@@ -257,35 +259,39 @@ function resetElementById(elementId, resetValue) {
  * the prev and next song arrows.
  * @returns if screen is too small, nothing is returned
  */
-function adjustForLargeScreens() {
-    console.log("adjusting function hit");
+function moveArrows() {
+    if (window.screen.width < 768) {
+        return;
+    }
+    let targetDiv = document.getElementById('video-feedback-answer-div');
+    let arrowSection = document.getElementById('outer-arrow-section');
+    let arrows = document.getElementById('arrows');
+    targetDiv.appendChild(arrows);
+    arrowSection.remove();
+}
+
+function moveRecordDivs() {
     if (window.screen.width < 768) {
         return;
     }
     let recordsDiv = document.getElementById("records-div");
-    console.log(recordsDiv);
-    console.log(recordsDiv.children);
     let left = recordsDiv.children[0];
-    console.log(left);
     let right = recordsDiv.children[1];
-    console.log(right);
-    let targetDiv1 = document.getElementById('game-content-div');
-    let targetDiv2 = document.getElementById('video-feedback-answer-div');
-    let arrowSection = document.getElementById('outer-arrow-section');
-    let arrows = document.getElementById('arrows');
-    targetDiv1.appendChild(right);
-    targetDiv1.insertBefore(left, targetDiv1.firstChild);
+    let targetDiv = document.getElementById('game-content-div');
+    targetDiv.appendChild(right);
+    targetDiv.insertBefore(left, targetDiv1.firstChild);
     recordsDiv.remove();
-    targetDiv2.appendChild(arrows);
-    arrowSection.remove();
 }
 
 // this could be refactored so that the event that is being
 // listened for is a touch
+/**
+ * maybe this should be removed
+ * This function gives visual feedback, letting a user know they have clicked a button
+ * @param {id for element that should respond when clicked} elementId 
+ * @param {class to be added to button upon click} className 
+ */
 function addClickResponseForMobile(elementId, className) {
-    /*if (window.screen.width > 900) {
-        return ;
-    }*/
     let button = document.getElementById(elementId);
     if (button) {
         button.addEventListener("click", function () {
