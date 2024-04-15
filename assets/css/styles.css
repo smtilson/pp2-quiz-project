@@ -209,7 +209,7 @@ main {
 
 #arrows {
     display: flex;
-    gap: 5px;
+    gap: 30px;
 }
 
 .arrow-button {
