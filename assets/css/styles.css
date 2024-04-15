@@ -65,7 +65,7 @@ main {
     align-items: center;
 }
 
-#main-content-div {
+#index-content-div {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -124,6 +124,13 @@ main {
 
 /* game page styles */
 /* video, feedback, and answer area styles */
+#game-content-div {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -0.5em;
+}
 #song-title {
     margin-bottom: .25em;
 }
@@ -176,6 +183,7 @@ main {
     width: 65%;
     border-radius: 5px;
     border-color: #E5ECFD;
+    background-color: #E5ECFD;
 }
 
 .button {
