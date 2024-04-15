@@ -294,6 +294,10 @@ main {
         justify-content: space-evenly;
     }
 
+    #game-content-div {
+        margin-top: 2em;
+    }
+
     .index-container {
         background-color: #012D52;
         padding: 10px;
