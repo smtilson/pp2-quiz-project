@@ -248,19 +248,25 @@ main {
     /* marker 2 */
 }
 
-@media screen and (min-height: 667px) {
-    #game-content-div{ 
-        margin-top: -1em;
+@media screen and (min-width: 360px) {
+    #game-content-div {
+        margin-top: -.5em;
+        gap: 8px;
+    }
+
+    #video-feedback-answer-div {
+        gap: 8px;
     }
 
     .arrow-button {
         font-size: 2.5em;
     }
-}
 
-@media screen and (min-width: 400px) {
+    .panel {
+        min-height: 9em;
+    }
     #song-video {
-        width: 350px;
+        width: 345px;
         height: 262px;
     }
 
@@ -271,24 +277,9 @@ main {
     #records-div {
         width: 98%;
     }
-
-    #arrows {
-        gap: 40px;
-    }
-
-    .arrow-button {
-        width: 2.5em;
-    }
 }
 
-
-
 @media screen and (min-width: 760px) {
-    body {
-        background-color: #011633;
-        /* marker body */
-    }
-
     header {
         width: 44%;
         margin-top: 1em;
@@ -317,10 +308,6 @@ main {
         width: 50%;
     }
 
-    .index {
-        min-height: 21.6em;
-    }
-
     #index-content-div,
     #game-content-div {
         flex-direction: row;
@@ -335,6 +322,7 @@ main {
 
     .index-container {
         padding: 10px;
+        min-height: 21.6em;
     }
 
     #play-game {
@@ -390,7 +378,7 @@ main {
 }
 
 @media screen and (min-width: 900px) {
-    .index {
+    .index-container {
         min-height: 18em;
     }
 }
