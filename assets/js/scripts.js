@@ -4,7 +4,7 @@ console.log('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     console.log("loaded");
     console.log('started dom content loaded listener');
-    setupEventHandlers();
+    setupPage();
 });
 
 
@@ -230,6 +230,11 @@ function findPrevSongHTML(songHTML) {
     return songHTML;
 }
 
+/**
+ * Updates keys fields in the html in order to play quiz for another song.
+ * Also reloads event handlers.
+ * @param {song name in html format} songHTML 
+ */
 function changeQuestion(songHTML) {
     let section = document.getElementById('game-section');
     section.dataset.song = songHTML;
@@ -244,9 +249,14 @@ function changeQuestion(songHTML) {
     resetElementById('completion-percentage', '0');
     resetElementById('correct-submissions', '');
     resetElementById('incorrect-submissions', '');
-    setupEventHandlers();
+    setupPage();
 }
 
+/**
+ * Resets innerHTML of element to specified base value.
+ * @param {element to be reset} elementId 
+ * @param {value to be set} resetValue 
+ */
 function resetElementById(elementId, resetValue) {
     let element = document.getElementById(elementId);
     element.innerHTML = resetValue;
@@ -255,14 +265,9 @@ function resetElementById(elementId, resetValue) {
 // These functions are called regardless but only take effect
 // when the screen is a certain size
 /**
- * This moves the location of the records as well as 
- * the prev and next song arrows.
- * @returns if screen is too small, nothing is returned
+ * This moves the prev and next song arrows on larger screens.
  */
 function moveArrows() {
-    if (window.screen.width < 768) {
-        return;
-    }
     let targetDiv = document.getElementById('video-feedback-answer-div');
     let arrowSection = document.getElementById('outer-arrow-section');
     let arrows = document.getElementById('arrows');
@@ -270,16 +275,17 @@ function moveArrows() {
     arrowSection.remove();
 }
 
+/**
+ * This moves record div on larger screens.
+ */
 function moveRecordDivs() {
-    if (window.screen.width < 768) {
-        return;
-    }
+    console.log('move records called')
     let recordsDiv = document.getElementById("records-div");
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
     let targetDiv = document.getElementById('game-content-div');
+    targetDiv.insertBefore(left, targetDiv.firstChild);
     targetDiv.appendChild(right);
-    targetDiv.insertBefore(left, targetDiv1.firstChild);
     recordsDiv.remove();
 }
 
@@ -301,49 +307,32 @@ function addClickResponseForMobile(elementId, className) {
 }
 
 /**
- * This adds all event handlers.
- * It is done this way so that it can be called 
- * again when the song for the game changes.
+ * Adds event handlers.
+ * Checks screen size and moves elements if suitable.
+ *
  */
-function setupEventHandlers() {
+function setupPage() {
     console.log('setupEventHandler called');
-    adjustForLargeScreens();
+    if (window.screen.width >= 768) {
+        moveRecordDivs();
+        moveArrows();
+    }
     addClickResponseForMobile('play-game', 'clicked-play-game');
-    let section = document.getElementById('game-section');
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);
-    console.log('next button set');
     let prevButton = document.getElementById('prev-button');
     prevButton.addEventListener('click', prevButtonHandler);
-    console.log('prev button set');
-    // should this listener be added at screen load?
-    // does it depend on the screen size?
-    // maybe change this to be the play event of the video or a click on the video, or mousenter on the video.
-    // shit, house is this triggered on mobile??
-    section.addEventListener("mouseenter", function () {
-        // console.log(`mouse enter is being triggered for ${this.id}`);
-        //console.log(`section ${this.id} mouse over trigger hit`)
-        const songHTML = this.dataset.song;
-        const button = document.getElementById('submit-button');
-        // console.log("button event about to be added");
-        // should this be refactored?
-        button.addEventListener("click", function () {
-            console.log("event triggered by button click");
-            playSongQuiz(songHTML);
-        });
-        // console.log("button event already added");
-        let answerBox = document.getElementById('user-answer');
-        answerBox.value = '';
-        answerBox.focus();
-        // console.log("answerbox event about to be added");
-        answerBox.addEventListener('keydown', function (event) {
-            if (answerBox.value === '') {
-                return;
-            } else if (event.key === 'Enter') {
-                // console.log("play song triggered by enter key press")
-                // this can be done better using the event
-                playSongQuiz(songHTML);
-            }
-        });
-    })
-};
+    // should this be refactored into a separate function?
+    const button = document.getElementById('submit-button');
+    button.addEventListener("click", playSongQuiz);
+    let answerBox = document.getElementById('user-answer');
+    answerBox.addEventListener('keydown', function (event) {
+        if (answerBox.value === '') {
+            return;
+        } else if (event.key === 'Enter') {
+            playSongQuiz();
+        }
+    });
+    answerBox.value = '';
+    answerBox.focus();
+}
