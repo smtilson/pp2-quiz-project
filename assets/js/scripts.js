@@ -179,64 +179,6 @@ function incrementScores(result) {
  * need to add tests for each song.
  */
 
-const testSuite = {
-    // note that there is no difference between incorrect
-    // songs and artists
-    // I should come up with more test cases for artist names
-    testSongs: function () {
-        testSuite.resetScores();
-        checkAnswer("war pigs"); //+1 correct
-        testSuite.compareScores(1, 0);
-        checkAnswer("war pIGs the"); // repeat
-        testSuite.compareScores(1, 0);
-        checkAnswer("w ar  pigs"); // repeat
-        testSuite.compareScores(1, 0);
-    },
-    testArtists: function () {
-        this.resetScores();
-        let artistNames = ["2pac", "2pa c", "2Pac", "the Ramones", "Ramones", "Black Sabbath", "Black Sabbath", "Jay-Z", "Jay z", "2asd", "2asd", "asd", ];
-        let compareValues = [
-            [1, 0],
-            [1, 0],
-            [1, 0],
-            [2, 0],
-            [2, 0],
-            [3, 0],
-            [3, 0],
-            [4, 0],
-            [4, 0],
-            [4, 1],
-            [4, 1],
-            [4, 2],
-        ];
-        testSuite.compareScores(0, 0);
-        for (let index in artistNames) {
-            console.log("index is ", index);
-            checkAnswer(artistNames[index]);
-            testSuite.compareScores(compareValues[index][0], compareValues[index][1]);
-        }
-    },
-    fetchScores: function () {
-        return [getElementBySongAndClass('oh-no', 'correct-answer-score').textContent,
-            getElementBySongAndClass('oh-no', 'incorrect-answer-score').textContent
-        ];
-    },
-    fetchAnswers: function () {
-        const correct = getElementBySongAndClass('oh-no', "correct-submissions").textContent.split(';');
-        const incorrect = getElementBySongAndClass('oh-no', "incorrect-submissions").textContent.split(';');
-        return [correct, incorrect];
-    },
-    resetScores: function () {
-        getElementBySongAndClass('oh-no', 'correct-answer-score').textContent = 0;
-        getElementBySongAndClass('oh-no', 'incorrect-answer-score').textContent = 0;
-    },
-    compareScores: function (cScore, iScore) {
-        let correct = testSuite.fetchScores()[0];
-        let incorrect = testSuite.fetchScores()[1];
-        console.log(`correct should be ${cScore}, it is `, correct);
-        console.log(`incorrect should be ${iScore}, it is `, incorrect);
-    },
-}
 
 /**
  * These functions manage writing the html for the page and navigation 

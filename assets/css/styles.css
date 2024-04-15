@@ -303,7 +303,7 @@ main {
     .panel {
         display: flex;
         flex-direction: column;
-        align-items: initial;
+        /*align-items: initial;*/
         position: relative;
         top: 4em;
         width: 20%;
