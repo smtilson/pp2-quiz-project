@@ -227,6 +227,7 @@ main {
     min-height: 7.5em;
     position: relative;
     width: 50%;
+    max-width: 200px;
 }
 
 .scores {
@@ -383,5 +384,44 @@ main {
     .arrow-button {
         width:4em;
         font-size: 3em;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    main {
+        margin-top: 0em;
+    }
+
+    .index-container {
+        min-height: 20em;
+    }
+
+    #song-video {
+        width: 550px;
+    }
+    .arrow-button {
+        width:4em;
+        font-size: 3em;
+    }
+}
+
+@media screen and (min-height: 1024px) {
+    main {
+        margin-top: 1em;
+    }
+
+    .index-container {
+        min-height: 20em;
+    }
+
+    #song-video {
+        height: 450px;
+    }
+
+    .game-container {
+        min-height: 110px;
+    }
+    .panel {
+        min-height: 200px;
     }
 }
