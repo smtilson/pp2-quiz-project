@@ -1,7 +1,7 @@
 // This file contains utility functions that will be used by the DB file
 // as well as the main script file. They each modify the format of a string.
 
-console.log('utility.js started loading');
+console.log('utility functions started loading');
 /**
  * Returns normalized version of string
  * suitable for comparison purposes
@@ -181,4 +181,4 @@ function primaryArtist(artistString) {
     return primaryArtist;
 }
 
-console.log("utility.js finished loading");
+console.log("utility functions finished loading");

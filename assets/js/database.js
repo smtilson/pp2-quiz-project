@@ -428,12 +428,11 @@ for (let songHTML in rawSolutions) {
     solutions[songHTML] = formatSolutions(songData);
 }
 
-console.log(solutions['oh-no']);
+console.log('solutions processed');
 
 let tracks = trackList.split('\n');
 tracks = tracks.map((track) => trackToHTML(track));
-console.log('tracks??');
-console.log(tracks);
+console.log('tracks processed');
 
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",
@@ -450,4 +449,4 @@ const youtubeLinks = {
     'every-day': "https://www.youtube.com/embed/Bo5bBq2j2EE",
 };
 
-console.log("db finished loading");
+console.log("database finished loading");

@@ -240,6 +240,8 @@ function changeQuestion(songHTML) {
     let iframe = document.getElementById('song-video');
     const ytlink = youtubeLinks[songHTML];
     iframe.setAttribute('src', ytlink);
+    resetElementById('correct-answer-score');
+    resetElementById('completion-percentage');
     resetElementById('correct-submissions');
     resetElementById('incorrect-submissions');
     setupEventHandlers();
