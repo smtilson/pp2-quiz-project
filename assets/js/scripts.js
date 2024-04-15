@@ -103,14 +103,15 @@ function displayFeedback(feedback) {
  * @param {*} correctness 
  */
 function alreadyGuessed(guess, correctness) {
-    let span;
+    let raw;
     const normedGuess = norm(guess);
     if (correctness) {
-        span = document.getElementById('correct-submissions');
+        raw = document.getElementById('correct-submissions').innerHTML;
     } else {
-        span = document.getElementById('incorrect-submissions');
+        raw = document.getElementById('incorrect-submissions').innerHTML;
     }
-    let submissions = span.innerText.split('; ');
+    let submissions = htmlListToArray(raw);
+    console.log(submissions);
     submissions = submissions.map((word) => norm(word));
     if (submissions.includes(normedGuess)) {
         return true;

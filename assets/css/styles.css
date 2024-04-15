@@ -216,8 +216,9 @@ main {
 #records-div {
     display: flex;
     /* why does this seem to not be responsive*/
-    gap: 4%;
-    width: 93%;
+    gap: 1%;
+    width: 105%;
+    justify-content: center;
 }
 
 .panel {
@@ -232,7 +233,7 @@ main {
 
 .scores {
     position: absolute;
-    top: 1em;
+    top: .5em;
 }
 
 #arrows {

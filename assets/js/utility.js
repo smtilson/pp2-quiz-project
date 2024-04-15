@@ -181,4 +181,17 @@ function primaryArtist(artistString) {
     return primaryArtist;
 }
 
+function htmlListToArray(stringHTML) {
+    console.log(stringHTML);
+    let htmlData = [' id=','incorrect-list','correct-list','"',"'",'<ul>', '</ul>', '<li>'];
+    for (let datum of htmlData) {
+        console.log(`removing ${datum}`);
+        stringHTML = replaceAll(stringHTML,datum, '');
+        console.log(stringHTML);
+    }
+    stringHTML = replaceAll(stringHTML, '</li>', ';');
+    console.log(stringHTML);
+    return stringHTML.split(';');
+}
+
 console.log("utility functions finished loading");
