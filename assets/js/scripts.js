@@ -124,17 +124,26 @@ function alreadyGuessed(guess, correctness) {
  */
 
 function addGuess(answer, correctness) {
-    let span;
+    let div;
+    let listId;
+    let submissionList;
     if (correctness) {
-        span = document.getElementById('correct-submissions');
+        div = document.getElementById('correct-submissions');
+        listId = 'correct-list'
     } else {
-        span = document.getElementById('incorrect-submissions');
+        div = document.getElementById('incorrect-submissions');
+        listId = 'incorrect-list'
     }
-    if (span.innerText === '') {
-        span.innerText = answer;
+    if (div.innerText === '') {
+        submissionList = document.createElement("ul");
+        submissionList.setAttribute('id', listId);
+        div.appendChild(submissionList);
     } else {
-        span.innerText += '; ' + answer;
+        submissionList = document.getElementById(listId);
     }
+    let newItem = document.createElement("li");
+    newItem.innerText = answer;
+    submissionList.appendChild(newItem);
 }
 
 
@@ -142,7 +151,7 @@ function addGuess(answer, correctness) {
  * Increments correct or incorrect answer tally
  * @param {boolean: the answer was correct} result 
  */
-function incrementScores(result,songHTML) {
+function incrementScores(result, songHTML) {
     if (result) {
         let scoreBox = document.getElementById('correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
@@ -158,9 +167,9 @@ function computeCompletionPercentage(songHTML) {
     let totalPossible = solutions[songHTML].length;
     console.log(points);
     console.log(totalPossible);
-    let percentage = parseInt(points)/parseInt(totalPossible);
+    let percentage = parseInt(points) / parseInt(totalPossible);
     console.log(percentage);
-    percentage = 100*percentage;
+    percentage = 100 * percentage;
     console.log(percentage);
     percentage = Math.round(percentage);
     console.log(percentage);
