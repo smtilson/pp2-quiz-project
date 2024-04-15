@@ -277,7 +277,7 @@ function adjustForLargeScreens() {
     console.log(left);
     let right = recordsDiv.children[1];
     console.log(right);
-    let targetDiv1 = document.getElementById('main-content-div');
+    let targetDiv1 = document.getElementById('game-content-div');
     let targetDiv2 = document.getElementById('video-feedback-answer-div');
     let arrowSection = document.getElementById('outer-arrow-section');
     let arrows = document.getElementById('arrows');
