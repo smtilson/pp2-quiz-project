@@ -198,7 +198,7 @@ main {
 #records-div {
     display: flex;
     /* why does this seem to not be responsive*/
-    gap: 5%;
+    gap: 4%;
     width: 93%;
 }
 
@@ -226,6 +226,28 @@ main {
     width: 2em;
     border: solid 3px;
     border-radius: 15px;
+}
+
+@media screen and (min-width: 400px) {
+    #song-video {
+        width: 350px;
+        height: 262px;
+    }
+
+    .game-container{
+        width: 95%;
+    }
+    #records-div {
+        width: 98%;
+    }
+
+    #arrows {
+        gap: 40px;
+    }
+
+    .arrow-button {
+        width: 2.5em;
+    }
 }
 
 @media screen and (min-width: 760px) {
