@@ -4,9 +4,6 @@ console.log('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     console.log("loaded");
     console.log('started dom content loaded listener');
-
-    adjustRecordsForLargeScreens();
-
     setupEventHandlers();
 });
 
@@ -328,17 +325,32 @@ function resetElementById(elementId) {
 
 // These functions are called regardless but only take effect
 // when the screen is a certain size
-function adjustRecordsForLargeScreens() {
+/**
+ * This moves the location of the records as well as 
+ * the prev and next song arrows.
+ * @returns if screen is too small, nothing is returned
+ */
+function adjustForLargeScreens() {
+    console.log("adjusting function hit");
     if (window.screen.width < 768) {
         return;
     }
     let recordsDiv = document.getElementById("records-div");
+    console.log(recordsDiv);
+    console.log(recordsDiv.children);
     let left = recordsDiv.children[0];
+    console.log(left);
     let right = recordsDiv.children[1];
-    let targetDiv = document.getElementById('main-content-div');
-    targetDiv.appendChild(right);
-    targetDiv.insertBefore(left, targetDiv.firstChild);
+    console.log(right);
+    let targetDiv1 = document.getElementById('main-content-div');
+    let targetDiv2 = document.getElementById('video-feedback-answer-div');
+    let arrowSection = document.getElementById('outer-arrow-section');
+    let arrows = document.getElementById('arrows');
+    targetDiv1.appendChild(right);
+    targetDiv1.insertBefore(left, targetDiv1.firstChild);
     recordsDiv.setAttribute('display', 'none');
+    targetDiv2.appendChild(arrows);
+    arrowSection.setAttribute('display','none');
 }
 
 // this could be refactored so that the event that is being
@@ -362,7 +374,7 @@ function addClickResponseForMobile(elementId, className) {
  */
 function setupEventHandlers() {
     console.log('setupEventHandler called');
-    adjustRecordsForLargeScreens();
+    adjustForLargeScreens();
     addClickResponseForMobile('play-game', 'clicked-play-game');
     let section = document.getElementById('game-section');
     let nextButton = document.getElementById('next-button');
