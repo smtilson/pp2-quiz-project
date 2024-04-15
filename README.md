@@ -12,15 +12,20 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 - [Credits and Outside Sources](#credits)
 
 ## Introduction <a name="intro"></a>
+"
 
 ## Design Planes <a name="planes"></a>
 
 ## Features <a name="features"></a>
 
 ### User stories
-As a user, I type an answer and hit enter
+As a user, I type an (in)correct answer and push the enter key/click the button with the mouse.
 
-As a user, I type an answer and click the button
+As a user, I click the "Let's Go" button on the landing page.
+
+As a user, I click the left arrow button on the game page.
+
+As a user, I click the right arrow button on the game page.
 
 ## Testing <a name="testing"></a>
 

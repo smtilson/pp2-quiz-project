@@ -1,13 +1,4 @@
-/* base styles */
-/* colors:
-redoing some colors: plan is that the body background will be the 
-lighter of the two dark blues and then the containers will have the 
-darker of the two dark blues
-- darker blue: #011633 (not utilized: # 011222)
-- other blue: # 012D52
-- lightest blue on page: # 04528C or # 0A5694
-- white text: #E5ECFD (not utilized:#FEFBFD)
-- black: # 00111C*/
+/* validated */
 * {
     padding: 0;
     margin: 0;

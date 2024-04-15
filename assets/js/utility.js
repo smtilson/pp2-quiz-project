@@ -18,7 +18,7 @@ function norm(string) {
     for (let word of removeWords) {
         string = replaceAll(string, word, ' ');
     }
-    let removeSymbols = ['.', ',', '"', "'", '-', ' '];
+    let removeSymbols = ['.', ',','(',')', '"', "'", '-', ' '];
     for (let symbol of removeSymbols) {
         string = replaceAll(string, symbol, '');
     }
