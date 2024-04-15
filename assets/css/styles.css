@@ -189,12 +189,14 @@ main {
     margin: 5px;
     display: flex;
     gap: 5px;
+    height: 1.3em;
 }
 
 #user-answer {
     width: 65%;
     border-radius: 5px;
     background-color: white;
+    font-weight: bold;
     color: black;
 }
 
