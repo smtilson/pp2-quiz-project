@@ -189,7 +189,8 @@ main {
 
 #records-div {
     display: flex;
-    gap: 7px;
+    /* why does this seem to not be responsive*/
+    gap: 5%;
     width: 93%;
 }
 
