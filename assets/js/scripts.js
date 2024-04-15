@@ -35,30 +35,12 @@ function playSongQuiz(songHTML) {
     displayFeedback(feedback);
     // adjusts score and log area appropriately
     if (!guessed) {
-        incrementScores(correct);
+        incrementScores(correct, songHTML);
         addGuess(answer, correct);
     }
     // resets game for next guess
     answerBox.value = '';
     answerBox.focus();
-}
-
-/**
- * This is only used for testing
- * @param {*} answer 
- * @param {*} songName 
- */
-function checkAnswer(userAnswer) {
-    const songSolutions = formatSolutions("ohNo");
-    let answer = compareGuess(userAnswer, songSolutions);
-    const correct = (answer) ? true : false;
-    answer = (answer) ? answer : userAnswer;
-    const guessed = alreadyGuessed(answer, correct);
-    console.log(generateFeedback(answer, 'Oh No', guessed, correct));
-    if (!guessed) {
-        incrementScores(correct);
-        addGuess(answer, correct);
-    }
 }
 
 // Functions related to checking answers
@@ -161,16 +143,29 @@ function addGuess(answer, correctness) {
  * Increments correct or incorrect answer tally
  * @param {boolean: the answer was correct} result 
  */
-function incrementScores(result) {
+function incrementScores(result,songHTML) {
     if (result) {
         let scoreBox = document.getElementById('correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
-    } else {
-        let scoreBox = document.getElementById('incorrect-answer-score');
-        const oldScore = parseInt(scoreBox.innerText);
-        scoreBox.innerText = oldScore + 1;
+        let percentageBox = document.getElementById('completion-percentage');
+        let percentage = computeCompletionPercentage(songHTML);
+        percentageBox.innerText = percentage;
     }
+}
+
+function computeCompletionPercentage(songHTML) {
+    let points = document.getElementById('correct-answer-score').innerText;
+    let totalPossible = solutions[songHTML].length;
+    console.log(points);
+    console.log(totalPossible);
+    let percentage = parseInt(points)/parseInt(totalPossible);
+    console.log(percentage);
+    percentage = 100*percentage;
+    console.log(percentage);
+    percentage = Math.round(percentage);
+    console.log(percentage);
+    return percentage;
 }
 
 
