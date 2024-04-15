@@ -19,7 +19,7 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 ## Features <a name="features"></a>
 
 ### User stories
-As a user, I type an (in)correct answer and push the enter key/click the button with the mouse.
+As a user, I type an (in)correct answer and push the enter key/click the button with the mouse. The answer is submitted. If correct, the score and completion percentage are updated.
 
 As a user, I click the "Let's Go" button on the landing page.
 
@@ -27,7 +27,22 @@ As a user, I click the left arrow button on the game page.
 
 As a user, I click the right arrow button on the game page.
 
+
+### Future directions
+
+- Implement lazy loading for youtube videos
+- Implement advanced scoring where users get an extra bonus for guessing the sample while it is playing.
+- Add more Girl Talk albums.
+- Change videos to be from Girl Walk.
+- Add links to wiki incase they guess one of the unknown samples.
+
 ## Testing <a name="testing"></a>
+
+### Testing Features
+
+### Testing the Game itself
+
+### Testing responsiveness
 
 ## Deployment <a name="deployment"></a>
 
