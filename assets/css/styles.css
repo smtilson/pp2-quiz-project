@@ -62,7 +62,7 @@ h2 {
 
 /* main styles */
 main {
-    margin-top: 5em;
+    margin-top: 4em;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -74,7 +74,6 @@ main {
     position: relative;
     flex-direction: column;
     align-items: center;
-    margin-top: .5em;
 }
 
 .gap5 {
@@ -160,7 +159,7 @@ main {
     border-color: #E5ECFD;
     border: solid 3px;
     border-radius: 15px;
-    width: 90%;
+    width: 300px;
     padding: 5px;
     margin: 5px;
     display: flex;
@@ -169,7 +168,7 @@ main {
     gap: 5px;
     background-color: #012D52;
     /* marker 2 */
-    min-height: 80px;
+    min-height: 75px;
     justify-content: space-evenly;
 }
 
@@ -181,7 +180,7 @@ main {
 
 #feedback {
     margin: 5px;
-    width: 80%;
+    width: fit-content;
 }
 
 #input-label {
@@ -224,8 +223,9 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 9em;
+    min-height: 7.5em;
     position: relative;
+    width: 50%;
 }
 
 .scores {
@@ -235,17 +235,27 @@ main {
 
 #arrows {
     display: flex;
-    gap: 30px;
+    gap: 15vw;
 }
 
 .arrow-button {
-    font-size: 2.5em;
-    width: 2em;
+    font-size: 2em;
+    width: 3em;
     border-color: #E5ECFD;
     border: solid 3px;
     border-radius: 15px;
     background-color: #012D52;
     /* marker 2 */
+}
+
+@media screen and (min-height: 667px) {
+    #game-content-div{ 
+        margin-top: -1em;
+    }
+
+    .arrow-button {
+        font-size: 2.5em;
+    }
 }
 
 @media screen and (min-width: 400px) {
@@ -270,6 +280,8 @@ main {
         width: 2.5em;
     }
 }
+
+
 
 @media screen and (min-width: 760px) {
     body {
