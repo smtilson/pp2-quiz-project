@@ -4,9 +4,9 @@ console.log('initial setup');
 document.addEventListener("DOMContentLoaded", function () {
     console.log("loaded");
     console.log('started dom content loaded listener');
-    if (window.screen.width >= 768) {
-        adjustRecordsForLargeScreens();
-    }
+
+    adjustRecordsForLargeScreens();
+
     setupEventHandlers();
 });
 
@@ -307,12 +307,12 @@ function changeQuestion(songHTML) {
     titleHeader.innerText = `${htmlToTitle(songHTML)} from All Day`;
     let iframe = document.getElementById('song-video');
     const ytlink = youtubeLinks[songHTML];
-    iframe.setAttribute('src',ytlink);
+    iframe.setAttribute('src', ytlink);
     resetElementById('correct-submissions');
     resetElementById('incorrect-submissions');
     setupEventHandlers();
-    
-    
+
+
 
     // needs to update song title
     // needs to update youtube link
@@ -321,12 +321,17 @@ function changeQuestion(songHTML) {
     // needs to rerun event handlers maybe?
 }
 
-function resetElementById(elementId){
+function resetElementById(elementId) {
     let element = document.getElementById(elementId);
     element.innerHTML = '';
 }
 
+// These functions are called regardless but only take effect
+// when the screen is a certain size
 function adjustRecordsForLargeScreens() {
+    if (window.screen.width < 768) {
+        return ;
+    } 
     let recordsDiv = document.getElementById("records-div");
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
@@ -336,6 +341,18 @@ function adjustRecordsForLargeScreens() {
     recordsDiv.setAttribute('display', 'none');
 }
 
+// this could be refactored so that the event that is being
+// listened for is a touch
+function addClickResponseForMobile(elementId,className){
+    /*if (window.screen.width > 900) {
+        return ;
+    }*/
+    let button = document.getElementById(elementId);
+    button.addEventListener("click", function () {
+    button.classList.add(className);
+    });
+}
+
 /**
  * This adds all event handlers.
  * It is done this way so that it can be called 
@@ -343,6 +360,8 @@ function adjustRecordsForLargeScreens() {
  */
 function setupEventHandlers() {
     console.log('setupEventHandler called');
+    adjustRecordsForLargeScreens();
+    addClickResponseForMobile('play-game','clicked-play-game');
     let section = document.getElementById('game-section');
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);
