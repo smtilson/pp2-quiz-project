@@ -1,31 +1,17 @@
 // Initial setup
 
 console.log('initial setup');
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("loaded");
-    console.log('started dom content loaded listener');
-    setupPage();
-});
+document.addEventListener("DOMContentLoaded", setupPage);
 
 
 /**
- * I don't think I need to pass this any thing at all, but maybe that is faster/more efficient than calling a function over and over.
- * @param {string html format} songName
+ * Main gameplay function. Gets users answer. Checks if it is a solution, calls
  */
 function playSongQuiz() {
     const songHTML = getSongHTML();
-    console.log(`playsong triggered with ${songHTML}`);
     let answerBox = document.getElementById("user-answer");
     const userAnswer = answerBox.value;
-    console.log(userAnswer);
-    // these need to be changed so that they access stuff 
-    // from the event object
-    // fetches userAnswer
-    // This should be changed to being accessed from the event
-    // const songJS = htmlToJS(songHTML);
-    // fetches solutions
     const songSolutions = solutions[songHTML];
-
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
     // resets answer to userAnswer if the guess was incorrect   
@@ -33,9 +19,8 @@ function playSongQuiz() {
     let guessed = alreadyGuessed(answer, correct);
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);
-    console.log(feedback);
     displayFeedback(feedback);
-    // adjusts score and log area appropriately
+    // adjusts score and records area appropriately
     if (!guessed) {
         incrementScores(correct, songHTML);
         addGuess(answer, correct);
@@ -50,7 +35,7 @@ function playSongQuiz() {
 /**
  * Checks if userAnswer is in answerArray using normalized form of each 
  * @param {user submitted string} userAnswer 
- * @param {array of sampled asrtists and songs} answerArray 
+ * @param {array of sampled artists and songs} answerArray 
  * @returns correct format of answer or empty string
  */
 function compareGuess(userAnswer, answerArray) {
@@ -65,8 +50,7 @@ function compareGuess(userAnswer, answerArray) {
 }
 
 /**
- * Generates feedback text to either be alerted to user
- * or populate a html element.
+ * Generates feedback text based on answer.
  * @param {string} answer 
  * @param {string} songName
  * @param {boolean} guessed 
@@ -74,7 +58,6 @@ function compareGuess(userAnswer, answerArray) {
  */
 
 function generateFeedback(answer, songName, guessed, correct) {
-    // the songName input needs to be addressed here.
     answer = toTitle(answer);
     let message;
     if (correct) {
@@ -100,7 +83,7 @@ function displayFeedback(feedback) {
 }
 
 /**
- * This checks if a guess was already guessed.
+ * Checks if a guess was already submitted.
  * @param {*} guess 
  * @param {*} correctness 
  */
@@ -109,9 +92,9 @@ function alreadyGuessed(guess, correctness) {
     const normedGuess = norm(guess);
     console.log(normedGuess);
     if (correctness) {
-        raw = document.getElementById('correct-submissions').innerHTML;
+        raw = document.getElementById('correct').innerHTML;
     } else {
-        raw = document.getElementById('incorrect-submissions').innerHTML;
+        raw = document.getElementById('incorrect').innerHTML;
     }
     let submissions = htmlListToArray(raw);
     console.log(submissions);
@@ -132,10 +115,10 @@ function addGuess(answer, correctness) {
     let listId;
     let submissionList;
     if (correctness) {
-        div = document.getElementById('correct-submissions');
+        div = document.getElementById('correct');
         listId = 'correct-list';
     } else {
-        div = document.getElementById('incorrect-submissions');
+        div = document.getElementById('incorrect');
         listId = 'incorrect-list';
     }
     if (div.innerText === '') {
@@ -157,7 +140,7 @@ function addGuess(answer, correctness) {
  */
 function incrementScores(result, songHTML) {
     if (result) {
-        let scoreBox = document.getElementById('correct-answer-score');
+        let scoreBox = document.getElementById('score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
         console.log(scoreBox.innerText);
@@ -170,7 +153,7 @@ function incrementScores(result, songHTML) {
 }
 
 function computeCompletionPercentage(songHTML) {
-    let points = document.getElementById('correct-answer-score').innerText;
+    let points = document.getElementById('score').innerText;
     let totalPossible = solutions[songHTML].length;
     console.log(points);
     console.log(totalPossible);
@@ -245,10 +228,10 @@ function changeQuestion(songHTML) {
     iframe.setAttribute('src', ytlink);
     let ariaLabel = `Youtube video for ${toTitle(songHTML)}, but image is just the album cover for All Day`;
     iframe.setAttribute('aria-label', ariaLabel);
-    resetElementById('correct-answer-score', '0');
+    resetElementById('score', '0');
     resetElementById('completion-percentage', '0');
-    resetElementById('correct-submissions', '');
-    resetElementById('incorrect-submissions', '');
+    resetElementById('correct', '');
+    resetElementById('incorrect', '');
     setupPage();
 }
 
