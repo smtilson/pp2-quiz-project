@@ -183,6 +183,7 @@ function primaryArtist(artistString) {
     return primaryArtist;
 }
 
+// this doesn't have trim because it is called directly after it.
 function removeParenthetical (songString) {
     return songString.split('(')[0];
 }

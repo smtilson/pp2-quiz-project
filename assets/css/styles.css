@@ -286,7 +286,7 @@ main {
 
 @media screen and (min-width: 760px) {
     header {
-        width: 44%;
+        width: 50%;
         margin-top: 1em;
         align-self: center;
         border-color: #E5ECFD;
