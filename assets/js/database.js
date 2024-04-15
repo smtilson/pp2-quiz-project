@@ -364,7 +364,7 @@ const rawSolutions = {
 4:23 ‒ 4:25 — Rosalind Rice featuring French Montana – "Hustler"
 4:40 ‒ 4:40 — Freeway featuring Peedi Crakk – "Flipside"
 4:51 ‒ 4:52 — Master P featuring 5th Ward Weebie – "Ooohhhwee"`,
-}
+};
 
 // maybe add special scripts for this to direct people to the wiki.
 const rawUnknownSamples = {
@@ -403,7 +403,7 @@ const rawUnknownSamples = {
     Unk – "Futuristic Slide"
     will.i.am and Nicki Minaj – "Check It Out"
     Zapp – "Doo Wa Ditty (Blow That Thing)"`,
-}
+};
 
 const trackList = `"Oh No" – 5:39
 "Let It Out" – 6:29
@@ -447,6 +447,10 @@ const youtubeLinks = {
     'steady-shock': "https://www.youtube.com/embed/p1pd69r1Il8",
     'triple-double': "https://www.youtube.com/embed/i0yY0zxk-18",
     'every-day': "https://www.youtube.com/embed/Bo5bBq2j2EE",
+};
+
+const seansHighscore = {
+    'oh-no': 7,
 };
 
 console.log("database finished loading");

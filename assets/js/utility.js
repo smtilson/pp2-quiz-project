@@ -146,7 +146,7 @@ function trackToHTML(trackListing) {
 function capitalize(word) {
     if (word === '') {
         // hit this with "war pig"
-        console.log('capitalize was passed an empty word.')
+        console.log('capitalize was passed an empty word.');
         return '';
     } else if (typeof (word) === 'string') {
         // normal behavior
@@ -156,8 +156,8 @@ function capitalize(word) {
         console.log(word);
         console.log(word[0]);
         console.log(typeof word);
-        consol.log('capitalize was passed a non string')
-        throw `${word} is not a string, it is a ${typeof word}.`
+        console.log('capitalize was passed a non string');
+        throw `${word} is not a string, it is a ${typeof word}.`;
     }
 }
 
