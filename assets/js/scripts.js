@@ -330,8 +330,8 @@ function resetElementById(elementId) {
 // when the screen is a certain size
 function adjustRecordsForLargeScreens() {
     if (window.screen.width < 768) {
-        return ;
-    } 
+        return;
+    }
     let recordsDiv = document.getElementById("records-div");
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
@@ -343,14 +343,16 @@ function adjustRecordsForLargeScreens() {
 
 // this could be refactored so that the event that is being
 // listened for is a touch
-function addClickResponseForMobile(elementId,className){
+function addClickResponseForMobile(elementId, className) {
     /*if (window.screen.width > 900) {
         return ;
     }*/
     let button = document.getElementById(elementId);
-    button.addEventListener("click", function () {
-    button.classList.add(className);
-    });
+    if (button) {
+        button.addEventListener("click", function () {
+            button.classList.add(className);
+        });
+    }
 }
 
 /**
@@ -361,7 +363,7 @@ function addClickResponseForMobile(elementId,className){
 function setupEventHandlers() {
     console.log('setupEventHandler called');
     adjustRecordsForLargeScreens();
-    addClickResponseForMobile('play-game','clicked-play-game');
+    addClickResponseForMobile('play-game', 'clicked-play-game');
     let section = document.getElementById('game-section');
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);

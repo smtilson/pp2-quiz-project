@@ -31,29 +31,33 @@
                             src="https://www.youtube.com/embed/26Ps_k1KpKw">
                         </iframe>
                     </div>
-                    <div id="feedback-div" class="container content">
+                    <div id="feedback-div" class="game-container content">
                         <span id="feedback"></span>
                     </div>
-                    <div id="answer-area" class="container content">
+                    <div id="answer-area" class="game-container content">
                         <!-- input needs a label, Artist or Song -->
-                        <input type="text" id="user-answer">
-                        <button type="submit" id="submit-button">Submit Answer</button>
+                        <span id="input-label">
+                            <label for="user-answer">Song/Artist:</label>
+                            <input type="text" id="user-answer">
+                        </span>
+                        <!-- removed type="submit" from the button below-->
+                        <button id="submit-button" class="button">Submit Answer</button>
                     </div>
                 </div>
                 <div id="records-div">
-                    <div id="left" class="content container panel">
+                    <div id="left" class="content game-container panel">
                         <p class="scores">Correct: <span id="correct-answer-score">0</span></p>
                         <p>Samples: <span id="correct-submissions"></span></p>
                     </div>
-                    <div id="right" class="content container panel">
+                    <div id="right" class="content game-container panel">
                         <p class="scores">Incorrect: <span id="incorrect-answer-score">0</span></p>
                         <p>Samples: <span id="incorrect-submissions"></span></p>
                         <!--</div>-->
                     </div>
                 </div>
                 <div id="arrows">
-                    <button id="prev-button"><i class="fa-solid fa-arrow-left-long arrow-button"></i></button>
-                    <button id="next-button"><i class="fa-solid fa-arrow-right-long arrow-button"></i></button>
+                    <button id="prev-button"><i class="fa-solid fa-arrow-left-long button arrow-button"></i></button>
+                    <button id="next-button"><i class="fa-solid fa-arrow-right-long button arrow-button"></i></button>
                 </div>
             </div>
         </section>

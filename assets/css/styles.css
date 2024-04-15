@@ -81,7 +81,7 @@ main {
     gap: 15px;
 }
 
-.container {
+.index-container {
     border: solid 3px;
     border-radius: 15px;
     width: 80%;
@@ -93,6 +93,8 @@ main {
     gap: 5px;
     background-color: #012D52;
 }
+
+
 
 .content-header {
     align-self: center;
@@ -121,13 +123,6 @@ main {
 }
 
 /* game page styles */
-#left-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
 /* video, feedback, and answer area styles */
 #song-title {
     margin-bottom: .25em;
@@ -145,31 +140,74 @@ main {
     border-radius: 15px;
 }
 
+.game-container {
+    border: solid 3px;
+    border-radius: 15px;
+    width: 90%;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background-color: #012D52;
+    min-height: 80px;
+    justify-content: space-evenly;
+}
+
 #feedback-div {
     display: none;
     padding: 5px;
     align-items: center;
 }
 
-.feedback {
+#feedback {
     margin: 5px;
     width: 80%;
 }
 
-#user-answer {
-    width: 60%;
+#input-label {
     margin: 5px;
-    border-radius: 5px;
+    display: flex;
+    gap: 5px;
 }
 
-#submit-button {
-    background-color: #011633;
+#user-answer {
+    width: 65%;
+    border-radius: 5px;
+    border-color: #E5ECFD;
+}
+
+.button {
     border-radius: 10px;
+    padding: 5px 15px;
+    border: solid 2px #E5ECFD;
+    margin-bottom: 3px;
 }
 
 /* score area styles */
 
 #records-div {
+    display: flex;
+    gap: 7px;
+    width: 93%;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 9em;
+    position: relative;
+}
+
+.scores {
+    position: absolute;
+    top: 1em;
+}
+
+#arrows {
     display: flex;
     gap: 5px;
 }
@@ -177,6 +215,8 @@ main {
 .arrow-button {
     font-size: 2.5em;
     width: 2em;
+    border: solid 3px;
+    border-radius: 15px;
 }
 
 @media screen and (min-width: 760px) {
@@ -212,7 +252,7 @@ main {
         width: 50%;
     }
 
-    .landing {
+    .index {
         min-height: 21.6em;
     }
 
@@ -223,7 +263,7 @@ main {
         gap: 7.5px;
     }
 
-    .container {
+    .index-container {
         background-color: #012D52;
         padding: 10px;
     }
@@ -249,15 +289,14 @@ main {
         height: 315px;
     }
 
-    #left {
-        margin-left: 15px;
+    .game-container {
+        background-color: #012D52;
+        padding: 10px;
     }
 
-    #right {
-        margin-right: 15px;
-        min-height: 17em;
-        padding-left: 10px;
-    }
+    #left {}
+
+    #right {}
 
     .panel {
         display: flex;
@@ -272,7 +311,7 @@ main {
 }
 
 @media screen and (min-width: 900px) {
-    .landing {
+    .index {
         min-height: 18em;
     }
 }
