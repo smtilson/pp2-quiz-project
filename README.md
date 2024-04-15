@@ -12,7 +12,7 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 - [Credits and Outside Sources](#credits)
 
 ## Introduction <a name="intro"></a>
-"
+"He Sampled WHAT??" is a musical quiz based on the album All Day by Girl Talk. Girl Talk is the most widely recognized mash-up artist. He makes music by sampling different songs to construct original collages triggering deep feelings of nostalgia. Inevitably, when listening to his music you try to figure out what songs he has sampled. This is that game. It is very challenging due to his eclectic taste. The point  of the game is to enhance the listening experience.
 
 ## Design Planes <a name="planes"></a>
 
