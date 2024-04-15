@@ -105,6 +105,7 @@ function displayFeedback(feedback) {
 function alreadyGuessed(guess, correctness) {
     let raw;
     const normedGuess = norm(guess);
+    console.log(normedGuess);
     if (correctness) {
         raw = document.getElementById('correct-submissions').innerHTML;
     } else {

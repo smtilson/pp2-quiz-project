@@ -15,11 +15,16 @@ function norm(string) {
     string = removeParenthetical(string);
     // adds buffer so words will be removed from beginning and end of string
     string = ' ' + string + ' ';
-    let removeWords = [' the ', ' a ', 'an ', ' an ', "'n'", ' of ', ];
+    let removeWords = ['the', 'a', 'an', "'n'", 'of',];
+    // If such a word is the whole guess, then it is returned
+    if (removeWords.includes(string)) {
+        return string;
+    }
+    removeWords = removeWords.map((word)=> ' '+word+' ');
     for (let word of removeWords) {
         string = replaceAll(string, word, ' ');
     }
-    let removeSymbols = ['.', ',','(',')', '"', "'", '-', ' '];
+    let removeSymbols = ['.', ',', '"', "'", '-', ' '];
     for (let symbol of removeSymbols) {
         string = replaceAll(string, symbol, '');
     }
@@ -189,15 +194,11 @@ function removeParenthetical (songString) {
 }
 
 function htmlListToArray(stringHTML) {
-    console.log(stringHTML);
     let htmlData = [' id=','incorrect-list','correct-list','"',"'",'<ul>', '</ul>', '<li>'];
     for (let datum of htmlData) {
-        console.log(`removing ${datum}`);
         stringHTML = replaceAll(stringHTML,datum, '');
-        console.log(stringHTML);
     }
     stringHTML = replaceAll(stringHTML, '</li>', ';');
-    console.log(stringHTML);
     return stringHTML.split(';');
 }
 
