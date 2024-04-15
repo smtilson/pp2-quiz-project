@@ -52,7 +52,6 @@ function playSongQuiz(songHTML) {
  * @returns correct format of answer or empty string
  */
 function compareGuess(userAnswer, answerArray) {
-    // console.log(`compare fired with ${userAnswer}`)
     normedUserAnswer = norm(userAnswer);
     for (let answer of answerArray) {
         const testTerm = norm(answer);
@@ -197,8 +196,7 @@ function getSongHTML() {
     return section.dataset.song;
 }
 
-function nextButtonHandler(event) {
-    console.log('next button handler firing');
+function nextButtonHandler() {
     let songHTML = getSongHTML();
     songHTML = findNextSongHTML(songHTML);
     changeQuestion(songHTML);

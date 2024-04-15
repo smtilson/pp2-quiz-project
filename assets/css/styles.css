@@ -308,9 +308,18 @@ main {
         top: 4em;
         width: 20%;
     }
-    
+
     .scores {
         top: .5em;
+    }
+
+    #arrows {
+        gap: 5em;
+    }
+
+    .arrow-button {
+        background-color: #012D52;
+        width: 3em;
     }
 }
 
