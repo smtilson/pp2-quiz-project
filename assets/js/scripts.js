@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
  * I don't think I need to pass this any thing at all, but maybe that is faster/more efficient than calling a function over and over.
  * @param {string html format} songName
  */
-function playSongQuiz(songHTML) {
+function playSongQuiz() {
+    const songHTML = getSongHTML();
     console.log(`playsong triggered with ${songHTML}`);
     let answerBox = document.getElementById("user-answer");
     const userAnswer = answerBox.value;
+    console.log(userAnswer);
     // these need to be changed so that they access stuff 
     // from the event object
     // fetches userAnswer
@@ -158,9 +160,12 @@ function incrementScores(result, songHTML) {
         let scoreBox = document.getElementById('correct-answer-score');
         const oldScore = parseInt(scoreBox.innerText);
         scoreBox.innerText = oldScore + 1;
+        console.log(scoreBox.innerText);
         let percentageBox = document.getElementById('completion-percentage');
         let percentage = computeCompletionPercentage(songHTML);
         percentageBox.innerText = percentage;
+        console.log(percentage);
+
     }
 }
 
@@ -233,16 +238,16 @@ function changeQuestion(songHTML) {
     let iframe = document.getElementById('song-video');
     const ytlink = youtubeLinks[songHTML];
     iframe.setAttribute('src', ytlink);
-    resetElementById('correct-answer-score');
-    resetElementById('completion-percentage');
-    resetElementById('correct-submissions');
-    resetElementById('incorrect-submissions');
+    resetElementById('correct-answer-score', '0');
+    resetElementById('completion-percentage', '0');
+    resetElementById('correct-submissions', '');
+    resetElementById('incorrect-submissions', '');
     setupEventHandlers();
 }
 
-function resetElementById(elementId) {
+function resetElementById(elementId, resetValue) {
     let element = document.getElementById(elementId);
-    element.innerHTML = '';
+    element.innerHTML = resetValue;
 }
 
 // These functions are called regardless but only take effect

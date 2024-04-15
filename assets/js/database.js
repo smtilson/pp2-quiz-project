@@ -88,7 +88,7 @@ const rawSolutions = {
 2:42 ‒ 2:44 — Uncle Louie – "I Like Funky Music"
 2:44 ‒ 2:44 — Beastie Boys – "Paul Revere"
 2:44 ‒ 3:34 — MC Shan – "The Bridge"
-2:44 ‒ 4:03 — Beyoncé – "Single Ladies (Put a Ring on It)"
+2:44 ‒ 4:03 — Beyonce – "Single Ladies (Put a Ring on It)"
 2:52 ‒ 5:21 — M.O.P. – "Ante Up (Robbing-Hoodz Theory)"
 3:53 ‒ 5:22 — Miley Cyrus – "Party in the U.S.A."
 3:53 ‒ 5:22 — Whodini – "Friends"
@@ -307,7 +307,7 @@ const rawSolutions = {
 5:34 ‒ 5:47 — Phoenix – "1901"
 5:47 ‒ 5:47 — Ludacris featuring Nicki Minaj – "My Chick Bad"`,
     'triple-double': `0:00 ‒ 1:28 — Phoenix – "1901"
-0:00 ‒ 0:12 — Beyoncé – "Diva"
+0:00 ‒ 0:12 — Beyonce – "Diva"
 0:07 ‒ 0:53 — Ludacris – "How Low"
 0:10 ‒ 0:13 — Diamond – "Lotta Money"
 0:53 ‒ 1:19 — Devo – "Whip It"
@@ -371,7 +371,7 @@ const rawUnknownSamples = {
     unkown: `8Ball & MJG featuring P. Diddy – "You Don't Want Drama"
     Art of Noise – "Moments in Love"
     Artz & Kraftz – "Surely"
-    Beyoncé – "Sweet Dreams"
+    Beyonce – "Sweet Dreams"
     Big Daddy Kane – "Smooth Operator"
     James Brown – "Funky Drummer"
     Bush – "Glycerine"
@@ -469,6 +469,8 @@ const youtubeLinks = {
 
 const seansHighscore = {
     'oh-no': 7,
+    'let-it-out': 5,
+    'thats-right':4,
 };
 
 console.log("database finished loading");

@@ -17,9 +17,9 @@ function norm(string) {
     string = ' ' + string + ' ';
     let removeWords = ['the', 'a', 'an', "'n'", 'of',];
     // If such a word is the whole guess, then it is returned
-    if (removeWords.includes(string)) {
+    /*if (removeWords.includes(string)) {
         return string;
-    }
+    }*/
     removeWords = removeWords.map((word)=> ' '+word+' ');
     for (let word of removeWords) {
         string = replaceAll(string, word, ' ');
