@@ -11,6 +11,11 @@
     box-sizing: border-box;
 }
 
+*, html, body {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -259,9 +264,7 @@ main {
 
     #main-content-div {
         flex-direction: row;
-        gap: 18px;
         align-items: flex-start;
-        gap: 7.5px;
     }
 
     .index-container {

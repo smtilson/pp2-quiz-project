@@ -348,9 +348,9 @@ function adjustForLargeScreens() {
     let arrows = document.getElementById('arrows');
     targetDiv1.appendChild(right);
     targetDiv1.insertBefore(left, targetDiv1.firstChild);
-    recordsDiv.setAttribute('display', 'none');
+    recordsDiv.remove();
     targetDiv2.appendChild(arrows);
-    arrowSection.setAttribute('display','none');
+    arrowSection.remove();
 }
 
 // this could be refactored so that the event that is being
