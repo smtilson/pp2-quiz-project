@@ -1,4 +1,5 @@
 /* validated */
+/* base styles */
 * {
     padding: 0;
     margin: 0;
@@ -8,10 +9,7 @@
 body {
     display: flex;
     flex-direction: column;
-    /* not sure if this is necessary
-    min-height: 100vh;*/
     background-color: #011633;
-    /* marker body */
     color: white;
 }
 
@@ -24,6 +22,16 @@ ul {
     list-style-type: none;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
 /* header styles */
 header {
     display: flex;
@@ -32,19 +40,8 @@ header {
     flex-direction: column;
     justify-content: center;
     background-color: #012D52;
-    /* marker 2 */
     border-bottom: solid #E5ECFD 5px;
     width: 100%;
-}
-
-header h1,
-h2 {
-    text-align: center;
-}
-
-h1 a {
-    color: white;
-    text-decoration: none;
 }
 
 #logo {
@@ -53,20 +50,32 @@ h1 a {
     font-size: 180%;
 }
 
-#subtitle {
-    padding: 8px 40px;
-    font-size: 115%;
-    margin-top: -7px;
-    align-self: center;
-}
-
-/* main styles */
+/* styles common to landing and game page */
 main {
+    /* pushes content below header */
     margin-top: 20%;
     display: flex;
     flex-direction: column;
     position: relative;
     align-items: center;
+    /*align-self: center;*/
+}
+
+.content-header {
+    align-self: center;
+    padding-top: 4px;
+}
+
+.content {
+    padding: 9px 17px 9px 17px;
+    margin-bottom: 4px;
+}
+
+/* landing page styles */
+#subtitle {
+    padding: 8px 40px;
+    font-size: 115%;
+    margin-top: -7px;
     align-self: center;
 }
 
@@ -89,21 +98,6 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: #012D52;
-    /* marker 2 */
-}
-
-.content-header {
-    align-self: center;
-    padding-top: 4px;
-}
-
-.content {
-    padding: 9px 17px 9px 17px;
-    margin-bottom: 4px;
-}
-
-#link-div {
-    margin-bottom: 1em;
 }
 
 #play-game {
@@ -117,28 +111,11 @@ main {
 }
 
 /* game page styles */
-/* video, feedback, and answer area styles */
 #game-content-div {
     display: flex;
     position: relative;
     flex-direction: column;
     align-items: center;
-    /*margin-top: -0.5em;*/
-}
-
-#song-title {
-    margin-bottom: .25em;
-}
-
-#video-feedback-answer-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
-}
-
-#song-video {
-    border-radius: 15px;
 }
 
 .game-container {
@@ -152,7 +129,6 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: #012D52;
-    /* marker 2 */
     min-height: 75px;
     justify-content: space-evenly;
     text-align: center;
@@ -160,6 +136,30 @@ main {
 
 .game-gap {
     gap: 5px;
+}
+
+.button {
+    border-radius: 10px;
+    padding: 5px 15px;
+    border-color: #E5ECFD;
+    border: solid 2px;
+    margin-bottom: 3px;
+}
+
+/* video, feedback, and answer area styles */
+#video-feedback-answer-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+}
+
+#song-title {
+    margin-bottom: .25em;
+}
+
+#song-video {
+    border-radius: 15px;
 }
 
 #feedback-div {
@@ -170,6 +170,7 @@ main {
 
 #feedback {
     margin: 5px;
+    /*should I remove this width rule */
     width: fit-content;
 }
 
@@ -188,24 +189,13 @@ main {
     color: black;
 }
 
-.button {
-    border-radius: 10px;
-    padding: 5px 15px;
-    border-color: #E5ECFD;
-    border: solid 2px;
-    margin-bottom: 3px;
-}
-
 #submit-button {
     background-color: #011633;
-    /* marker body */
 }
 
 /* score area styles */
-
 #records-div {
     display: flex;
-    /* why does this seem to not be responsive*/
     gap: 1%;
     width: 100%;
     justify-content: center;
@@ -231,6 +221,7 @@ main {
     margin-top: 1.2em;
 }
 
+/* arrow styles */
 #arrows {
     display: flex;
     gap: 15vw;
@@ -243,9 +234,9 @@ main {
     border: solid 3px;
     border-radius: 15px;
     background-color: #012D52;
-    /* marker 2 */
 }
 
+/* media queries */
 @media screen and (min-width: 360px) {
     #game-content-div {
         margin-top: -.5em;
@@ -255,15 +246,13 @@ main {
         gap: 8px;
     }
 
-    .arrow-button {
-        font-size: 2.5em;
-    }
-
-
-
     #song-video {
         width: 345px;
         height: 262px;
+    }
+
+    .arrow-button {
+        font-size: 2.5em;
     }
 }
 
@@ -275,7 +264,6 @@ main {
         border-color: #E5ECFD;
         border: solid 6px;
         border-radius: 15px;
-        /* I am not sure if I like that color */
         padding: 5px;
         position: static;
     }
@@ -284,11 +272,11 @@ main {
         font-size: 200%;
     }
 
-    /* main */
     main {
         margin-top: 0em;
     }
 
+    /* landing page styles */
     #subtitle-div {
         margin-top: 2em;
         font-size: 1.2em;
@@ -296,22 +284,12 @@ main {
         width: 50%;
     }
 
-    #index-content-div,
-    #game-content-div {
+    #index-content-div {
         flex-direction: row;
         align-items: flex-start;
-    }
-
-    #index-content-div {
         gap: 0px;
         justify-content: space-around;
         width: 85%;
-    }
-
-    #game-content-div {
-        margin-top: 2em;
-        justify-content: space-evenly;
-        width: 100%;
     }
 
     .index-container {
@@ -330,26 +308,33 @@ main {
     }
 
     #play-game:hover {
-        /*border-width: 5px;*/
         padding: 15px 28px;
     }
 
-    /* video, feedback, answer area styles */
-
-    #song-video {
-        width: 420px;
-        height: 315px;
+    /* game page styles */
+    #game-content-div {
+        margin-top: 2em;
+        justify-content: space-evenly;
+        /* this addresses a bug, this div was being constricted */
+        width: 95vw;
+        flex-direction: row;
+        align-items: flex-start;
     }
 
     .game-container {
         padding: 10px;
     }
 
-    /* records area styles */
+    /* video, feedback, answer area styles */
+    #song-video {
+        width: 420px;
+        height: 315px;
+    }
+
+    /* score area styles */
     .panel {
         display: flex;
         flex-direction: column;
-        /*align-items: initial;*/
         position: relative;
         top: 4em;
         width: 20%;
@@ -359,6 +344,7 @@ main {
         top: .5em;
     }
 
+    /* arrow styles */
     #arrows {
         gap: 5em;
     }
@@ -373,10 +359,12 @@ main {
         margin-top: -1em;
     }
 
+    /* landing page styles */
     .index-container {
         min-height: 17em;
     }
 
+    /* game page styles */
     #song-video {
         width: 475px;
         height: 300px;
