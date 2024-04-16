@@ -17,6 +17,7 @@
         <h1 id="logo"><a href="index.html">He Sampled WHAT??</a></h1>
     </header>
     <main>
+        <!-- semantic section containing current song data -->
         <section id="game-section" data-song="oh-no">
             <div id="game-content-div" class="game-gap">
                 <div id="video-feedback-answer-div" class="game-gap">
@@ -24,35 +25,35 @@
                         Oh No from All Day
                     </h2>
                     <div id="video-div">
-                        <iframe id="song-video" width="300" height="225"
-                            src="https://www.youtube.com/embed/4bMM7tGV9MI" aria-label="Youtube video for Oh No, but image is just the album cover for All Day">
+                        <iframe id="song-video" width="300" height="225" src="https://www.youtube.com/embed/4bMM7tGV9MI"
+                            aria-label="Youtube video for Oh No, image is just the album cover for All Day">
                         </iframe>
                     </div>
                     <div id="feedback-div" class="game-container content">
                         <span id="feedback"></span>
                     </div>
                     <div id="answer-area" class="game-container content">
-                        <!-- input needs a label, Artist or Song -->
                         <span id="input-label">
                             <label for="user-answer">Song/Artist:</label>
                             <input type="text" id="user-answer">
                         </span>
-                        <!-- removed type="submit" from the button below-->
                         <button id="submit-button" class="button">Submit Answer</button>
                     </div>
                 </div>
                 <div id="records-div">
+                    <!-- panel containing score and correct guesses -->
                     <div id="left" class="content game-container panel">
                         <p class="scores">Score: <span id="score">0</span></p>
                         <div id="correct" class="submissions"></div>
                     </div>
+                    <!-- panel containing completion percentage and incorrect guesses -->
                     <div id="right" class="content game-container panel">
                         <p class="scores">Complete: <span id="completion-percentage">0</span>%</p>
                         <div id="incorrect" class="submissions"></div>
-                        <!--</div>-->
                     </div>
                 </div>
                 <div id="outer-arrow-section">
+                    <!-- arrows for navigation between songs -->
                     <div id="arrows">
                         <button id="prev-button"><i
                                 class="fa-solid fa-arrow-left-long button arrow-button"></i></button>
@@ -63,7 +64,9 @@
             </div>
         </section>
     </main>
+    <!-- Font Awesome javascript -->
     <script src="https://kit.fontawesome.com/d2d64ef9e7.js" crossorigin="anonymous"></script>
+    <!-- my javascript files -->
     <script src="assets/js/utility.js"></script>
     <script src="assets/js/database.js"></script>
     <script src="assets/js/scripts.js"></script>

@@ -1,8 +1,6 @@
 // Initial setup
-
 console.log('initial setup');
 document.addEventListener("DOMContentLoaded", setupPage);
-
 
 /**
  * Main gameplay function. Gets users answer. Checks if it is a solution, 
