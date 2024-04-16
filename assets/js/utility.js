@@ -15,12 +15,12 @@ function norm(string) {
     string = removeParenthetical(string);
     // adds buffer so words will be removed from beginning and end of string
     string = ' ' + string + ' ';
-    let removeWords = ['the', 'a', 'an', "'n'", 'of',];
+    let removeWords = ['the', 'a', 'an', "'n'", 'of', ];
     // If such a word is the whole guess, then it is returned
     /*if (removeWords.includes(string)) {
         return string;
     }*/
-    removeWords = removeWords.map((word)=> ' '+word+' ');
+    removeWords = removeWords.map((word) => ' ' + word + ' ');
     for (let word of removeWords) {
         string = replaceAll(string, word, ' ');
     }
@@ -189,17 +189,36 @@ function primaryArtist(artistString) {
 }
 
 // this doesn't have trim because it is called directly after it.
-function removeParenthetical (songString) {
+function removeParenthetical(songString) {
     return songString.split('(')[0];
 }
 
 function htmlListToArray(stringHTML) {
-    let htmlData = [' id=','incorrect-list','correct-list','"',"'",'<ul>', '</ul>', '<li>'];
+    let htmlData = [' id=', 'incorrect-list', 'correct-list', '"', "'", '<ul>', '</ul>', '<li>'];
     for (let datum of htmlData) {
-        stringHTML = replaceAll(stringHTML,datum, '');
+        stringHTML = replaceAll(stringHTML, datum, '');
     }
     stringHTML = replaceAll(stringHTML, '</li>', ';');
     return stringHTML.split(';');
 }
+
+function determineMax(solutions) {
+    let maxLength = 0;
+    let maxSong;
+    for (let song in solutions) {
+        for (let sol of solutions[song]) {
+            if (sol.length >= maxLength) {
+                console.log(sol);
+                maxLength = sol.length;
+                maxSong = sol;
+            } else {
+                continue;
+            }
+        }
+    }
+    console.log(maxLength);
+    console.log(maxSong);
+}
+
 
 console.log("utility functions finished loading");

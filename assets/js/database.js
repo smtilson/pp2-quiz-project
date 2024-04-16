@@ -1,10 +1,9 @@
-// This file stores the answers as copied from the reference
-// they require processing to be in a wokrable format.
-// I can't get the localhost to load while here at ukm, so I will
-// copy the relevant files here in advance.
+// This file stores the answers as copied from the reference.
+// It also processes those answers into useable format.
 
 console.log("Database loading");
 
+// Raw version of solutions manually stored from fanwiki
 const rawSolutions = {
     'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
     0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
@@ -366,7 +365,7 @@ const rawSolutions = {
 4:51 ‒ 4:52 — Master P featuring 5th Ward Weebie – "Ooohhhwee"`,
 };
 
-// maybe add special scripts for this to direct people to the wiki.
+// These samples may be referenced in future extension of project.
 const rawUnknownSamples = {
     unkown: `8Ball & MJG featuring P. Diddy – "You Don't Want Drama"
     Art of Noise – "Moments in Love"
@@ -405,22 +404,7 @@ const rawUnknownSamples = {
     Zapp – "Doo Wa Ditty (Blow That Thing)"`,
 };
 
-const trackList = `"Oh No" – 5:39
-"Let It Out" – 6:29
-"That's Right" – 5:22
-"Jump on Stage" – 6:22
-"This Is the Remix" – 6:02
-"On and On" – 5:09
-"Get It Get It" – 5:33
-"Down for the Count" – 6:37
-"Make Me Wanna" – 6:23
-"Steady Shock" – 5:47
-"Triple Double" – 6:27
-"Every Day" – 5:10]`;
-
-/**
- * Prepares solution object upon initial load of page
- */
+// Useable format for solutions
 let solutions = {};
 for (let songHTML in rawSolutions) {
     //console.log(rawSolutions[songHTML]);
@@ -428,29 +412,8 @@ for (let songHTML in rawSolutions) {
     solutions[songHTML] = formatSolutions(songData);
 }
 
-
-let maxLength=0;
-let maxSong;
-for (let song in solutions) {
-    for (let sol of solutions[song]) {
-        if (sol.length>=maxLength) {
-            console.log(sol);
-            maxLength = sol.length;
-            maxSong=sol;
-        } else {
-            continue;
-        }
-    }
-}
-console.log(maxLength);
-console.log(maxSong);
-
-console.log('solutions processed');
-
-let tracks = trackList.split('\n');
-tracks = tracks.map((track) => trackToHTML(track));
-console.log('tracks processed');
-
+// Track list
+const trackList = Object.keys(solutions);
 
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",

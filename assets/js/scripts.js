@@ -207,11 +207,11 @@ function prevButtonHandler() {
  * @returns {string} Next song name in html format
  */
 function findNextSongHTML(songHTML) {
-    let index = tracks.indexOf(songHTML);
-    if (index + 1 < tracks.length) {
-        songHTML = tracks[index + 1];
+    let index = trackList.indexOf(songHTML);
+    if (index + 1 < trackList.length) {
+        songHTML = trackList[index + 1];
     } else {
-        songHTML = tracks[0];
+        songHTML = trackList[0];
     }
     return songHTML;
 }
@@ -222,11 +222,11 @@ function findNextSongHTML(songHTML) {
  * @returns {string} Prev song name in html format
  */
 function findPrevSongHTML(songHTML) {
-    const index = tracks.indexOf(songHTML);
+    const index = trackList.indexOf(songHTML);
     if (index - 1 >= 0) {
-        songHTML = tracks[index - 1];
+        songHTML = trackList[index - 1];
     } else {
-        songHTML = tracks[0];
+        songHTML = trackList[0];
     }
     return songHTML;
 }
@@ -300,7 +300,6 @@ function moveRecordDivs() {
 /**
  * Adds event handlers.
  * Checks screen size and moves elements if suitable.
- *
  */
 function setupPage() {
     console.log('setupEventHandler called');
