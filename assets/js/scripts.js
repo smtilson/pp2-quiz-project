@@ -107,9 +107,9 @@ function alreadyGuessed(guess, correctness) {
 }
 
 /**
- * This justs adds guess
+ * Adds either correctly formatted answer to correct submissions 
+ * box or the users guess to incorrect submissions box.
  */
-
 function addGuess(answer, correctness) {
     let div;
     let listId;
@@ -133,36 +133,30 @@ function addGuess(answer, correctness) {
     submissionList.appendChild(newItem);
 }
 
-
 /**
- * Increments correct or incorrect answer tally
- * @param {boolean: the answer was correct} result 
+ * Increments score and updates completion percentage.
+ * @param {boolean: correctness of answer} correct 
+ * @param {string: current song in html format} songHTML 
  */
-function incrementScores(result, songHTML) {
-    if (result) {
-        let scoreBox = document.getElementById('score');
-        const oldScore = parseInt(scoreBox.innerText);
-        scoreBox.innerText = oldScore + 1;
-        console.log(scoreBox.innerText);
-        let percentageBox = document.getElementById('completion-percentage');
-        let percentage = computeCompletionPercentage(songHTML);
-        percentageBox.innerText = percentage;
-        console.log(percentage);
-
+function incrementScores(correct, songHTML) {
+    if (!correct) {
+        return;
     }
+    let scoreBox = document.getElementById('score');
+    const oldScore = parseInt(scoreBox.innerText);
+    const newScore = oldScore + 1;
+    scoreBox.innerText = newScore;
+    console.log(scoreBox.innerText);
+    let percentageBox = document.getElementById('completion-percentage');
+    percentageBox.innerText = completionPercentage(newScore, songHTML);
+    console.log(percentage);
 }
 
-function computeCompletionPercentage(songHTML) {
-    let points = document.getElementById('score').innerText;
+function completionPercentage(points, songHTML) {
     let totalPossible = solutions[songHTML].length;
-    console.log(points);
-    console.log(totalPossible);
     let percentage = parseInt(points) / parseInt(totalPossible);
-    console.log(percentage);
     percentage = 100 * percentage;
-    console.log(percentage);
     percentage = Math.round(percentage);
-    console.log(percentage);
     return percentage;
 }
 

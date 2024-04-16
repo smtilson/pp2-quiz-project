@@ -5,7 +5,7 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 ## Table of Contents <a name="toc"></a>
 - [Title](#title)
 - [Introduction](#intro)
-- [Design Planes](#planes)
+<!--- [Design Planes](#planes)-->
 - [Features](#features)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -14,7 +14,9 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 ## Introduction <a name="intro"></a>
 "He Sampled WHAT??" is a musical quiz based on the album All Day by Girl Talk. Girl Talk is the most widely recognized mash-up artist. He makes music by sampling different songs to construct original collages triggering deep feelings of nostalgia. Inevitably, when listening to his music you try to figure out what songs he has sampled. This is that game. It is very challenging due to his eclectic taste. The point  of the game is to enhance the listening experience.
 
-## Design Planes <a name="planes"></a>
+The user can listen to the songs and guess which samples are being used. They receive feedback in two forms. If the answer is correct, their score and completion percentage improves. They also receive a message stating if the song was indeed sampled for the current track. If they have previously submitted that guess, they then receive encouragement to try something else, and if it is correct, their score is not incremented. Due to the difficulty of the quiz, we decided to not penalize incorrect guesses, and instead list a completion percentage. The goal of this quiz is more to enjoy and celebrate All Day than it is to get a certain score.
+
+This game is implemented for all songs on All Day, and we hope to eventually implement it for all of Girl Talks albums. As well as the Grey Album by Danger Mouse, and the works of other mashup artists.
 
 ## Features <a name="features"></a>
 
