@@ -1,29 +1,31 @@
-// This file contains utility functions that will be used by the DB file
-// as well as the main script file. They each modify the format of a string.
+// This file contains utility functions. They are primarily used to 
+// format strings or convert strings into a different form of data 
+// for processing by other functions. They are mostly used by 
+// database.js but are also used in the script.js for processing. 
 
 console.log('utility functions started loading');
 /**
- * Returns normalized version of string
- * suitable for comparison purposes
- * @param {string to be normalized} string 
+ * Returns a format of string for comparison purposes. This format allows
+ * for users to submit guesses that are not exact matches in terms of 
+ * punctuation etc.
+ * @param {string} string - String to be formatted
+ * @returns {string} Normalized format of string
  */
 function norm(string) {
-    // we remove common words before spacing in case the 
-    // removal of spaces causes some common words to appeaer 
-    // when they wouldn't otherwise
+    // we remove common words, then punctuation, then spaces
+    // this order avoids creation of new occurrences of common words
     string = string.toLowerCase();
     string = removeParenthetical(string);
-    // adds buffer so words will be removed from beginning and end of string
+    // adds buffer so words will be removed from beginning 
+    // and end of string
     string = ' ' + string + ' ';
     let removeWords = ['the', 'a', 'an', "'n'", 'of', ];
-    // If such a word is the whole guess, then it is returned
-    /*if (removeWords.includes(string)) {
-        return string;
-    }*/
+    // ensures that words aren't removed from interior of words
     removeWords = removeWords.map((word) => ' ' + word + ' ');
     for (let word of removeWords) {
         string = replaceAll(string, word, ' ');
     }
+    // removes punctuation and spaces
     let removeSymbols = ['.', ',', '"', "'", '-', ' '];
     for (let symbol of removeSymbols) {
         string = replaceAll(string, symbol, '');
@@ -31,9 +33,14 @@ function norm(string) {
     return string;
 }
 
+
 /**
- * This removes all instances of substring from the string.
- * @param {*} string 
+ * Removes all occurences of substring. Warning, depending on choices,
+ * new instances of the substring may be created by this removal process.
+ * @param {string} string - String to be modified 
+ * @param {string} substring - String to be replaced
+ * @param {string} replacement - Replacement string
+ * @returns {string} With substring replaced
  */
 function replaceAll(string, substring, replacement) {
     while (string.includes(substring)) {
@@ -43,77 +50,76 @@ function replaceAll(string, substring, replacement) {
 }
 
 /**
- * Removes " and special dash characters from strings
- * @param {string} string 
+ * Replaces special dash characters with semi-colons for processing purposes.
+ * @param {string} string - String we want cleaned 
+ * @returns {string} Cleaned version of string
  */
-function cleanString(string) {
-    // does this trim do anything?
-    string = removeParenthetical(string);
+function preprocessString(string) {
+    // this should be moved so that it only applies to the song and artist etc.
     string = string.trim();
     let removal = ['\u2013', '\u2012', '\u2014', ];
-    // replaces special dashes with normal dash
+    // replaces special dashes with semi-colon
     for (let term of removal) {
         string = replaceAll(string, term, ';');
     }
-    /* if removing the double quotes in this way causes an issue, 
-    then it can be done later after the dictionary is built by 
-    just slicing off the first and last character of the string */
     string = replaceAll(string, '"', '');
     return string;
 }
 
-// obtaining processable version of data
-// maybe combine this and formatSolutions into one function.
-// maybe not as this will likely be moved somewhere else when 
-// I use a different form for the database
+/**
+ * Transforms raw form of sample list into array of string data that 
+ * has been preprocessed.
+ * @param {string} rawSamples - Large string, unprocessed 
+ * @returns {array} Array of strings that have been cleaned
+ */
 function transformWikiData(rawSamples) {
-    // if (songName === '') {
     let sampleList = rawSamples.split('\n');
     // cleans each string in the array
-    sampleList = sampleList.map((item) => cleanString(item));
+    sampleList = sampleList.map((item) => preprocessString(item));
     // replaces strings with JS objects
     sampleList = sampleList.map((item) => sampleStringToData(item));
     return sampleList;
 }
 
-// perhaps this should be broken into two pieces, one 
-// that gets the solutions when the song starts/page loads 
-// while the other would check the solutions for the song
-// I am having a hard time articulating this.
-
-// what format should the input for this be?
-// keep track of this variable and make it "more efficient"
-function formatSolutions(rawSongData) {
+/**
+ * Formats solutions into a single array containing both artists and songs.
+ * @param {array} artistAndSongSolutions - Array of song objects
+ * @returns {array} Artists and Songs sampled in single array
+ */
+function formatSolutions(artistAndSongSolutions) {
     // maybe this can be changed to a computed property thing?
-    const artistList = rawSongData.map((entry) => entry.artist);
-    const songList = rawSongData.map((entry) => entry.song);
+    const artistList = artistAndSongSolutions.map((entry) => entry.artist);
+    const songList = artistAndSongSolutions.map((entry) => entry.song);
     return artistList.concat(songList);
 }
 
 /**
  * This function produces an js object containing start of sample,
  * end of sample, artist, and song sampled.
- * @param {This should be a string detailing the duration of the sample, the artist, and the song} sampleString 
+ * @param {string} sampleString 
  */
-// utility function
+
+/**
+ * Produces js Object containing data from sample stored by key
+ * @param {string} sampleString - string of sample data: start, end, artist, song 
+ * @returns {object} Object containing sample data.
+ */
 function sampleStringToData(sampleString) {
     let data = sampleString.split(" ; ");
-    /* should I validate data is of the correct form?*/
     let sampleData = {};
-    // single quotes matter here because of the form
-    // the data is in.
     let keys = ['start', 'end', 'artist', 'song'];
     for (let index in keys) {
         sampleData[keys[index]] = data[index];
     }
     sampleData.artist = primaryArtist(sampleData.artist);
+    sampleData.song = removeParenthetical(sampleData.song);
     return sampleData;
 }
 
 /**
- * Transforms string from html format to title format
- * @param {string in html format} string 
- * @returns 
+ * Transforms song in html format to song in title format.
+ * @param {string} string - Song in html format
+ * @returns {string} Song in title format
  */
 function htmlToTitle(string) {
     string = replaceAll(string, '-', ' ');
@@ -122,9 +128,9 @@ function htmlToTitle(string) {
 }
 
 /**
- * 
- * @param {string in title format} string 
- * @returns string in html format
+ * Transforms song in title format to song in html format.
+ * @param {string} string - Song in title format 
+ * @returns {string} Song in html format
  */
 function titleToHTML(string) {
     string = replaceAll(string, ' ', '-');
@@ -133,67 +139,62 @@ function titleToHTML(string) {
 }
 
 /**
- * converts track listing to html format
- * @param {track listing format} trackListing 
- * @returns 
- */
-function trackToHTML(trackListing) {
-    let string = trackListing.replace(/\u2013|\u2012|\u2014/g, ";");
-    string = string.split(' ;')[0];
-    string = replaceAll(string, '"', '');
-    string = replaceAll(string, "'", '');
-    return titleToHTML(string);
-}
-
-/**
- * 
- * @param {string} word 
- * @returns 
+ * Capitalizes first letter of string.
+ * @param {string} word
+ * @returns {string} Word
  */
 function capitalize(word) {
-    if (word === '') {
-        // hit this with "war pig"
-        console.log('capitalize was passed an empty word.');
-        return '';
-    } else if (typeof (word) === 'string') {
-        // normal behavior
-        // everything else in the function body is to catch a bug
-        return word[0].toUpperCase() + word.slice(1);
-    } else {
-        console.log(word);
-        console.log(word[0]);
-        console.log(typeof word);
-        console.log('capitalize was passed a non string');
-        throw `${word} is not a string, it is a ${typeof word}.`;
-    }
+    return word[0].toUpperCase() + word.slice(1);
 }
+
+
 
 /**
  * Capitalizes first letter of each word.
+ * @param {string} string - To be put in title format
+ * @returns {string} String in title format
  */
 function toTitle(string) {
     string = string.trim();
+    // this catch should be moved further up the call stack
+    if (string === '') {
+        return string;
+    }
     let words = string.split(' ');
     words = words.map(w => capitalize(w));
     return words.join(' ');
 }
 
+
 /**
- * This addresses the issue of answers like 2Pac featuring...
- * it replaces the string by just the primary artist
+ * Removes featured artists.
+ * @param {string} artist 
+ * @returns {string} Only primary artist of song
  */
-function primaryArtist(artistString) {
-    let primaryArtist = artistString.split(' featuring')[0];
+function primaryArtist(artist) {
+    let primaryArtist = artist.split(' featuring')[0];
     primaryArtist = primaryArtist.split(' feat')[0];
     return primaryArtist;
 }
 
-// this doesn't have trim because it is called directly after it.
+/**
+ * Removes parenthetical statements in song titles.
+ * @param {string} song 
+ * @returns {string} Only primary title
+ */
 function removeParenthetical(songString) {
-    return songString.split('(')[0];
+    return songString.split('(')[0].trim();
 }
 
+/**
+ * Converts an html list represented as a string to an array.
+ * @param {string} stringHTML - string of html representing a list element 
+ * @returns {array} Array of list items in string format
+ */
 function htmlListToArray(stringHTML) {
+    // must remove incorrect-list first, or it will be modified by 
+    // removal of correct-list, which would lead to a superfluous 'in' 
+    // that we can not remove safely.
     let htmlData = [' id=', 'incorrect-list', 'correct-list', '"', "'", '<ul>', '</ul>', '<li>'];
     for (let datum of htmlData) {
         stringHTML = replaceAll(stringHTML, datum, '');
@@ -202,6 +203,11 @@ function htmlListToArray(stringHTML) {
     return stringHTML.split(';');
 }
 
+/**
+ * Determines the maximum length of a correct solution. Logs max 
+ * length and the relevant string to the console.
+ * @param {object} solutions - object containing all solutions
+ */
 function determineMax(solutions) {
     let maxLength = 0;
     let maxSong;

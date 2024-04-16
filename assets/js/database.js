@@ -4,6 +4,8 @@
 console.log("Database loading");
 
 // Raw version of solutions manually stored from fanwiki
+// Beyonce, Blue Oyster Cult, and (Don't Fear) The Reaper were 
+// manually edited.
 const rawSolutions = {
     'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
     0:13 ‒ 0:16 — 2Pac featuring K-Ci & JoJo – "How Do U Want It"
@@ -282,7 +284,7 @@ const rawSolutions = {
 5:29 ‒ 6:22 — Travis Porter – "Go Shorty Go"`,
     'steady-shock': `0:00 ‒ 0:13 — J. Cole – "Blow Up"
 0:00 ‒ 0:13 — Travis Porter – "Go Shorty Go"
-0:06 ‒ 0:56 — Blue Öyster Cult – "(Don't Fear) The Reaper"
+0:06 ‒ 0:56 — Blue Oyster Cult – "The Reaper"
 0:13 ‒ 0:54 — Usher featuring Nicki Minaj – "Lil Freak"
 0:36 ‒ 0:37 — T-Pain featuring Young Jeezy – "Reverse Cowgirl"
 0:54 ‒ 1:01 — Young T featuring Treal Lee – "Work Dat Lumba"
@@ -415,6 +417,7 @@ for (let songHTML in rawSolutions) {
 // Track list
 const trackList = Object.keys(solutions);
 
+//Youtube links to each song
 const youtubeLinks = {
     'oh-no': "https://www.youtube.com/embed/4bMM7tGV9MI",
     'let-it-out': "https://www.youtube.com/embed/FtsxfquYHf0",
