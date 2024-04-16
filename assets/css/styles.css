@@ -140,7 +140,8 @@ main {
 
 .button {
     border-radius: 10px;
-    padding: 5px 15px;
+    padding: 5px;
+    text-align: center;
     border-color: #E5ECFD;
     border: solid 2px;
     margin-bottom: 3px;
@@ -224,7 +225,8 @@ main {
 /* arrow styles */
 #arrows {
     display: flex;
-    gap: 15vw;
+    align-items: center;
+    gap: 8px;
 }
 
 .arrow-button {
@@ -234,6 +236,11 @@ main {
     border: solid 3px;
     border-radius: 15px;
     background-color: #012D52;
+}
+
+#back {
+    font-size: 1.5em;
+    padding: 7px;
 }
 
 /* media queries */
@@ -346,7 +353,7 @@ main {
 
     /* arrow styles */
     #arrows {
-        gap: 5em;
+        gap: 2em;
     }
 
     .arrow-button {
