@@ -123,19 +123,14 @@ function sampleStringToData(sampleString) {
  */
 function htmlToTitle(string) {
     string = replaceAll(string, '-', ' ');
-    string = toTitle(string);
-    return string;
-}
-
-/**
- * Transforms song in title format to song in html format.
- * @param {string} string - Song in title format 
- * @returns {string} Song in html format
- */
-function titleToHTML(string) {
-    string = replaceAll(string, ' ', '-');
-    string = string.toLowerCase();
-    return string;
+    /*    I think this catch is no longer necesssary as the function 
+    is only being called on a finite collection of strings that I provide
+    if (string === '') {
+            return string;
+    }*/
+    let words = string.split(' ');
+    words = words.map(w => capitalize(w));
+    return words.join(' ');
 }
 
 /**
@@ -155,14 +150,7 @@ function capitalize(word) {
  * @returns {string} String in title format
  */
 function toTitle(string) {
-    string = string.trim();
-    // this catch should be moved further up the call stack
-    if (string === '') {
-        return string;
-    }
-    let words = string.split(' ');
-    words = words.map(w => capitalize(w));
-    return words.join(' ');
+
 }
 
 
