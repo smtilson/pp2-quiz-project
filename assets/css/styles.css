@@ -172,7 +172,6 @@ main {
 #feedback {
     margin: 5px;
     /*should I remove this width rule */
-    width: fit-content;
 }
 
 #input-label {

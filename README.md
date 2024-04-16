@@ -34,8 +34,7 @@ After the initial brainstorming, I used Balsamiq to make some wireframes for the
 
 ![Desktop site wireframe](/assets/images/screenshots/wireframe-desktop.png)
 
-Due to space limitations, the instructions were moved to a landing page.
-The score area was also broken into two parts.
+Due to space limitations, the instructions were moved to a landing page. An area was also added for displaying feedback to the user.
 
 ## Features <a name="features"></a>
 ### Features
@@ -43,12 +42,19 @@ The score area was also broken into two parts.
 #### Landing Page
 The landing page contains instructions for the game. The instructions explains what type of quiz this is and what types of answers to submit. The landing page also contains a "Warning" paragraph about the difficulty of the quiz. It is meant to encourage players who are unfamiliar with Girl Talk.
 
-Screenshots of landing page:
+![Landing page on desktop](/assets/images/screenshots/landing-page-desktop.png)
+On the left are instructions for the game. On the right is a warning about the difficulty of the quiz. (If you wish to cheat, please see <!-- loose end --> for a link to the answers.)
+Below these, there is a button which takes users to the main game page.
 
-There is a button which takes users to the main game page.
+![Landing page on mobile](/assets/images/screenshots/landing-page-mobile.png)
+On mobile, these elements are displayed vertically.
 
 #### Game Page
-There is a youtube video embedded in the game page. This allows a user to listen to the song as the player takes the quiz. It does not autoplay.
+
+The game page displays the song title and album name. This informs the user which song they are playing the quiz for. Below this, there is an embedded youtube video. This allows a user to listen to the song as the player takes the quiz. It does not autoplay.
+
+![]
+
 
 There is a text input field for users to submit guesses. They can hit the enter key or click the submit button to submit answers. Once the guess is submitted, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the stored solutions are "Ramones" and "M.I.A.", respectively. 
 

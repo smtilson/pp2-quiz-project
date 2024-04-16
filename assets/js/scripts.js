@@ -76,7 +76,7 @@ function generateFeedback(answer, songName, guessed, correct) {
         message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
     }
     if (guessed) {
-        message += '\nYou already guessed that. Try guessing something new.';
+        message += ' You already guessed that. Try guessing something new.';
     }
     return message;
 }
@@ -88,7 +88,7 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @returns {string} Message to be given to user
  */
 function nonsenseFeedback(guess, ) {
-    return `I don't think ${guess} is a very serious answer. \nTry again.`;
+    return `I don't think ${guess} is a very serious answer. Try again.`;
 }
 
 /**
