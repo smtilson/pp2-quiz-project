@@ -237,6 +237,8 @@ function findPrevSongHTML(songHTML) {
  * @param {song name in html format} songHTML 
  */
 
+
+// is calling the setup function again necessary?
 /**
  * Updates section.data-song, song title, youtube link, and aria label to specified song.
  * Resets score, completion percentage, and submission areas.
@@ -262,18 +264,17 @@ function changeQuestion(songHTML) {
 
 /**
  * Resets innerHTML of element to specified base value.
- * @param {element to be reset} elementId 
- * @param {value to be set} resetValue 
+ * @param {string} elementId - Element to be reset 
+ * @param {string} resetValue - Base value for reset 
  */
 function resetElementById(elementId, resetValue) {
     let element = document.getElementById(elementId);
     element.innerHTML = resetValue;
 }
 
-// These functions are called regardless but only take effect
-// when the screen is a certain size
+
 /**
- * This moves the prev and next song arrows on larger screens.
+ * Changes parent element of arrow buttons for larger screens.
  */
 function moveArrows() {
     let targetDiv = document.getElementById('video-feedback-answer-div');
@@ -284,10 +285,9 @@ function moveArrows() {
 }
 
 /**
- * This moves record div on larger screens.
+ * Changes location of record panels for larger screens.
  */
 function moveRecordDivs() {
-    console.log('move records called')
     let recordsDiv = document.getElementById("records-div");
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
@@ -295,23 +295,6 @@ function moveRecordDivs() {
     targetDiv.insertBefore(left, targetDiv.firstChild);
     targetDiv.appendChild(right);
     recordsDiv.remove();
-}
-
-// this could be refactored so that the event that is being
-// listened for is a touch
-/**
- * maybe this should be removed
- * This function gives visual feedback, letting a user know they have clicked a button
- * @param {id for element that should respond when clicked} elementId 
- * @param {class to be added to button upon click} className 
- */
-function addClickResponseForMobile(elementId, className) {
-    let button = document.getElementById(elementId);
-    if (button) {
-        button.addEventListener("click", function () {
-            button.classList.add(className);
-        });
-    }
 }
 
 /**
@@ -325,7 +308,6 @@ function setupPage() {
         moveRecordDivs();
         moveArrows();
     }
-    addClickResponseForMobile('play-game', 'clicked-play-game');
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);
     let prevButton = document.getElementById('prev-button');
