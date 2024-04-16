@@ -1,5 +1,11 @@
 // Initial setup
 console.log('initial setup');
+let correctAnswers = {};
+let incorrectAnswers = {};
+for (let track of trackList) {
+    correctAnswers[track] = [];
+    incorrectAnswers[track] = [];
+}
 document.addEventListener("DOMContentLoaded", setupPage);
 
 /**
@@ -13,16 +19,16 @@ function playSongQuiz() {
     if (catchNonsense(userAnswer)) {
         let message = nonsenseFeedback(userAnswer);
         displayFeedback(message);
-        answerBox.value = '';
-        answerBox.focus();
+        resetAnswerArea();
         return;
     }
     const songSolutions = solutions[songHTML];
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
-    // resets answer to userAnswer if the guess was incorrect   
-    answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct);
+    // resets answer to userAnswer if the guess was incorrect  
+    answer = (answer) ? answer : userAnswer;
+    logGuess(answer, guessed, correct);
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);
     displayFeedback(feedback);
@@ -32,8 +38,7 @@ function playSongQuiz() {
         addGuess(answer, correct);
     }
     // resets game for next guess
-    answerBox.value = '';
-    answerBox.focus();
+    resetAnswerArea();
 }
 
 
@@ -103,20 +108,38 @@ function displayFeedback(feedback) {
  * @return {boolean} True if guess is already present in appropriate list
  */
 function alreadyGuessed(guess, correct) {
-    let rawListHTML;
     const normedGuess = norm(guess);
-    console.log(normedGuess);
-    if (correct) {
-        rawListHTML = document.getElementById('correct').innerHTML;
-    } else {
-        rawListHTML = document.getElementById('incorrect').innerHTML;
-    }
-    let submissions = htmlListToArray(rawListHTML);
+    let submissions = getLogs(correct);
     submissions = submissions.map((word) => norm(word));
+    // checks for guess in logs
     if (submissions.includes(normedGuess)) {
         return true;
     } else {
         return false;
+    }
+}
+
+
+function getLogs(correct) {
+    if (correct) {
+        return correctAnswers[getSongHTML()];
+    } else {
+        return incorrectAnswers[getSongHTML()];
+    }
+}
+
+/**
+ * This logs the guess in the appropriate object.
+ * @param {string} guess - string to be logged 
+ * @param {boolean} correct - Determines where to log string
+ */
+function logGuess(guess, guessed, correct) {
+    if (!guessed) {
+        if (correct) {
+            correctAnswers[getSongHTML()].push(guess);
+        } else {
+            incorrectAnswers[getSongHTML()].push(guess);
+        }
     }
 }
 
@@ -265,16 +288,51 @@ function changeQuestion(songHTML) {
     section.dataset.song = songHTML;
     let titleHeader = document.getElementById('song-title');
     titleHeader.innerText = `${htmlToTitle(songHTML)} from All Day`;
+    updateIFrame(songHTML);
+    resetScoreArea(songHTML);
+    resetElementById('feedback');
+    setupEventHandlers();
+    resetAnswerArea();
+}
+
+/**
+ * Updates iframes youtube link and aria label.
+ * @param {string} songHTML 
+ */
+function updateIFrame(songHTML) {
     let iframe = document.getElementById('song-video');
-    const ytlink = youtubeLinks[songHTML];
-    iframe.setAttribute('src', ytlink);
+    iframe.setAttribute('src',  youtubeLinks[songHTML]);
     let ariaLabel = `Youtube video for ${htmlToTitle(songHTML)}, but image is just the album cover for All Day`;
     iframe.setAttribute('aria-label', ariaLabel);
-    resetElementById('score', '0');
-    resetElementById('completion-percentage', '0');
+}
+
+/**
+ * Resets input area
+ */
+function resetAnswerArea() {
+    let answerBox = document.getElementById('user-answer');
+    answerBox.value = '';
+    answerBox.focus();
+}
+
+/**
+ * Sets up score area for song.
+ * @param {string} songHTML - Song in html format 
+ */
+function resetScoreArea(songHTML) {
+    let oldScore = correctAnswers[songHTML].length;
+    resetElementById('score', oldScore);
+    resetElementById('completion-percentage', completionPercentage(oldScore, songHTML));
     resetElementById('correct', '');
+    for (let answer of correctAnswers[songHTML]) {
+        addGuess(answer, true);
+    }
     resetElementById('incorrect', '');
-    setupPage();
+    console.log(incorrectAnswers[songHTML]);
+    for (let answer of incorrectAnswers[songHTML]) {
+        console.log(answer);
+        addGuess(answer, false);
+    }
 }
 
 /**
@@ -294,6 +352,9 @@ function resetElementById(elementId, resetValue) {
 function moveArrows() {
     let targetDiv = document.getElementById('video-feedback-answer-div');
     let arrowSection = document.getElementById('outer-arrow-section');
+    if (!arrowSection) {
+        return;
+    }
     let arrows = document.getElementById('arrows');
     targetDiv.appendChild(arrows);
     arrowSection.remove();
@@ -304,6 +365,9 @@ function moveArrows() {
  */
 function moveRecordDivs() {
     let recordsDiv = document.getElementById("records-div");
+    /* if (!recordsDiv) {
+         return;
+     } */
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
     let targetDiv = document.getElementById('game-content-div');
@@ -322,6 +386,15 @@ function setupPage() {
         moveRecordDivs();
         moveArrows();
     }
+    setupEventHandlers();
+    resetAnswerArea();
+}
+
+
+/**
+ * Sets up event handlers
+ */
+function setupEventHandlers() {
     let nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', nextButtonHandler);
     let prevButton = document.getElementById('prev-button');
@@ -337,6 +410,4 @@ function setupPage() {
             playSongQuiz();
         }
     });
-    answerBox.value = '';
-    answerBox.focus();
 }
