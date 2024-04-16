@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", setupPage);
 
 
 /**
- * Main gameplay function. Gets users answer. Checks if it is a solution, calls
+ * Main gameplay function. Gets users answer. Checks if it is a solution, 
+ * calls functions to provide user with feedback.
  */
 function playSongQuiz() {
     const songHTML = getSongHTML();
@@ -34,9 +35,9 @@ function playSongQuiz() {
 
 /**
  * Checks if userAnswer is in answerArray using normalized form of each 
- * @param {user submitted string} userAnswer 
- * @param {array of sampled artists and songs} answerArray 
- * @returns correct format of answer or empty string
+ * @param {string} userAnswer - User submitted string 
+ * @param {array} answerArray - Array of sampled artists and songs 
+ * @returns {string} Correct format of answer or empty string
  */
 function compareGuess(userAnswer, answerArray) {
     normedUserAnswer = norm(userAnswer);
@@ -51,12 +52,11 @@ function compareGuess(userAnswer, answerArray) {
 
 /**
  * Generates feedback text based on answer.
- * @param {string} answer 
- * @param {string} songName
- * @param {boolean} guessed 
- * @param {boolean} correct 
+ * @param {string} answer - Correct answer or user submitted guess
+ * @param {string} songName - Name of song in title format 
+ * @param {boolean} guessed - True if already submitted 
+ * @param {boolean} correct - True if answer is correct
  */
-
 function generateFeedback(answer, songName, guessed, correct) {
     answer = toTitle(answer);
     let message;
@@ -72,9 +72,8 @@ function generateFeedback(answer, songName, guessed, correct) {
 }
 
 /**
- * Adds feedback string to html document
- * @param {*} feedback 
- * @param {*} songName 
+ * Adds feedback string to html document.
+ * @param {string} feedback - Message to be added to feedback span
  */
 function displayFeedback(feedback) {
     let feedbackSpan = document.getElementById("feedback");
@@ -83,21 +82,21 @@ function displayFeedback(feedback) {
 }
 
 /**
- * Checks if a guess was already submitted.
- * @param {*} guess 
- * @param {*} correctness 
+ * Checks if guess was already submitted.
+ * @param {string} guess - Correct answer or user submitted guess 
+ * @param {boolean} correct - True if guess is correct
+ * @return {boolean} True if guess is already present in appropriate list
  */
-function alreadyGuessed(guess, correctness) {
-    let raw;
+function alreadyGuessed(guess, correct) {
+    let rawListHTML;
     const normedGuess = norm(guess);
     console.log(normedGuess);
-    if (correctness) {
-        raw = document.getElementById('correct').innerHTML;
+    if (correct) {
+        rawListHTML = document.getElementById('correct').innerHTML;
     } else {
-        raw = document.getElementById('incorrect').innerHTML;
+        rawListHTML = document.getElementById('incorrect').innerHTML;
     }
-    let submissions = htmlListToArray(raw);
-    console.log(submissions);
+    let submissions = htmlListToArray(rawListHTML);
     submissions = submissions.map((word) => norm(word));
     if (submissions.includes(normedGuess)) {
         return true;
@@ -108,19 +107,23 @@ function alreadyGuessed(guess, correctness) {
 
 /**
  * Adds either correctly formatted answer to correct submissions 
- * box or the users guess to incorrect submissions box.
+ * box or the users submitted answer to incorrect submissions box.
+ * @param {string} answer - String to be added to submissions box
+ * @param {boolean} correct - Determines which submissions box to write to
  */
-function addGuess(answer, correctness) {
+function addGuess(answer, correct) {
     let div;
     let listId;
     let submissionList;
-    if (correctness) {
+    // determine which div to access
+    if (correct) {
         div = document.getElementById('correct');
         listId = 'correct-list';
     } else {
         div = document.getElementById('incorrect');
         listId = 'incorrect-list';
     }
+    // get list or create list
     if (div.innerText === '') {
         submissionList = document.createElement("ul");
         submissionList.setAttribute('id', listId);
@@ -128,6 +131,7 @@ function addGuess(answer, correctness) {
     } else {
         submissionList = document.getElementById(listId);
     }
+    // create new item for list
     let newItem = document.createElement("li");
     newItem.innerText = answer;
     submissionList.appendChild(newItem);
@@ -135,8 +139,8 @@ function addGuess(answer, correctness) {
 
 /**
  * Increments score and updates completion percentage.
- * @param {boolean: correctness of answer} correct 
- * @param {string: current song in html format} songHTML 
+ * @param {boolean} correct - Correctness of answer 
+ * @param {string} songHTML - Current song in html format 
  */
 function incrementScores(correct, songHTML) {
     if (!correct) {
@@ -146,12 +150,18 @@ function incrementScores(correct, songHTML) {
     const oldScore = parseInt(scoreBox.innerText);
     const newScore = oldScore + 1;
     scoreBox.innerText = newScore;
-    console.log(scoreBox.innerText);
     let percentageBox = document.getElementById('completion-percentage');
     percentageBox.innerText = completionPercentage(newScore, songHTML);
-    console.log(percentage);
 }
 
+
+// warning, this has been updated so may cause failure due to type
+/**
+ * 
+ * @param {number} points - Current score
+ * @param {string} songHTML - Song name in html format for number of solutions 
+ * @returns {number} An integer
+ */
 function completionPercentage(points, songHTML) {
     let totalPossible = solutions[songHTML].length;
     let percentage = parseInt(points) / parseInt(totalPossible);
@@ -163,39 +173,54 @@ function completionPercentage(points, songHTML) {
 // These functions manage writing the html for the page and navigation 
 
 /**
- * 
- * @returns returns songHTML string of current page
+ * Gets songHTML.
+ * @returns {string} Song name in HTML format
  */
 function getSongHTML() {
     const section = document.getElementById('game-section');
     return section.dataset.song;
 }
 
+/**
+ * Event handler for next song button. Gets next songHTML and calls 
+ * changeQuestion to update the page.
+ */
 function nextButtonHandler() {
     let songHTML = getSongHTML();
     songHTML = findNextSongHTML(songHTML);
     changeQuestion(songHTML);
 }
 
-function prevButtonHandler(event) {
+/**
+ * Event handler for prev song button. Gets prev songHTML and calls 
+ * changeQuestion to update the page.
+ */
+function prevButtonHandler() {
     let songHTML = getSongHTML();
     songHTML = findPrevSongHTML(songHTML);
     changeQuestion(songHTML);
 }
 
+/**
+ * Gets next song on album.
+ * @param {string} songHTML - Current song in html format 
+ * @returns {string} Next song name in html format
+ */
 function findNextSongHTML(songHTML) {
-    console.log("current song is ", songHTML);
     let index = tracks.indexOf(songHTML);
-    console.log(index);
     if (index + 1 < tracks.length) {
         songHTML = tracks[index + 1];
     } else {
         songHTML = tracks[0];
     }
-    console.log("now it is ", songHTML);
     return songHTML;
 }
 
+/**
+ * Gets prev song on album.
+ * @param {string} songHTML - Current song in html format 
+ * @returns {string} Prev song name in html format
+ */
 function findPrevSongHTML(songHTML) {
     const index = tracks.indexOf(songHTML);
     if (index - 1 >= 0) {
@@ -203,7 +228,6 @@ function findPrevSongHTML(songHTML) {
     } else {
         songHTML = tracks[0];
     }
-    console.log("now it is ", songHTML);
     return songHTML;
 }
 
@@ -211,6 +235,13 @@ function findPrevSongHTML(songHTML) {
  * Updates keys fields in the html in order to play quiz for another song.
  * Also reloads event handlers.
  * @param {song name in html format} songHTML 
+ */
+
+/**
+ * Updates section.data-song, song title, youtube link, and aria label to specified song.
+ * Resets score, completion percentage, and submission areas.
+ * Calls setup function. (is this necessary)
+ * @param {string} songHTML - Song to be loaded for the game. 
  */
 function changeQuestion(songHTML) {
     let section = document.getElementById('game-section');
