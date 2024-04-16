@@ -58,50 +58,45 @@ Below these, there is a button which takes users to the main game page.
 On mobile, these elements are displayed vertically.
 
 #### Game Page
+User stories:
+- As a user, I type a guess and push the enter key/click the button with the mouse. The guess is submitted. I receive feedback telling me if the answer is correct. If it is correct, my score and completion percentage are updated. The input field emptied and my cursor is there.
+- As a user, I submit a new guess. The guess is logged by being written on the left if it is correct and on the right if it is incorrect.
+- As a user, I submit a guess I have already submitted. It is not logged and my score is not impacted. I am encouraged to try something new.
+- As a user, I click the right arrow button on the game page. The game is updated so that it is set for the next track on All Day. The score, completion percentage, and logging areas are reset.
+- As a user, I click the left arrow button on the game page. The game is updated so that it is set for the previous track on All Day. The score, completion percentage, and logging areas are reset.
+- As a user, I click the back button on the game page. I am taken back to the landing page with the instructions.
 
 The game page displays the song title and album name. This informs the user which song they are playing the quiz for. Below this, there is an embedded youtube video. This allows a user to listen to the song as the player takes the quiz. It does not autoplay.
 
-![Title, video, and answer area screen shot](/assets/images/screenshots/title-video-answer-area-screenshot.png)
+<img alt="Title, video, and answer area screen shot" src="./assets/images/screenshots/title-video-answer-area-screenshot.png" height="300px" width ="300px">
 
 There is an answer area with an input field. It is labelled with "Song/Artist" to remind the user they should be entering only one, and not both a song and artist. The answer can be submitted using the enter key or by clicking/tapping the "Submit Answer" button.
 
 Once the user submits an answer, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the official answers would be "Ramones" and "M.I.A.", respectively. Feedback is then displayed to the user related to their submission. It tells them if their guess was correct. If they have already submitted that guess, it encourages them to try something new. This is what would be displayed if a user submitted the same guess an additional time.
-![Feedback area upon resubmit mobile](/assets/images/screenshots/feedback-resubmit-mobile.png)
+
+<img alt="Feedback area upon resubmit mobile" src="./assets/images/screenshots/feedback-resubmit-mobile.png" height="75px" width="300px">
 
 
 There are two score related areas. In mobile, they are next to each other. 
-![Score area on mobile](/assets/images/screenshots/score-area-mobile.png)
+
+<img alt="Score area on mobile" src="./assets/images/screenshots/score-area-mobile.png" width="300px" height="125px">
+
 On the left, the score is given and correct guesses (the official form) are logged. On the right, the percentage of total correct answers is given and incorrect answers are logged. When a user goes to a new song/question, these areas are reset. When a user returns to a song/question they have already made progress on, the score area is reconstructed as it was when they last attempted that question. (Note: this does not remain when the browser is refreshed and the javascript files are reloaded.)
 
 To prevent overflow of these areas, a function catches any submission with containing a word consisting of more than 20 consecutive characters. 
-![Feedback for nonsense submission on mobile](/assets/images/screenshots/nonsense-feedback-mobile.png)
+
+<img alt="Feedback for nonsense submission on mobile" src="./assets/images/screenshots/nonsense-feedback-mobile.png" height="75px" width="300px">
 
 
 On larger screens, they are on either side of the video.
+
 ![Score area on Desktop](/assets/images/screenshots/score-area-desktop.png)
 
-
 For navigation, there are three buttons at the bottom of the page. The left arrow button loads the game for the previous track on the album. The right arrow button loads the game for the next track on the album. Loading the game for a different track resets the score, percentage, and logging areas. The back button takes the user back to the landing page with instructions.
-![Navigation buttons desktop](/assets/images/screenshots/navigation-buttons-desktop.png)
 
-### User stories
-#### Landing Page
+<img alt="Navigation buttons desktop" src="./assets/images/screenshots/navigation-buttons-desktop.png" height="75px" width="350px">
 
-#### Game Page
-
-As a user, I type a guess and push the enter key/click the button with the mouse. The guess is submitted. I receive feedback telling me if the answer is correct. If it is correct, my score and completion percentage are updated. The input field emptied and my cursor is there.
-
-As a user, I submit a new guess. The guess is logged by being written on the left if it is correct and on the right if it is incorrect.
-
-As a user, I submit a guess I have already submitted. It is not logged and my score is not impacted. I am encouraged to try something new.
-
-As a user, I click the right arrow button on the game page. The game is updated so that it is set for the next track on All Day. The score, completion percentage, and logging areas are reset.
-
-As a user, I click the left arrow button on the game page. The game is updated so that it is set for the previous track on All Day. The score, completion percentage, and logging areas are reset.
-
-As a user, I click the back button on the game page. I am taken back to the landing page with the instructions.
-
-### Future directions
+### Future improvements
 
 - Implement lazy loading for youtube videos
 - Implement advanced scoring where users get an extra bonus for guessing the sample while it is playing.
@@ -118,6 +113,26 @@ As a user, I click the back button on the game page. I am taken back to the land
 ### Testing responsiveness
 
 ## Deployment <a name="deployment"></a>
+To deploy the project follow the following steps.
+
+1. Copy/Clone the <a href="https://github.com/smtilson/pp2-quiz-project" target="_blank">repository</a> on github.
+
+2. Go to your copy of the repository on your github page (likely `https://github.com/YOUR-USERNAME-HERE/pp2-quiz-project`)
+
+3. Open settings tab on top right of page
+
+4. Click on pages link on the left sidebar in the "Code and Automation" section.
+
+5. Set "Source" to "Deploy from branch", select "main" branch, and set folder to /(root) under "Build and Deployment". Then click Save.
+
+6. Return to the "Code" tab and wait for site to build. Try doing a hard refresh.
+
+7. On the right hand side under "Deployments", click on "github-pages".
+
+8. Click on the link which matches `https://USERNAME.github.io/REPO-NAME/` to view the deployed site.
+
+[return to Table of Contents](#toc)
+
 
 ## Credits and Outside Sources <a name="credits"></a>
 
@@ -125,6 +140,19 @@ As a user, I click the back button on the game page. I am taken back to the land
 
 #### Music
 Youtube videos for each song are used.
+They are:
+- <a href="https://www.youtube.com/watch?v=4bMM7tGV9MI">Oh No</a>
+- <a href="https://www.youtube.com/watch?v=FtsxfquYHf0">Let It Out</a>
+- <a href="https://www.youtube.com/watch?v=xVmXXWcfitw">Thats Right</a>
+- <a href="https://www.youtube.com/watch?v=Ka3GznTXur8">Jump On Stage</a>
+- <a href="https://www.youtube.com/watch?v=DZu_lLGFDtM">This Is The Remix</a>
+- <a href="https://www.youtube.com/watch?v=lzf8NNF1Af4">On And On</a>
+- <a href="https://www.youtube.com/watch?v=MRCEgD1nRRM">Get It Get It</a>
+- <a href="https://www.youtube.com/watch?v=Nr2cfwR0roU">Down For The Count</a>
+- <a href="https://www.youtube.com/watch?v=9DBmMoW5lSs">Make Me Wanna</a>
+- <a href="https://www.youtube.com/watch?v=p1pd69r1Il8">Steady Shock</a>
+- <a href="https://www.youtube.com/watch?v=i0yY0zxk-18">Triple Double</a>
+- <a href="https://www.youtube.com/watch?v=Bo5bBq2j2EE">Every Day</a>
 
 #### Sample list
 

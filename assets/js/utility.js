@@ -229,5 +229,11 @@ function catchNonsense(string) {
     return false;
 }
 
+function linkForReadme(songHTML, embedLink) {
+    let watchLink = '<a href="';
+    watchLink += embedLink.replace('embed/','watch?v=');
+    watchLink += `">${htmlToTitle(songHTML)}</a>`;
+    return watchLink;
+}
 
 console.log("utility functions finished loading");
