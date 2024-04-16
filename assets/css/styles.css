@@ -67,6 +67,7 @@ main {
     flex-direction: column;
     position: relative;
     align-items: center;
+    align-self: center;
 }
 
 #index-content-div {
@@ -74,14 +75,7 @@ main {
     position: relative;
     flex-direction: column;
     align-items: center;
-}
-
-.gap5 {
-    gap: 5px;
-}
-
-.gap15 {
-    gap: 15px;
+    gap: 10px;
 }
 
 .index-container {
@@ -89,26 +83,23 @@ main {
     border: solid 3px;
     border-radius: 15px;
     width: 80%;
-    padding: 5px;
-    margin: 5px;
+    padding: 4px;
+    margin: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
     background-color: #012D52;
     /* marker 2 */
 }
 
-
-
 .content-header {
     align-self: center;
-    padding-top: 5px;
+    padding-top: 4px;
 }
 
 .content {
-    padding: 10px 18px 10px 18px;
-    margin-bottom: 5px;
+    padding: 9px 17px 9px 17px;
+    margin-bottom: 4px;
 }
 
 #link-div {
@@ -119,14 +110,10 @@ main {
     margin-top: .75em;
     font-size: 1.5em;
     border-color: #E5ECFD;
-    border: solid 5px;
+    border: solid 4px;
     padding: 7px 17px;
     border-radius: 15px;
     background-color: #012D52;
-}
-
-.clicked-play-game {
-    padding: 10px 20px;
 }
 
 /* game page styles */
@@ -168,7 +155,7 @@ main {
     /* marker 2 */
     min-height: 75px;
     justify-content: space-evenly;
-    text-align:center;
+    text-align: center;
 }
 
 .game-gap {
@@ -263,6 +250,7 @@ main {
     #game-content-div {
         margin-top: -.5em;
     }
+
     .game-gap {
         gap: 8px;
     }
@@ -312,17 +300,24 @@ main {
     #game-content-div {
         flex-direction: row;
         align-items: flex-start;
-        width: 100vw;
-        justify-content: space-evenly;
+    }
+
+    #index-content-div {
+        gap: 0px;
+        justify-content: space-around;
+        width: 85%;
     }
 
     #game-content-div {
         margin-top: 2em;
+        justify-content: space-evenly;
+        width: 100%;
     }
 
     .index-container {
         padding: 10px;
-        min-height: 21.6em;
+        min-height: 16em;
+        width: 40%;
     }
 
     #play-game {
@@ -379,15 +374,16 @@ main {
     }
 
     .index-container {
-        min-height: 18em;
+        min-height: 17em;
     }
 
     #song-video {
         width: 475px;
         height: 300px;
     }
+
     .arrow-button {
-        width:4em;
+        width: 4em;
         font-size: 3em;
     }
 }
@@ -397,15 +393,21 @@ main {
         margin-top: 0em;
     }
 
+    #index-content-div {
+        width: 60%;
+    }
+
     .index-container {
-        min-height: 20em;
+        min-height: 17em;
+        width: 45%;
     }
 
     #song-video {
         width: 550px;
     }
+
     .arrow-button {
-        width:4em;
+        width: 4em;
         font-size: 3em;
     }
 }
@@ -426,6 +428,7 @@ main {
     .game-container {
         min-height: 110px;
     }
+
     .panel {
         min-height: 200px;
     }
