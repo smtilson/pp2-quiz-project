@@ -214,5 +214,20 @@ function determineMax(solutions) {
     console.log(maxSong);
 }
 
+/**
+ * Determines if string is likely nonsense.
+ * @param {string} string - user submitted answer 
+ * @returns 
+ */
+function catchNonsense(string) {
+    let words = string.split(' ');
+    for (let word of words) {
+        if (word.length>20) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 console.log("utility functions finished loading");

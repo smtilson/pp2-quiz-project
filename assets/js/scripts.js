@@ -12,6 +12,13 @@ function playSongQuiz() {
     const songHTML = getSongHTML();
     let answerBox = document.getElementById("user-answer");
     const userAnswer = answerBox.value;
+    if (catchNonsense(userAnswer)) {
+        let message = nonsenseFeedback(userAnswer);
+        displayFeedback(message);
+        answerBox.value = '';
+        answerBox.focus();
+        return;
+    }
     const songSolutions = solutions[songHTML];
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
@@ -30,6 +37,7 @@ function playSongQuiz() {
     answerBox.value = '';
     answerBox.focus();
 }
+
 
 // Functions related to checking answers
 
@@ -68,6 +76,16 @@ function generateFeedback(answer, songName, guessed, correct) {
         message += '\nYou already guessed that. Try guessing something new.';
     }
     return message;
+}
+
+
+/**
+ * Produces feedback for nonsense answers.
+ * @param {string} guess - user submitted nonsense answer 
+ * @returns {string} Message to be given to user
+ */
+function nonsenseFeedback(guess, ) {
+    return `I don't think ${guess} is a very serious answer. \nTry again.`;
 }
 
 /**
