@@ -1,6 +1,6 @@
 # He used What?? <a name="title"></a>
 ### The Girl Talk samples quiz that you can finally play outside of your own head
-Girl Talk is a mash-up artist, sampling an eclectic collection of music to create original and vibrant songs. Online quiz tests your musical knowledge to see if you can name that artist or song he is sampling.
+Girl Talk is a mash-up artist, sampling an eclectic collection of music to create original and vibrant songs. Online quiz tests your musical knowledge to see if you can name that artist or song he is sampling. Find the quiz <a href="https://smtilson.github.io/pp2-quiz-project/">here</a>.
 
 ## Table of Contents <a name="toc"></a>
 - [Title](#title)
@@ -12,17 +12,38 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 - [Credits and Outside Sources](#credits)
 
 ## Introduction <a name="intro"></a>
+
+![Landing page responsive screenshot](/assets/images/screenshots/landing-page-amiresponsive.png)
 "He Sampled WHAT??" is a musical quiz based on the album All Day by Girl Talk. Girl Talk is the most widely recognized mash-up artist. He makes music by sampling different songs to construct original collages triggering deep feelings of nostalgia. Inevitably, when listening to his music you try to figure out what songs he has sampled. This is that game. It is very challenging due to his eclectic taste. The point  of the game is to enhance the listening experience.
 
-The user can listen to the songs and guess which samples are being used. They receive feedback in two forms. If the answer is correct, their score and completion percentage improves. They also receive a message stating if the song was indeed sampled for the current track. If they have previously submitted that guess, they then receive encouragement to try something else, and if it is correct, their score is not incremented. Due to the difficulty of the quiz, we decided to not penalize incorrect guesses, and instead list a completion percentage. The goal of this quiz is more to enjoy and celebrate All Day than it is to get a certain score.
+![Game page responsive screenshot](/assets/images/screenshots/game-page-amiresponsive.png)
+(Note: the image of the game in mobile AmIResponsive produced is innaccurate. I have included more photos below) <!-- loose end -->
 
 This game is implemented for all songs on All Day, and we hope to eventually implement it for all of Girl Talks albums. As well as the Grey Album by Danger Mouse, and the works of other mashup artists.
+
+### Project Description
+This side is an interactive game. You guess which artists and songs are sampled in the song that is playing.
+
+### User Demographics
+The expected user is interested in music and perhaps very interested in Girl Talk. There is no prerequisite of having heard or having not heard Girl Talk before. Familiarity with modern pop music is necessary. Familiarity with hip hop and club rap will be very helpful. As the album was released in 2010, nothing more recent is necessary.
+
+### Wireframes
+After the initial brainstorming, I used Balsamiq to make some wireframes for the mobile and desktop versions of the site. Further development necessitated deviation from these initial plans.
+
+![Mobile site wireframe](/assets/images/screenshots/wireframe-mobile.png)
+
+![Desktop site wireframe](/assets/images/screenshots/wireframe-desktop.png)
+
+Due to space limitations, the instructions were moved to a landing page.
+The score area was also broken into two parts.
 
 ## Features <a name="features"></a>
 ### Features
 <!--needs screenshots-->
 #### Landing Page
 The landing page contains instructions for the game. The instructions explains what type of quiz this is and what types of answers to submit. The landing page also contains a "Warning" paragraph about the difficulty of the quiz. It is meant to encourage players who are unfamiliar with Girl Talk.
+
+Screenshots of landing page:
 
 There is a button which takes users to the main game page.
 

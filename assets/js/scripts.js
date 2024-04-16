@@ -28,7 +28,6 @@ function playSongQuiz() {
     // resets answer to userAnswer if the guess was incorrect  
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct);
-    console.log('guessed: ', guessed);
     logGuess(answer, guessed, correct);
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);

@@ -1,74 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="assets/css/styles.css" />
+        <!-- favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png" />
+        <title>He used WHAT??</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-    <title>He used WHAT??</title>
-</head>
-
-<body>
-    <header>
-        <h1 id="logo"><a href="index.html">He Sampled WHAT??</a></h1>
-    </header>
-    <main>
-        <!-- semantic section containing current song data -->
-        <section id="game-section" data-song="oh-no">
-            <div id="game-content-div" class="game-gap">
-                <div id="video-feedback-answer-div" class="game-gap">
-                    <h2 id="song-title">
-                        Oh No from All Day
-                    </h2>
-                    <div id="video-div">
-                        <iframe id="song-video" width="300" height="225" src="https://www.youtube.com/embed/4bMM7tGV9MI"
-                            aria-label="Youtube video for Oh No, image is just the album cover for All Day">
-                        </iframe>
+    <body>
+        <header>
+            <h1 id="logo"><a href="index.html">He Sampled WHAT??</a></h1>
+        </header>
+        <main>
+            <!-- semantic section containing current song data -->
+            <section id="game-section" data-song="oh-no">
+                <div id="game-content-div" class="game-gap">
+                    <div id="video-feedback-answer-div" class="game-gap">
+                        <h2 id="song-title">
+                            Oh No from All Day
+                        </h2>
+                        <div id="video-div">
+                            <iframe id="song-video" width="300" height="225" src="https://www.youtube.com/embed/4bMM7tGV9MI" 
+                            aria-label="Youtube video for Oh No, image is just the album cover for All Day"> </iframe>
+                        </div>
+                        <div id="feedback-div" class="game-container content">
+                            <span id="feedback"></span>
+                        </div>
+                        <div id="answer-area" class="game-container content">
+                            <span id="input-label">
+                                <label for="user-answer">Song/Artist:</label>
+                                <input type="text" id="user-answer" />
+                            </span>
+                            <button id="submit-button" class="button">Submit Answer</button>
+                        </div>
                     </div>
-                    <div id="feedback-div" class="game-container content">
-                        <span id="feedback"></span>
+                    <div id="records-div">
+                        <!-- panel containing score and correct guesses -->
+                        <div id="left" class="content game-container panel">
+                            <p class="scores">Score: <span id="score">0</span></p>
+                            <div id="correct" class="submissions"></div>
+                        </div>
+                        <!-- panel containing completion percentage and incorrect guesses -->
+                        <div id="right" class="content game-container panel">
+                            <p class="scores">Complete: <span id="completion-percentage">0</span>%</p>
+                            <div id="incorrect" class="submissions"></div>
+                        </div>
                     </div>
-                    <div id="answer-area" class="game-container content">
-                        <span id="input-label">
-                            <label for="user-answer">Song/Artist:</label>
-                            <input type="text" id="user-answer">
-                        </span>
-                        <button id="submit-button" class="button">Submit Answer</button>
+                    <div id="outer-arrow-section">
+                        <!-- arrows for navigation between songs -->
+                        <div id="arrows">
+                            <span id="prev-button"><i class="fa-solid fa-arrow-left-long button arrow-button"></i></span>
+                            <a href="index.html"><span id="back" class="arrow-button">Back</span></a>
+                            <span id="next-button"><i class="fa-solid fa-arrow-right-long button arrow-button"></i></span>
+                        </div>
                     </div>
                 </div>
-                <div id="records-div">
-                    <!-- panel containing score and correct guesses -->
-                    <div id="left" class="content game-container panel">
-                        <p class="scores">Score: <span id="score">0</span></p>
-                        <div id="correct" class="submissions"></div>
-                    </div>
-                    <!-- panel containing completion percentage and incorrect guesses -->
-                    <div id="right" class="content game-container panel">
-                        <p class="scores">Complete: <span id="completion-percentage">0</span>%</p>
-                        <div id="incorrect" class="submissions"></div>
-                    </div>
-                </div>
-                <div id="outer-arrow-section">
-                    <!-- arrows for navigation between songs -->
-                    <div id="arrows">
-                        <span id="prev-button"><i class="fa-solid fa-arrow-left-long button arrow-button"></i></span>
-                        <a href="index.html"><span id="back" class="arrow-button">Back</span></a>
-                        <span id="next-button"><i class="fa-solid fa-arrow-right-long button arrow-button"></i></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <!-- Font Awesome javascript -->
-    <script src="https://kit.fontawesome.com/d2d64ef9e7.js" crossorigin="anonymous"></script>
-    <!-- my javascript files -->
-    <script src="assets/js/utility.js"></script>
-    <script src="assets/js/database.js"></script>
-    <script src="assets/js/scripts.js"></script>
-</body>
-
+            </section>
+        </main>
+        <!-- Font Awesome javascript -->
+        <script src="https://kit.fontawesome.com/d2d64ef9e7.js" crossorigin="anonymous"></script>
+        <!-- my javascript files -->
+        <script src="assets/js/utility.js"></script>
+        <script src="assets/js/database.js"></script>
+        <script src="assets/js/scripts.js"></script>
+    </body>
 </html>
