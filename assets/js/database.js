@@ -3,8 +3,8 @@
 
 console.log("Database loading");
 
-// Raw version of solutions manually stored from fanwiki
-// Beyonce, Blue Oyster Cult, and (Don't Fear) The Reaper were 
+// Raw version of solutions manually stored from fanwiki.
+// Beyonce, Blue Oyster Cult, (Don't Fear) The Reaper, and Bizarre Love Triangle were 
 // manually edited.
 const rawSolutions = {
     'oh-no': `0:00 ‒ 2:09 — Black Sabbath – "War Pigs"
@@ -169,7 +169,7 @@ const rawSolutions = {
 1:09 ‒ 2:36 — Trina featuring Kase and Duece Poppi – "Pull Over" (Remix)
 1:14 ‒ 1:30 — Kesha – "Tik Tok"
 1:27 ‒ 1:29 — Grand Funk Railroad – "We're an American Band"
-1:29 ‒ 2:37 — New Order – "Bizarre Love Triangle"[A]
+1:29 ‒ 2:37 — New Order – "Bizarre Love Triangle"
 1:31 ‒ 1:54 — Birdman featuring Lil Wayne and Kevin Rudolf – "I Want It All"
 2:11 ‒ 2:29 — Chubb Rock – "Treat 'Em Right"
 2:36 ‒ 2:37 — Britney Spears – "Circus"
@@ -437,6 +437,10 @@ const seansHighscore = {
     'oh-no': 7,
     'let-it-out': 5,
     'thats-right':4,
+    'jump-on-stage':11,
+    'this-is-the-remix':9,
+    'on-and-on':9,
+    'get-it-get-it':9,
 };
 
 console.log("database finished loading");

@@ -25,9 +25,10 @@ function playSongQuiz() {
     const songSolutions = solutions[songHTML];
     let answer = compareGuess(userAnswer, songSolutions);
     const correct = (answer) ? true : false;
-    let guessed = alreadyGuessed(answer, correct);
     // resets answer to userAnswer if the guess was incorrect  
     answer = (answer) ? answer : userAnswer;
+    let guessed = alreadyGuessed(answer, correct);
+    console.log('guessed: ', guessed);
     logGuess(answer, guessed, correct);
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);
@@ -109,6 +110,7 @@ function displayFeedback(feedback) {
  */
 function alreadyGuessed(guess, correct) {
     const normedGuess = norm(guess);
+    console.log('guess: ', guess,'correct:', correct);
     let submissions = getLogs(correct);
     submissions = submissions.map((word) => norm(word));
     // checks for guess in logs
