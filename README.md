@@ -30,23 +30,31 @@ The expected user is interested in music and perhaps very interested in Girl Tal
 ### Wireframes
 After the initial brainstorming, I used Balsamiq to make some wireframes for the mobile and desktop versions of the site. Further development necessitated deviation from these initial plans.
 
-![Mobile site wireframe](/assets/images/screenshots/wireframe-mobile.png)
-
-![Desktop site wireframe](/assets/images/screenshots/wireframe-desktop.png)
+<img alt="Mobile site wireframe" src="./assets/images/screenshots/wireframe-mobile.png" height="250px" width="150px">
 
 Due to space limitations, the instructions were moved to a landing page. An area was also added for displaying feedback to the user.
+
+<img alt="Desktop site wireframe" src="./assets/images/screenshots/wireframe-desktop.png" height="350px" width="550px">
+
+
 
 ## Features <a name="features"></a>
 ### Features
 <!--needs screenshots-->
 #### Landing Page
+User stories:
+- As a user, I visit the landing page and read the instructions for the game. I am told what kinds of answers to submit. I am told incorrect guesses are not penalized. I am told to be very happy with 10% completion on a song.
+- As a user, I click on the "Let's Go" link and am taken to the game page. My cursor is in the input field.
+
 The landing page contains instructions for the game. The instructions explains what type of quiz this is and what types of answers to submit. The landing page also contains a "Warning" paragraph about the difficulty of the quiz. It is meant to encourage players who are unfamiliar with Girl Talk.
 
-![Landing page on desktop](/assets/images/screenshots/landing-page-desktop.png)
+<img alt="Landing page on desktop" src="./assets/images/screenshots/landing-page-desktop.png" height="350px" width="575px">
+
 On the left are instructions for the game. On the right is a warning about the difficulty of the quiz. (If you wish to cheat, please see <!-- loose end --> for a link to the answers.)
 Below these, there is a button which takes users to the main game page.
 
-![Landing page on mobile](/assets/images/screenshots/landing-page-mobile.png)
+<img src="./assets/images/screenshots/landing-page-mobile.png" alt="Landing page on mobile" height="300px" width="150px">
+
 On mobile, these elements are displayed vertically.
 
 #### Game Page
@@ -57,8 +65,9 @@ The game page displays the song title and album name. This informs the user whic
 
 There is an answer area with an input field. It is labelled with "Song/Artist" to remind the user they should be entering only one, and not both a song and artist. The answer can be submitted using the enter key or by clicking/tapping the "Submit Answer" button.
 
-Once the user submits an answer, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the official answers would be "Ramones" and "M.I.A.", respectively. Feedback is then displayed to the user related to their submission. This is what would be displayed if a user submitted the same guess an additional time.
-![Feedback area upon resubmit mobile](/assets/images/screenshots/feedback-resubmit-mobile.png) 
+Once the user submits an answer, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the official answers would be "Ramones" and "M.I.A.", respectively. Feedback is then displayed to the user related to their submission. It tells them if their guess was correct. If they have already submitted that guess, it encourages them to try something new. This is what would be displayed if a user submitted the same guess an additional time.
+![Feedback area upon resubmit mobile](/assets/images/screenshots/feedback-resubmit-mobile.png)
+
 
 There are two score related areas. In mobile, they are next to each other. 
 ![Score area on mobile](/assets/images/screenshots/score-area-mobile.png)
@@ -68,17 +77,15 @@ To prevent overflow of these areas, a function catches any submission with conta
 ![Feedback for nonsense submission on mobile](/assets/images/screenshots/nonsense-feedback-mobile.png)
 
 
-On larger screens, they are on either side of the video. The guesses are logged as they are stored in the solutions. For example, Jay z will be counted as correct but logged as Jay-Z. The right area has a completion percentage at the top. This indicates how many remaining correct answers there are (artists and songs). Incorrect guesses are logged, as the user submitted, beneath the completion percentage.
+On larger screens, they are on either side of the video.
+![Score area on Desktop](/assets/images/screenshots/score-area-desktop.png)
 
-Between the video and the input area, there is a feedback area. This is hidden prior to any guesses being submitted by the user. Once a guess is submitted, this area is populated by a relevant message. It informs the user if the guess is correct. If the guess was already submitted, it encourages the user to try something new.
 
 For navigation, there are three buttons at the bottom of the page. The left arrow button loads the game for the previous track on the album. The right arrow button loads the game for the next track on the album. Loading the game for a different track resets the score, percentage, and logging areas. The back button takes the user back to the landing page with instructions.
+![Navigation buttons desktop](/assets/images/screenshots/navigation-buttons-desktop.png)
 
 ### User stories
 #### Landing Page
-As a user, I visit the landing page and read the instructions for the game. I am told what kinds of answers to submit. I am told incorrect guesses are not penalized. I am told to be very happy with 10% completion on a song.
-
-As a user, I click on the "Let's Go" link and am taken to the game page. My cursor is in the input field.
 
 #### Game Page
 
