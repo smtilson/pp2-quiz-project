@@ -19,16 +19,43 @@ The user can listen to the songs and guess which samples are being used. They re
 This game is implemented for all songs on All Day, and we hope to eventually implement it for all of Girl Talks albums. As well as the Grey Album by Danger Mouse, and the works of other mashup artists.
 
 ## Features <a name="features"></a>
+### Features
+<!--needs screenshots-->
+#### Landing Page
+The landing page contains instructions for the game. The instructions explains what type of quiz this is and what types of answers to submit. The landing page also contains a "Warning" paragraph about the difficulty of the quiz. It is meant to encourage players who are unfamiliar with Girl Talk.
+
+There is a button which takes users to the main game page.
+
+#### Game Page
+There is a youtube video embedded in the game page. This allows a user to listen to the song as the player takes the quiz. It does not autoplay.
+
+There is a text input field for users to submit guesses. They can hit the enter key or click the submit button to submit answers. Once the guess is submitted, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the stored solutions are "Ramones" and "M.I.A.", respectively. 
+
+There are two score related areas. In mobile, they are next to each other. On larger screens, they are on either side of the video. The left area contains the players score. Correct guesses are also logged beneath the score. The guesses are logged as they are stored in the solutions. For example, Jay z will be counted as correct but logged as Jay-Z. The right area has a completion percentage at the top. This indicates how many remaining correct answers there are (artists and songs). Incorrect guesses are logged, as the user submitted, beneath the completion percentage.
+
+Between the video and the input area, there is a feedback area. This is hidden prior to any guesses being submitted by the user. Once a guess is submitted, this area is populated by a relevant message. It informs the user if the guess is correct. If the guess was already submitted, it encourages the user to try something new.
+
+For navigation, there are three buttons at the bottom of the page. The left arrow button loads the game for the previous track on the album. The right arrow button loads the game for the next track on the album. Loading the game for a different track resets the score, percentage, and logging areas. The back button takes the user back to the landing page with instructions.
 
 ### User stories
-As a user, I type an (in)correct answer and push the enter key/click the button with the mouse. The answer is submitted. If correct, the score and completion percentage are updated.
+#### Landing Page
+As a user, I visit the landing page and read the instructions for the game. I am told what kinds of answers to submit. I am told incorrect guesses are not penalized. I am told to be very happy with 10% completion on a song.
 
-As a user, I click the "Let's Go" button on the landing page.
+As a user, I click on the "Let's Go" link and am taken to the game page. My cursor is in the input field.
 
-As a user, I click the left arrow button on the game page.
+#### Game Page
 
-As a user, I click the right arrow button on the game page.
+As a user, I type a guess and push the enter key/click the button with the mouse. The guess is submitted. I receive feedback telling me if the answer is correct. If it is correct, my score and completion percentage are updated. The input field emptied and my cursor is there.
 
+As a user, I submit a new guess. The guess is logged by being written on the left if it is correct and on the right if it is incorrect.
+
+As a user, I submit a guess I have already submitted. It is not logged and my score is not impacted. I am encouraged to try something new.
+
+As a user, I click the right arrow button on the game page. The game is updated so that it is set for the next track on All Day. The score, completion percentage, and logging areas are reset.
+
+As a user, I click the left arrow button on the game page. The game is updated so that it is set for the previous track on All Day. The score, completion percentage, and logging areas are reset.
+
+As a user, I click the back button on the game page. I am taken back to the landing page with the instructions.
 
 ### Future directions
 
