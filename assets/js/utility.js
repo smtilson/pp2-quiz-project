@@ -26,7 +26,7 @@ function norm(string) {
         string = replaceAll(string, word, ' ');
     }
     // removes punctuation and spaces
-    let removeSymbols = ['.', ',', '"', "'", '-', ' '];
+    let removeSymbols = ['.', ',','&','"', "'", '-', ' '];
     for (let symbol of removeSymbols) {
         string = replaceAll(string, symbol, '');
     }

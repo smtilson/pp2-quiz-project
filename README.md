@@ -53,12 +53,22 @@ On mobile, these elements are displayed vertically.
 
 The game page displays the song title and album name. This informs the user which song they are playing the quiz for. Below this, there is an embedded youtube video. This allows a user to listen to the song as the player takes the quiz. It does not autoplay.
 
-![]
+![Title, video, and answer area screen shot](/assets/images/screenshots/title-video-answer-area-screenshot.png)
+
+There is an answer area with an input field. It is labelled with "Song/Artist" to remind the user they should be entering only one, and not both a song and artist. The answer can be submitted using the enter key or by clicking/tapping the "Submit Answer" button.
+
+Once the user submits an answer, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the official answers would be "Ramones" and "M.I.A.", respectively. Feedback is then displayed to the user related to their submission. This is what would be displayed if a user submitted the same guess an additional time.
+![Feedback area upon resubmit mobile](/assets/images/screenshots/feedback-resubmit-mobile.png) 
+
+There are two score related areas. In mobile, they are next to each other. 
+![Score area on mobile](/assets/images/screenshots/score-area-mobile.png)
+On the left, the score is given and correct guesses (the official form) are logged. On the right, the percentage of total correct answers is given and incorrect answers are logged. When a user goes to a new song/question, these areas are reset. When a user returns to a song/question they have already made progress on, the score area is reconstructed as it was when they last attempted that question. (Note: this does not remain when the browser is refreshed and the javascript files are reloaded.)
+
+To prevent overflow of these areas, a function catches any submission with containing a word consisting of more than 20 consecutive characters. 
+![Feedback for nonsense submission on mobile](/assets/images/screenshots/nonsense-feedback-mobile.png)
 
 
-There is a text input field for users to submit guesses. They can hit the enter key or click the submit button to submit answers. Once the guess is submitted, it is processed into a normalized format. This is to avoid simple errors like "the ramones" or "Mia" when the stored solutions are "Ramones" and "M.I.A.", respectively. 
-
-There are two score related areas. In mobile, they are next to each other. On larger screens, they are on either side of the video. The left area contains the players score. Correct guesses are also logged beneath the score. The guesses are logged as they are stored in the solutions. For example, Jay z will be counted as correct but logged as Jay-Z. The right area has a completion percentage at the top. This indicates how many remaining correct answers there are (artists and songs). Incorrect guesses are logged, as the user submitted, beneath the completion percentage.
+On larger screens, they are on either side of the video. The guesses are logged as they are stored in the solutions. For example, Jay z will be counted as correct but logged as Jay-Z. The right area has a completion percentage at the top. This indicates how many remaining correct answers there are (artists and songs). Incorrect guesses are logged, as the user submitted, beneath the completion percentage.
 
 Between the video and the input area, there is a feedback area. This is hidden prior to any guesses being submitted by the user. Once a guess is submitted, this area is populated by a relevant message. It informs the user if the guess is correct. If the guess was already submitted, it encourages the user to try something new.
 
