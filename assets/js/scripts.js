@@ -58,7 +58,6 @@ function compareGuess(userAnswer, answerArray) {
  * @param {boolean} correct - True if answer is correct
  */
 function generateFeedback(answer, songName, guessed, correct) {
-    answer = toTitle(answer);
     let message;
     if (correct) {
         message = `That is correct! ${answer} was sampled for ${songName}.`;
@@ -66,7 +65,7 @@ function generateFeedback(answer, songName, guessed, correct) {
         message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
     }
     if (guessed) {
-        message += ' You already guessed that. Try guessing something new.';
+        message += '\nYou already guessed that. Try guessing something new.';
     }
     return message;
 }
@@ -253,7 +252,7 @@ function changeQuestion(songHTML) {
     let iframe = document.getElementById('song-video');
     const ytlink = youtubeLinks[songHTML];
     iframe.setAttribute('src', ytlink);
-    let ariaLabel = `Youtube video for ${toTitle(songHTML)}, but image is just the album cover for All Day`;
+    let ariaLabel = `Youtube video for ${htmlToTitle(songHTML)}, but image is just the album cover for All Day`;
     iframe.setAttribute('aria-label', ariaLabel);
     resetElementById('score', '0');
     resetElementById('completion-percentage', '0');
