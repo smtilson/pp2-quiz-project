@@ -265,7 +265,7 @@ function findPrevSongHTML(songHTML) {
     if (index - 1 >= 0) {
         songHTML = trackList[index - 1];
     } else {
-        songHTML = trackList[0];
+        songHTML = trackList[trackList.length-1];
     }
     return songHTML;
 }
