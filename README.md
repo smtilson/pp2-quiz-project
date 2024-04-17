@@ -251,6 +251,10 @@ Fix: I addressed this by adding a resetValue parameter to the resetElementById f
 
 Fix: The resetElementById call was removed completely.
 
+- Previous song button on Oh No doesn't change the song.
+
+Fix: The else clause of findPrevSongHTML was incorrect but easily fixed.
+
 #### Bugs left in
 - If an artist is sampled twice on the same song, the user is unable to submit the artist a second time and receive credit. This is fixable, but it was not a priority as it happens very seldom.
 - The appearance of the app could be improved.
@@ -328,7 +332,7 @@ The Love Math walkthrough was very helpful for understanding how to even structu
 - <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript">SO: special dash characters</a> <a name="so-dash-question"></a>
 - <a href="https://stackoverflow.com/questions/30358630/html-body-not-filling-complete-width-on-mobile-devices">SO: body width question</a> <a name="so-body-width-question"></a>
 - <a href="https://stackoverflow.com/questions/618089/can-i-insert-elements-to-the-beginning-of-an-element-using-appendchild">SO: insert element before</a>
-- <a href="https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript">SO: title case with JS</a> <!-- loose end need to add relevant attribution to code-->
+- <a href="https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript">SO: title case with JS</a>
 
 ### Slack
 - Daisy_mentor suggested the Wave tool, as well as making an empty span and populating it with feedback.

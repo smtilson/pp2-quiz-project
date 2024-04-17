@@ -26,7 +26,7 @@ function norm(string) {
         string = replaceAll(string, word, ' ');
     }
     // removes punctuation and spaces
-    let removeSymbols = ['.', ',','&','"', "'", '-', ' '];
+    let removeSymbols = ['.', ',', '&', '"', "'", '-', ' '];
     for (let symbol of removeSymbols) {
         string = replaceAll(string, symbol, '');
     }
@@ -121,11 +121,8 @@ function sampleStringToData(sampleString) {
  */
 function htmlToTitle(string) {
     string = replaceAll(string, '-', ' ');
-    /*    I think this catch is no longer necesssary as the function 
-    is only being called on a finite collection of strings that I provide
-    if (string === '') {
-            return string;
-    }*/
+    // the below part of the function was inspired by an answer from SO.
+    // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
     let words = string.split(' ');
     words = words.map(w => capitalize(w));
     return words.join(' ');
@@ -139,18 +136,6 @@ function htmlToTitle(string) {
 function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
-
-
-
-/**
- * Capitalizes first letter of each word.
- * @param {string} string - To be put in title format
- * @returns {string} String in title format
- */
-function toTitle(string) {
-
-}
-
 
 /**
  * Removes featured artists.
@@ -217,7 +202,7 @@ function determineMax(solutions) {
 function catchNonsense(string) {
     let words = string.split(' ');
     for (let word of words) {
-        if (word.length>20) {
+        if (word.length > 20) {
             return true;
         }
     }
@@ -233,7 +218,7 @@ function catchNonsense(string) {
  */
 function linkForReadme(songHTML, embedLink) {
     let watchLink = '<a href="';
-    watchLink += embedLink.replace('embed/','watch?v=');
+    watchLink += embedLink.replace('embed/', 'watch?v=');
     watchLink += `">${htmlToTitle(songHTML)}</a>`;
     return watchLink;
 }
