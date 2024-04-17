@@ -149,7 +149,7 @@ Fix: This was addressed by [SO dash question](#so-dash-question). I removed the 
 Fix: Capitalize is only called by toTitle. So trim() is called before capitalize is to address this issue.
 - Certain correct song titles were not being marked correct.
 Fix: When refactoring to package all utility functions into a single object, something was not properly replaced. Thus, the check to see if a user answer was a song that was sampled was failing automatically. This was been fixed. The utility object was later made into a separate file.
-- Automated tests revealed that submissions were being overcounted.
+- Automated tests revealed that submissions were being over-counted.
 Fix: This was due to using only toLowerCase() and not my custom norm() function. This was fixed.
 - The wrong format of correct answer was being logged.
 Fix: In the compareGuess function, I was not setting a new variable for the comparison and so the wrong string was being returned by compareGuess. This was fixed
@@ -192,9 +192,6 @@ Fix: I addressed this by adding a resetValue parameter to the resetElementById f
 - Feedback area on new question displays undefined.
 Fix: The resetElementById call was removed completely.
 
-
-
-
 #### Bugs left in
 - If a artist is sampled twice on the same song, the user is unable to submit the user a second time and receive credit. This is fixable, but it was not a priority as it happens very seldom.
 - The appearance of the app could be improved.
@@ -212,20 +209,21 @@ For the game page I did well, except on performance:
 
 <img alt="Game page report" src="./assets/images/screenshots/lighthouse-game-page-report.png">
 
-This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future. The full report can be read at
+This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future.
 
 ### Wave
 I used the chrome extension for [Wave](#wave) to test accessibility.
 For the landing page I got:
 
-<img alt="Wave landing page report" src="./assets/images/screenshots/wave-landing-page-report.png">
+<img alt="Wave landing page report" src="./assets/images/screenshots/wave-landing-page-report.png" height="200px" width="150px">
 
 For the game page I got:
 
-<img alt="Wave game page report" src="./assets/images/screenshots/wave-game-page-report.png">
+<img alt="Wave game page report" src="./assets/images/screenshots/wave-game-page-report.png" height="200px" width="150px">
 
 One of the alerts is to a redundant link. I addressed this by removing the link in the header.
 The other alert is to the youtube video that is embedded.
+
 ## Deployment <a name="deployment"></a>
 To deploy the project follow the following steps.
 
@@ -251,16 +249,30 @@ To deploy the project follow the following steps.
 ## Credits and Outside Sources <a name="credits"></a>
 
 ### Technologies, Frameworks, and resources used
+I coded this project in HTML, CSS, and Javascript.
 
--validation
+
 - <a href="https://validator.w3.org/#validate_by_input">W3 HTML validator</a> <a name="html-validator"></a>
 - <a href="https://jigsaw.w3.org/css-validator/#validate_by_input">Jigsaw W3 CSS validator</a><a name="css-validator"></a>
-- <a>
+- <a href="https://jshint.com/">JSHint: Javascript tool</a><a name="js-validator"></a>
+- <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk">Lighthouse chrome plug in</a> <a name="lighthouse"></a>
+- Wave chrome plug in
 
 
 ### StackOverflow
 - <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript">SO: special dash characters</a> <a name="so-dash-question"></a>
 - <a href="https://stackoverflow.com/questions/30358630/html-body-not-filling-complete-width-on-mobile-devices">SO: body width question</a> <a name="so-body-width-question"></a>
+
+### Slack
+- Daisy_mentor suggested the Wave tool, as well as making an empty span and populating it with feedback.
+- Anders suggested using the Issues tab in github.
+- Beardie mentioned that students received poor marks for using 'let' when they should have used 'const'. This was helpful information.
+
+### Feedback
+I showed the app to other members of my cohort (Holinda, Alex, and Anders), members of my family (my brother and my wife), and my friends (Lou and Mike). They gave me positive encouragement and feedback. In particular, Lou pointed out that the page looked poorly on his Pixel 4 phone. A screenshot Anders sent pointed to the submission areas being in the "wrong" place. I also received feedback regarding  the difficulty of the quiz. This is why I have added the blurb on the landing page. I also plan on uploading my own scores so that people don't feel bad.
+
+My mentor gave helpful feedback. He suggested I make a database object in JS to store the solutions instead of hiding them in the html. He suggested that I change the size of some key elements to improve the appearance.
+
 
 ### Non-coding references
 
