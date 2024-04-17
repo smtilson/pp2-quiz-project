@@ -291,7 +291,6 @@ function changeQuestion(songHTML) {
     titleHeader.innerText = `${htmlToTitle(songHTML)} from All Day`;
     updateIFrame(songHTML);
     resetScoreArea(songHTML);
-    resetElementById('feedback','');
     setupEventHandlers();
     resetAnswerArea();
 }

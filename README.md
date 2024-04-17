@@ -163,7 +163,34 @@ Fix: This was fixed by catching empty strings and preventing them from being sub
 Fix: The above fix addressed this. I also refactored how the function was being assigned to the listener, I believe this also addressed the issue.
 - At 320px, the body was not properly centered.
 Fix: Changing video iframes to width==300 height=225 addressed the issue. [SO: body width question](#so-body-width-question)
--
+- Submitting a string with a space at the end, which happens if you auto-complete an answer, causes things not to submit properly (my wife encountered this when I was showing her the app).
+Fix: This was fixed by adding a call to trim(), it was related to the issue above where capitalize is being fed an empty string.
+- Going to next or prev question reset the score area location.
+Fix: This was properly addressed by changing the function changeQuestion. Instead of writing new HTML it simply updates certain elements.
+- adjustForLargeScreens (now moveRecordDivs) was preventing event handlers from being added.
+Fix: This was happening because the function was being called too many times. The second time it is called it attempts to get an element that has been removed, and so the function throws an error. This was fixed by removing one of the times that the function was called.
+- Submitting answers shifts the screen.
+Fix: This was addressed by modifying the height and width of the feedback element so that it doesn't change o dynamically.
+- Incorrect submissions panel was unevenly spaced when compared to the correct submissions panel.
+Fix: This happened because the earlier version of the adjustForLargeScreens function only set the display value to none. This meant that the gap for the parent element was being applied. Removing the elements resolved this.
+- Refactor to add submissions list broke alreadyGuessed function.
+Fix: This was fixed by refactoring alreadyGuessed to look at the submissions lists instead of the HTML.
+- Long submissions cause the submissions container to overflow (issue #18 and #20 appear to be the same).
+Fix: This was addressed by catching submissions that have words of more than 20 characters and flagging them as nonsense. The normal gameplay loop is prevented and specific feedback is given.
+- If there are too many submissions, they get pushed underneath the Score/Completion percentage.
+Fix: Addressed this by setting a margin-top value to the div containing the list.
+- On large screens, the submission containers are squeezed. This is due to the div containing them being constricted.
+Fix: I could not figure out what was causing this. I looked at every width statement in my CSS file. In the end, I fixed this by setting the width of the relevant element to be in terms of vw on larger screens.
+- Incorrect entries are logged twice. 
+Fix: This was because the wrong thing was being pushed to the incorrectAnswers array. This was fixed by changing when the alreadyGuessed function is called.
+- Media queries for screens of min-width 360px were causing issues.
+Fix: I fixed this by removing them.
+- False negative answers for answers with special characters.
+Fix: I manually edited answers in the database file where I found special characters.
+- When changing the question, the scores were erased instead of being reset to 0.
+Fix: I addressed this by adding a resetValue parameter to the resetElementById function.
+- Feedback area on new question displays undefined.
+Fix: The resetElementById call was removed completely.
 
 
 
@@ -174,6 +201,15 @@ Fix: Changing video iframes to width==300 height=225 addressed the issue. [SO: b
 - When loading on larger screens, the page appears differently before certain Javascript functions "move" the score area and arrow button area. I am not sure how to fix this right now, and it is a minor inconvenience.
 - The automated tests do not function properly due to refactoring. As the need for automated tests was not as necessary after the main game play loop had been established, the need for these tests is not as high a priority. In general, this would not be true.
 - If a user submits 'a', 'an', 'the', or 'of' the incorrect answer will not be logged. Luckily, 'The The' is not sampled on the album.
+- Special characters are not recognized or addressed in full generality. Above rawSolutions in database.js, I have noted which entries have been manually adjusted.
+
+### Lighthouse
+I used the chrome [Lighthouse](#lighthouse) extension to test my project. For the landing page I got 100:
+<img alt="Landing page report" src="./assets/images/screenshots/lighthouse-landing-page-report.png">
+
+For the game page I did well, except on performance:
+<img alt="Game page report" src="./assets/images/screenshots/lighthouse-game-page-report1.png">
+This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future.
 
 
 ## Deployment <a name="deployment"></a>
