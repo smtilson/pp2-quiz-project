@@ -176,8 +176,8 @@ main {
 #input-label {
     margin: 5px;
     display: flex;
+    align-items: center;
     gap: 5px;
-    height: 1.3em;
 }
 
 #user-answer {
@@ -186,6 +186,7 @@ main {
     background-color: white;
     font-weight: bold;
     color: black;
+    height: 2em;
 }
 
 #submit-button {
@@ -334,6 +335,10 @@ main {
     #song-video {
         width: 420px;
         height: 315px;
+    }
+
+    #answer-area {
+        gap: 3px;
     }
 
     /* score area styles */
