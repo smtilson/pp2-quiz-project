@@ -87,7 +87,7 @@ function generateFeedback(answer, songName, guessed, correct) {
  * @param {string} guess - user submitted nonsense answer 
  * @returns {string} Message to be given to user
  */
-function nonsenseFeedback(guess, ) {
+function nonsenseFeedback(guess) {
     return `I don't think ${guess} is a very serious answer. Try again.`;
 }
 

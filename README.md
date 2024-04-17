@@ -117,8 +117,60 @@ To test responsiveness, I used chrome dev tools. I considered the following scre
 The game functioned on all of these. I had to compromise on the appearance a bit. I used breakpoints in my CSS to address when the width and height change.
 
 ### Validation
+
 #### HTML
-The HTML has been validated with 
+The HTML has been validated with [W3 HTML validator](#html-validator). The only issues were:
+- trailing '/>' on elements in the head that were introduced byt the formatter I used;
+- a button element that was wrapped in an anchor tag.
+Both of these have been addressed.
+
+#### CSS
+The CSS was validated with [Jigsaw CSS validator](#css-validator). No errors were found.
+
+#### Javascript
+The Javascript has been validated by [JSHint](#js-validator). There were no major issues.
+It caught:
+- missing semi-colons
+- unnecessary trailing commas
+These were immediately corrected.
+
+It mentioned:
+- 'const', 'let', '=>', and 'for of' loops only being available in ES6.
+- 'for in' loops should be called inside of an 'if' block. 
+- functions being called that are not defined in the body of that JS file
+- variables that are not used in the body of that JS file
+
+Regarding the last two points. In order to compartmentalize and organize the work, I moved utility functions, mostly used for formatting, to a separate file, utility.js. I also moved all of the data that is stored to database.js. This causes no problem at runtime as this files are loaded in proper order. Therefore the functions called are already in the namespace before they are called.
+
+### Bugs
+- There were special dash characters contained in the raw data that was used for the solutions.
+Fix: This was addressed by [SO dash question](#so-dash-question). I removed the special characters initially using the code suggested there but later used my replaceAll function.
+- Capitalize was throwing an error. This was due to it being fed an empty string.
+Fix: Capitalize is only called by toTitle. So trim() is called before capitalize is to address this issue.
+- Certain correct song titles were not being marked correct.
+Fix: When refactoring to package all utility functions into a single object, something was not properly replaced. Thus, the check to see if a user answer was a song that was sampled was failing automatically. This was been fixed. The utility object was later made into a separate file.
+- Automated tests revealed that submissions were being overcounted.
+Fix: This was due to using only toLowerCase() and not my custom norm() function. This was fixed.
+- The wrong format of correct answer was being logged.
+Fix: In the compareGuess function, I was not setting a new variable for the comparison and so the wrong string was being returned by compareGuess. This was fixed
+- The core game play loop was not loading.
+Fix: The issue was that an old event handler which was deleted had not yet been removed from the set up. It was being added as a listener, but the function no longer existed. This was fixed.
+- The javascript files were not loading.
+Fix: There was a typo in an array definition and some missing semi-colons. Fixing these addressed the issue.
+- When loading game.html, a 'mouseoverevent' was causing an empty string to be submitted.
+Fix: This was fixed by catching empty strings and preventing them from being submitted. Subsequently, 'mouseoverevent' triggers were completely removed.
+- When submitting an answer with button click, or enter key playSongQuiz was being triggered too many times.
+Fix: The above fix addressed this. I also refactored how the function was being assigned to the listener, I believe this also addressed the issue.
+
+
+
+#### Bugs left in
+- If a artist is sampled twice on the same song, the user is unable to submit the user a second time and receive credit. This is fixable, but it was not a priority as it happens very seldom.
+- The appearance of the app could be improved.
+- When loading on larger screens, the page appears differently before certain Javascript functions "move" the score area and arrow button area. I am not sure how to fix this right now, and it is a minor inconvenience.
+- The automated tests do not function properly due to refactoring. As the need for automated tests was not as necessary after the main game play loop had been established, the need for these tests is not as high a priority. In general, this would not be true.
+- If a user submits 'a', 'an', 'the', or 'of' the incorrect answer will not be logged. Luckily, 'The The' is not sampled on the album.
+
 
 ## Deployment <a name="deployment"></a>
 To deploy the project follow the following steps.
@@ -147,6 +199,12 @@ To deploy the project follow the following steps.
 ### Technologies, Frameworks, and resources used
 
 -validation
+- <a href="https://validator.w3.org/#validate_by_input">W3 HTML validator</a> <a name="html-validator"></a>
+- <a href="https://jigsaw.w3.org/css-validator/#validate_by_input">Jigsaw W3 CSS validator</a><a name="css-validator"></a>
+-<a>
+
+### StackOverflow
+- <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript">SO: special dash characters</a> <a name="so-dash-question"></a>
 
 ### Non-coding references
 

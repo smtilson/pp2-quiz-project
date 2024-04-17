@@ -55,7 +55,6 @@ function replaceAll(string, substring, replacement) {
  * @returns {string} Cleaned version of string
  */
 function preprocessString(string) {
-    // this should be moved so that it only applies to the song and artist etc.
     string = string.trim();
     let removal = ['\u2013', '\u2012', '\u2014', ];
     // replaces special dashes with semi-colon
@@ -87,7 +86,6 @@ function transformWikiData(rawSamples) {
  * @returns {array} Artists and Songs sampled in single array
  */
 function formatSolutions(artistAndSongSolutions) {
-    // maybe this can be changed to a computed property thing?
     const artistList = artistAndSongSolutions.map((entry) => entry.artist);
     const songList = artistAndSongSolutions.map((entry) => entry.song);
     return artistList.concat(songList);
@@ -180,9 +178,6 @@ function removeParenthetical(songString) {
  * @returns {array} Array of list items in string format
  */
 function htmlListToArray(stringHTML) {
-    // must remove incorrect-list first, or it will be modified by 
-    // removal of correct-list, which would lead to a superfluous 'in' 
-    // that we can not remove safely.
     let htmlData = [' id=', 'incorrect-list', 'correct-list', '"', "'", '<ul>', '</ul>', '<li>'];
     for (let datum of htmlData) {
         stringHTML = replaceAll(stringHTML, datum, '');
