@@ -5,7 +5,6 @@ Girl Talk is a mash-up artist, sampling an eclectic collection of music to creat
 ## Table of Contents <a name="toc"></a>
 - [Title](#title)
 - [Introduction](#intro)
-<!--- [Design Planes](#planes)-->
 - [Features](#features)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -40,7 +39,6 @@ Due to space limitations, the instructions were moved to a landing page. An area
 
 ## Features <a name="features"></a>
 ### Features
-<!--needs screenshots-->
 #### Landing Page
 User stories:
 - As a user, I visit the landing page and read the instructions for the game. I am told what kinds of answers to submit. I am told incorrect guesses are not penalized. I am told to be very happy with 10% completion on a song.
@@ -107,10 +105,20 @@ For navigation, there are three buttons at the bottom of the page. The left arro
 ## Testing <a name="testing"></a>
 
 ### Testing Features
+I tested the initial version of logging and scoring with custom functions. Since significant refactoring, I have tested them manually. I have tested all buttons manually on mobile and on desktop. 
 
 ### Testing the Game itself
+During early development, when the game was only implemented for the first track, I used some functions to test that the game was functioning as expected when given specified input. These functions can be found in testing.js. Due to refactoring, they no longer function appropriately. Since those refactors, I have been testing manually. I have played the game for the first 7 tracks and found some bugs that I have fixed, which will be detailed below. These integration tests ensured that the events were being appropriately triggered in mobile and on desktop. I have also had a few friends play the game.
 
 ### Testing responsiveness
+To test responsiveness, I used chrome dev tools. I considered the following screen sizes:
+- On mobile: 320x628, 375×667, 414×736, 360×800, 390×844
+- Larger: 768x1024, 1024x768, 933x622, 1024x622
+The game functioned on all of these. I had to compromise on the appearance a bit. I used breakpoints in my CSS to address when the width and height change.
+
+### Validation
+#### HTML
+The HTML has been validated with 
 
 ## Deployment <a name="deployment"></a>
 To deploy the project follow the following steps.
@@ -135,6 +143,10 @@ To deploy the project follow the following steps.
 
 
 ## Credits and Outside Sources <a name="credits"></a>
+
+### Technologies, Frameworks, and resources used
+
+-validation
 
 ### Non-coding references
 

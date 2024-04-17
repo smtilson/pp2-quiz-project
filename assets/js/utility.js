@@ -229,6 +229,13 @@ function catchNonsense(string) {
     return false;
 }
 
+/**
+ * This is used to create links for the readme from the embed format 
+ * used for iframes.
+ * @param {string} songHTML - song in html format
+ * @param {string} embedLink - youtube link in embed format. 
+ * @returns {string} Anchor tag with song name in title format
+ */
 function linkForReadme(songHTML, embedLink) {
     let watchLink = '<a href="';
     watchLink += embedLink.replace('embed/','watch?v=');
