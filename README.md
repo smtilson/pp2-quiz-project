@@ -161,6 +161,10 @@ Fix: There was a typo in an array definition and some missing semi-colons. Fixin
 Fix: This was fixed by catching empty strings and preventing them from being submitted. Subsequently, 'mouseoverevent' triggers were completely removed.
 - When submitting an answer with button click, or enter key playSongQuiz was being triggered too many times.
 Fix: The above fix addressed this. I also refactored how the function was being assigned to the listener, I believe this also addressed the issue.
+- At 320px, the body was not properly centered.
+Fix: Changing video iframes to width==300 height=225 addressed the issue. [SO: body width question](#so-body-width-question)
+-
+
 
 
 
@@ -201,10 +205,12 @@ To deploy the project follow the following steps.
 -validation
 - <a href="https://validator.w3.org/#validate_by_input">W3 HTML validator</a> <a name="html-validator"></a>
 - <a href="https://jigsaw.w3.org/css-validator/#validate_by_input">Jigsaw W3 CSS validator</a><a name="css-validator"></a>
--<a>
+- <a>
+
 
 ### StackOverflow
 - <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript">SO: special dash characters</a> <a name="so-dash-question"></a>
+- <a href="https://stackoverflow.com/questions/30358630/html-body-not-filling-complete-width-on-mobile-devices">SO: body width question</a> <a name="so-body-width-question"></a>
 
 ### Non-coding references
 
