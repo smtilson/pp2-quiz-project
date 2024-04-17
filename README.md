@@ -205,13 +205,27 @@ Fix: The resetElementById call was removed completely.
 
 ### Lighthouse
 I used the chrome [Lighthouse](#lighthouse) extension to test my project. For the landing page I got 100:
+
 <img alt="Landing page report" src="./assets/images/screenshots/lighthouse-landing-page-report.png">
 
 For the game page I did well, except on performance:
-<img alt="Game page report" src="./assets/images/screenshots/lighthouse-game-page-report1.png">
-This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future.
 
+<img alt="Game page report" src="./assets/images/screenshots/lighthouse-game-page-report.png">
 
+This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future. The full report can be read at
+
+### Wave
+I used the chrome extension for [Wave](#wave) to test accessibility.
+For the landing page I got:
+
+<img alt="Wave landing page report" src="./assets/images/screenshots/wave-landing-page-report.png">
+
+For the game page I got:
+
+<img alt="Wave game page report" src="./assets/images/screenshots/wave-game-page-report.png">
+
+One of the alerts is to a redundant link. I addressed this by removing the link in the header.
+The other alert is to the youtube video that is embedded.
 ## Deployment <a name="deployment"></a>
 To deploy the project follow the following steps.
 
