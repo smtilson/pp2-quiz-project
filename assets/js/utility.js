@@ -56,6 +56,8 @@ function replaceAll(string, substring, replacement) {
  */
 function preprocessString(string) {
     string = string.trim();
+    // earlier versions of the code addressing these dashes was inspired by this SO question:
+    // https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript
     let removal = ['\u2013', '\u2012', '\u2014', ];
     // replaces special dashes with semi-colon
     for (let term of removal) {
@@ -121,7 +123,7 @@ function sampleStringToData(sampleString) {
  */
 function htmlToTitle(string) {
     string = replaceAll(string, '-', ' ');
-    // the below part of the function was inspired by an answer from SO.
+    // the below part of the function was inspired by this SO question:
     // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
     let words = string.split(' ');
     words = words.map(w => capitalize(w));

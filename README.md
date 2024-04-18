@@ -1,6 +1,6 @@
 # He used What?? <a name="title"></a>
 ### The Girl Talk samples quiz that you can finally play outside of your own head
-Girl Talk is a mash-up artist, sampling an eclectic collection of music to create original and dynamic songs. This online quiz tests your musical knowledge to see if you can name the artist or song he is sampling. Find the quiz <a href="https://smtilson.github.io/pp2-quiz-project/">here</a>.
+Girl Talk is a mash-up artist, sampling an eclectic collection of music to create original and dynamic songs. This online quiz tests your musical knowledge to see if you can name the artist or song he is sampling. Find the quiz <a href="https://smtilson.github.io/pp2-quiz-project/" target="_blank">here</a>.
 
 ## Table of Contents <a name="toc"></a>
 - [Title](#title)
@@ -150,8 +150,8 @@ It mentioned:
 - functions being called that are not defined in the body of that JS file
 - variables that are not used in the body of that JS file
 
-<!--Regarding 'for in' loops. They are used only with objects I control and so the keys can not be tampered with.
--->
+Regarding 'for in' loops. They are used only with objects I control and so the keys/indices can not be tampered with and no index errors will occur.
+
 Regarding the last two points. In order to compartmentalize and organize the work split my main file into several parts. I moved utility functions, mostly used for formatting, to a separate file, utility.js. I moved all of the data that is stored to database.js. This causes no problem at runtime as this files are loaded in proper order. Therefore the functions called are already in the namespace before they are called.
 
 ### Bugs
@@ -258,14 +258,12 @@ Fix: The else clause of findPrevSongHTML was incorrect but easily fixed.
 #### Bugs left in
 - If an artist is sampled twice on the same song, the user is unable to submit the artist a second time and receive credit. This is fixable, but it was not a priority as it happens very seldom.
 - The appearance of the app could be improved.
-<!--begin here-->
 - When loading on larger screens, the page appears differently before certain Javascript functions "move" the score area and arrow button area. I am not sure how to fix this right now, and it is a minor inconvenience.
-- The automated tests do not function properly due to refactoring. As the need for automated tests was not as necessary after the main game play loop had been established, the need for these tests is not as high a priority. In general, this would not be true.
 - If a user submits 'a', 'an', 'the', or 'of' the incorrect answer will not be logged. Luckily, 'The The' is not sampled on the album.
 - Special characters are not recognized or addressed in full generality. Above rawSolutions in database.js, I have noted which entries have been manually adjusted.
 
 ### Lighthouse
-I used the chrome [Lighthouse](#lighthouse) extension to test my project. For the landing page I got 100:
+I used the chrome [Lighthouse](#lighthouse) extension to test my project. For the landing page I got 100 in all areas:
 
 <img alt="Landing page report" src="./assets/images/screenshots/lighthouse-landing-page-report.png">
 
@@ -276,7 +274,7 @@ For the game page I did well, except on performance:
 This was due to the inefficient loading of the embedded youtube video. One fix would be to implement lazy loading of the video. I plan on doing this in the future.
 
 ### Wave
-I used the chrome extension for [Wave](#wave) to test accessibility.
+I used the chrome extension for [WAVE](#wave) to test accessibility.
 For the landing page I got:
 
 <img alt="Wave landing page report" src="./assets/images/screenshots/wave-landing-page-report.png" height="200px" width="150px">
@@ -316,76 +314,80 @@ To deploy the project follow the following steps.
 
 ### Technologies, Frameworks, and resources used
 I coded this project in HTML, CSS, and Javascript. I used Github, and git for version control to manage the project. I used Gitpages to host the project. I used chrome dev tools to debug the code and adjust the appearance of the project. I used Font Awesome for the arrows at the bottom of the game page.
+I used Balsamiq to make the wireframes.
 
-- <a href="https://validator.w3.org/#validate_by_input">W3 HTML validator</a> <a name="html-validator"></a>
-- <a href="https://jigsaw.w3.org/css-validator/#validate_by_input">Jigsaw W3 CSS validator</a><a name="css-validator"></a>
-- <a href="https://jshint.com/">JSHint: Javascript tool</a><a name="js-validator"></a>
-- <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk">Lighthouse chrome plug in</a> <a name="lighthouse"></a>
-- <a href="https://chromewebstore.google.com/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh">WAVE evaluation tool chrome plug in</a> <a name="wave"></a>
-- <a href="https://fontawesome.com">Font Awesome</a>
-- <a name="html-formatter"></a><a href="https://webformatter.com/html#google_vignette">HTML formatter</a> (this did add /> to the end of self closing tags in the header. These were flagged by the HTML validator and removed.)
+- <a href="https://validator.w3.org/#validate_by_input" target="_blank">W3 HTML validator</a> <a name="html-validator"></a>
+- <a href="https://jigsaw.w3.org/css-validator/#validate_by_input" target="_blank">Jigsaw W3 CSS validator</a><a name="css-validator"></a>
+- <a href="https://jshint.com/" target="_blank">JSHint: Javascript tool</a><a name="js-validator"></a>
+- <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk" target="_blank">Lighthouse chrome plug in</a> <a name="lighthouse"></a>
+- <a href="https://chromewebstore.google.com/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh" target="_blank">WAVE evaluation tool chrome plug in</a> <a name="wave"></a>
+- <a href="https://fontawesome.com" target="_blank">Font Awesome</a>
+- <a href="https://balsamiq.com/" target="_blank">Balsamiq</a>
+- <a name="html-formatter"></a><a href="https://webformatter.com/html#google_vignette" target="_blank">HTML formatter</a> (this did add /> to the end of self closing tags in the header. These were flagged by the HTML validator and removed.)
 
 ### Inspiration
 The Love Math walkthrough was very helpful for understanding how to even structure such a project. It also helped with presenting a good development procedure. It encouraged me to use iteration. I first began by making the game work for a very small set of parameters, and then I increased the functionality slowly from there.
 
 ### StackOverflow
-- <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript">SO: special dash characters</a> <a name="so-dash-question"></a>
-- <a href="https://stackoverflow.com/questions/30358630/html-body-not-filling-complete-width-on-mobile-devices">SO: body width question</a> <a name="so-body-width-question"></a>
-- <a href="https://stackoverflow.com/questions/618089/can-i-insert-elements-to-the-beginning-of-an-element-using-appendchild">SO: insert element before</a>
-- <a href="https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript">SO: title case with JS</a>
+- <a href="https://stackoverflow.com/questions/10436523/remove-a-long-dash-from-a-string-in-javascript" target="_blank">SO: special dash characters</a> <a name="so-dash-question"></a>
+- <a href="https://stackoverflow.com/questions/30358630/html-body-not-filling-complete-width-on-mobile-devices" target="_blank">SO: body width question</a> <a name="so-body-width-question"></a>
+- <a href="https://stackoverflow.com/questions/618089/can-i-insert-elements-to-the-beginning-of-an-element-using-appendchild" target="_blank">SO: insert element before</a>
+- <a href="https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript" target="_blank">SO: title case with JS</a>
+
+### Mentor
+My mentor gave helpful feedback. He suggested I make a database object in JS to store the solutions instead of hiding them in the html. He suggested that I change the size of some key elements to improve the appearance. He also suggested that I give an example in the readme.
+
 
 ### Slack
-- Daisy_mentor suggested the Wave tool, as well as making an empty span and populating it with feedback.
+- Daisy_mentor suggested the WAVE tool, as well as making an empty span and populating it with feedback.
 - Anders suggested using the Issues tab in github.
 - Beardie mentioned that students received poor marks for using 'let' when they should have used 'const'. This was helpful information.
 
 ### Feedback
-I showed the app to other members of my cohort (Holinda, Alex, and Anders), members of my family (my brother and my wife), and my friends (Lou and Mike). They gave me positive encouragement and feedback. In particular, Lou pointed out that the page looked poorly on his Pixel 4 phone. A screenshot Anders sent pointed to the submission areas being in the "wrong" place. I also received feedback regarding  the difficulty of the quiz. This is why I have added the blurb on the landing page. I also plan on uploading my own scores so that people don't feel bad.
-
-My mentor gave helpful feedback. He suggested I make a database object in JS to store the solutions instead of hiding them in the html. He suggested that I change the size of some key elements to improve the appearance.
+I showed the app to other members of my cohort (Holinda, Alex, and Anders), members of my family (my brother and my wife), and my friends (Lou and Mike). They gave me positive encouragement and feedback. In particular, Lou pointed out that the page looked poorly on his Pixel 4 phone. A screenshot Anders sent pointed to the submission areas being in the "wrong" place. I also received feedback regarding the difficulty of the quiz. This is why I have added the blurb on the landing page.
 
 ### Javascript, HTML, and css
-- <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes">Data attributes</a>
-- <a href="https://www.w3schools.com/howto/howto_js_add_class.asp">How to add a class using JS</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank">Data attributes</a>
+- <a href="https://www.w3schools.com/howto/howto_js_add_class.asp" target="_blank">How to add a class using JS</a>
 - At one point during the project, I organized similar functions into a Javascript object. This is something I learned when working with python. I later moved these functions to a separate file and this became unnecessary.
-- <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Arraey method map and '=>'</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute">setAttribute method</a>
-- <a href="https://gamedevacademy.org/javascript-docstrings-tutorial/#How_to_Write_a_Docstring_in_JavaScript">Pointers on JS docstring format</a>
-- <a href="https://www.w3schools.com/html/html_youtube.asp">W3 schools on youtube videos in html</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank">Array method map and '=>' syntax</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute" target="_blank">setAttribute method</a>
+- <a href="https://gamedevacademy.org/javascript-docstrings-tutorial/#How_to_Write_a_Docstring_in_JavaScript" target="_blank">Pointers on JS docstring format</a>
+- <a href="https://www.w3schools.com/html/html_youtube.asp" target="_blank">W3 schools on youtube videos in html</a>
 
 ### Non-coding references
 
 #### Images and Color palette
 Favicon:
 I used the image from Girl Talk's unstoppable album (as it has his face on it) and I gave this to the favicon generator.
- - <a href="https://upload.wikimedia.org/wikipedia/en/8/8c/Unstoppable_%28Girl_Talk_album%29_cover_art.jpg">Unstoppable Album cover from Wikipedia</a>
- - <a href="https://favicon.io/favicon-converter/">Favicon Generator</a>
+ - <a href="https://upload.wikimedia.org/wikipedia/en/8/8c/Unstoppable_%28Girl_Talk_album%29_cover_art.jpg" target="_blank">Unstoppable Album cover from Wikipedia</a>
+ - <a href="https://favicon.io/favicon-converter/" target="_blank">Favicon Generator</a>
 
- For the color palette, I sampled colors from the album cover for All Day using the tool. I did end up using plain white for text and borders though, as this was clearer.
- - <a href="https://upload.wikimedia.org/wikipedia/en/1/10/Girl_Talk_All_Day.jpg">All Day album cover</a>
- - <a href="https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg">Color Pick Eyedropper chrome extension</a>
+ For the color palette, I sampled colors from the album cover for All Day using [this tool](#color-eyedropper). I did end up using plain white for text though, as this was clearer.
+ - <a href="https://upload.wikimedia.org/wikipedia/en/1/10/Girl_Talk_All_Day.jpg" target="_blank">All Day album cover</a>
+ - <a href="https://chromewebstore.google.com/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg" target="_blank">Color Pick Eyedropper chrome extension</a><a name="color-eyedropper"></a>
 
 #### Music
 Youtube videos for each song are used.
 They are:
-- <a href="https://www.youtube.com/watch?v=4bMM7tGV9MI">Oh No</a>
-- <a href="https://www.youtube.com/watch?v=FtsxfquYHf0">Let It Out</a>
-- <a href="https://www.youtube.com/watch?v=xVmXXWcfitw">Thats Right</a>
-- <a href="https://www.youtube.com/watch?v=Ka3GznTXur8">Jump On Stage</a>
-- <a href="https://www.youtube.com/watch?v=DZu_lLGFDtM">This Is The Remix</a>
-- <a href="https://www.youtube.com/watch?v=lzf8NNF1Af4">On And On</a>
-- <a href="https://www.youtube.com/watch?v=MRCEgD1nRRM">Get It Get It</a>
-- <a href="https://www.youtube.com/watch?v=Nr2cfwR0roU">Down For The Count</a>
-- <a href="https://www.youtube.com/watch?v=9DBmMoW5lSs">Make Me Wanna</a>
-- <a href="https://www.youtube.com/watch?v=p1pd69r1Il8">Steady Shock</a>
-- <a href="https://www.youtube.com/watch?v=i0yY0zxk-18">Triple Double</a>
-- <a href="https://www.youtube.com/watch?v=Bo5bBq2j2EE">Every Day</a>
+- <a href="https://www.youtube.com/watch?v=4bMM7tGV9MI" target="_blank">Oh No</a>
+- <a href="https://www.youtube.com/watch?v=FtsxfquYHf0" target="_blank">Let It Out</a>
+- <a href="https://www.youtube.com/watch?v=xVmXXWcfitw" target="_blank">Thats Right</a>
+- <a href="https://www.youtube.com/watch?v=Ka3GznTXur8" target="_blank">Jump On Stage</a>
+- <a href="https://www.youtube.com/watch?v=DZu_lLGFDtM" target="_blank">This Is The Remix</a>
+- <a href="https://www.youtube.com/watch?v=lzf8NNF1Af4" target="_blank">On And On</a>
+- <a href="https://www.youtube.com/watch?v=MRCEgD1nRRM" target="_blank">Get It Get It</a>
+- <a href="https://www.youtube.com/watch?v=Nr2cfwR0roU" target="_blank">Down For The Count</a>
+- <a href="https://www.youtube.com/watch?v=9DBmMoW5lSs" target="_blank">Make Me Wanna</a>
+- <a href="https://www.youtube.com/watch?v=p1pd69r1Il8" target="_blank">Steady Shock</a>
+- <a href="https://www.youtube.com/watch?v=i0yY0zxk-18" target="_blank">Triple Double</a>
+- <a href="https://www.youtube.com/watch?v=Bo5bBq2j2EE" target="_blank">Every Day</a>
 
 #### Sample list
-- The data of which samples play when is taken from <a href="https://girltalk.fandom.com/wiki/All_Day">Girl Talk fandom wiki: All Day</a>.<a name="solutions"></a>
-- The official samples list, without time stamps, is from <a href="https://illegalart.net/allday/samples.html">Illegal Art: GIRL TALK - ALL DAY SAMPLES LIST</a>.
-- Unfortunately, the official download site no longer allows for download of the album, <a href="https://illegalart.net/allday/">Girl Talk - All Day</a>.
+- The solutions data is taken from <a href="https://girltalk.fandom.com/wiki/All_Day" target="_blank">Girl Talk fandom wiki: All Day</a>.<a name="solutions"></a>
+- The official samples list, without time stamps, is from <a href="https://illegalart.net/allday/samples.html" target="_blank">Illegal Art: GIRL TALK - ALL DAY SAMPLES LIST</a>.
+- Unfortunately, the official download site no longer allows for download of the album, <a href="https://illegalart.net/allday/" target="_blank">Girl Talk - All Day</a>.
 
 #### Miscellaneous
-- <a href="https://stackoverflow.com/questions/14675913/changing-image-size-in-markdown">Image size in markdown</a>
-- <a href="https://screenresolutiontest.com/">Common resolution sizes</a>
+- <a href="https://stackoverflow.com/questions/14675913/changing-image-size-in-markdown" target="_blank">Image size in markdown</a>
+- <a href="https://screenresolutiontest.com/" target="_blank">Common resolution sizes</a>

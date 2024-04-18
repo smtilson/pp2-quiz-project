@@ -130,7 +130,7 @@ function getLogs(correct) {
 }
 
 /**
- * This logs the guess in the appropriate object.
+ * Logs the guess in the appropriate object.
  * @param {string} guess - string to be logged 
  * @param {boolean} correct - Determines where to log string
  */
