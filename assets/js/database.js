@@ -1,9 +1,8 @@
-// This file stores the answers as copied from the reference.
+// This file stores the answers as copied from the website 
+// https://girltalk.fandom.com/wiki/All_Day.
 // It also processes those answers into useable format.
 
-console.log("Database loading");
-
-// Raw version of solutions manually stored from fanwiki.
+// Raw version of solutions stored manually.
 // Beyonce, Blue Oyster Cult, (Don't Fear) The Reaper, and Bizarre Love Triangle were 
 // manually edited.
 const rawSolutions = {
@@ -409,7 +408,6 @@ const rawUnknownSamples = {
 // Useable format for solutions
 let solutions = {};
 for (let songHTML in rawSolutions) {
-    //console.log(rawSolutions[songHTML]);
     let songData = transformWikiData(rawSolutions[songHTML]);
     solutions[songHTML] = formatSolutions(songData);
 }
@@ -433,6 +431,7 @@ const youtubeLinks = {
     'every-day': "https://www.youtube.com/embed/Bo5bBq2j2EE",
 };
 
+// May be used later
 const seansHighscore = {
     'oh-no': 7,
     'let-it-out': 5,
@@ -441,6 +440,5 @@ const seansHighscore = {
     'this-is-the-remix':9,
     'on-and-on':9,
     'get-it-get-it':9,
+    'every-day':5,
 };
-
-console.log("database finished loading");

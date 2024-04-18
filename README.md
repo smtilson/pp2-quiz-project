@@ -1,4 +1,4 @@
-# He used What?? <a name="title"></a>
+# He Sampled WHAT?? <a name="title"></a>
 ### The Girl Talk samples quiz that you can finally play outside of your own head
 Girl Talk is a mash-up artist, sampling an eclectic collection of music to create original and dynamic songs. This online quiz tests your musical knowledge to see if you can name the artist or song he is sampling. Find the quiz <a href="https://smtilson.github.io/pp2-quiz-project/" target="_blank">here</a>.
 
