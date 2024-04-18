@@ -1,5 +1,5 @@
 // Initial setup
-console.log('initial setup');
+// set up submission logs
 let correctAnswers = {};
 let incorrectAnswers = {};
 for (let track of trackList) {
@@ -9,8 +9,8 @@ for (let track of trackList) {
 document.addEventListener("DOMContentLoaded", setupPage);
 
 /**
- * Main gameplay function. Gets users answer. Checks if it is a solution, 
- * calls functions to provide user with feedback.
+ * Main function. Gets users guess. Checks if it is correct, 
+ * calls functions to provide user with feedback, logs progress.
  */
 function playSongQuiz() {
     const songHTML = getSongHTML();
@@ -28,7 +28,7 @@ function playSongQuiz() {
     // resets answer to userAnswer if the guess was incorrect  
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct);
-    logGuess(answer, guessed, correct);
+    
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);
     displayFeedback(feedback);
@@ -36,6 +36,7 @@ function playSongQuiz() {
     if (!guessed) {
         incrementScores(correct, songHTML);
         addGuess(answer, correct);
+        logGuess(answer, correct);
     }
     // resets game for next guess
     resetAnswerArea();
@@ -109,7 +110,7 @@ function displayFeedback(feedback) {
  */
 function alreadyGuessed(guess, correct) {
     const normedGuess = norm(guess);
-    console.log('guess: ', guess,'correct:', correct);
+    console.log('guess: ', guess, 'correct:', correct);
     let submissions = getLogs(correct);
     submissions = submissions.map((word) => norm(word));
     // checks for guess in logs
@@ -134,15 +135,14 @@ function getLogs(correct) {
  * @param {string} guess - string to be logged 
  * @param {boolean} correct - Determines where to log string
  */
-function logGuess(guess, guessed, correct) {
-    if (!guessed) {
-        if (correct) {
-            correctAnswers[getSongHTML()].push(guess);
-        } else {
-            incorrectAnswers[getSongHTML()].push(guess);
-        }
+function logGuess(guess, correct) {
+    if (correct) {
+        correctAnswers[getSongHTML()].push(guess);
+    } else {
+        incorrectAnswers[getSongHTML()].push(guess);
     }
 }
+
 
 /**
  * Adds either correctly formatted answer to correct submissions 
@@ -265,7 +265,7 @@ function findPrevSongHTML(songHTML) {
     if (index - 1 >= 0) {
         songHTML = trackList[index - 1];
     } else {
-        songHTML = trackList[trackList.length-1];
+        songHTML = trackList[trackList.length - 1];
     }
     return songHTML;
 }
@@ -301,7 +301,7 @@ function changeQuestion(songHTML) {
  */
 function updateIFrame(songHTML) {
     let iframe = document.getElementById('song-video');
-    iframe.setAttribute('src',  youtubeLinks[songHTML]);
+    iframe.setAttribute('src', youtubeLinks[songHTML]);
     let ariaLabel = `Youtube video for ${htmlToTitle(songHTML)}, but image is just the album cover for All Day`;
     iframe.setAttribute('aria-label', ariaLabel);
 }
