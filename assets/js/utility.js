@@ -3,7 +3,6 @@
 // for processing by other functions. They are mostly used by 
 // database.js but are also used in the script.js for processing. 
 
-console.log('utility functions started loading');
 /**
  * Returns a format of string for comparison purposes. This format allows
  * for users to submit guesses that are not exact matches in terms of 
@@ -19,7 +18,7 @@ function norm(string) {
     // adds buffer so words will be removed from beginning 
     // and end of string
     string = ' ' + string + ' ';
-    let removeWords = ['the', 'a', 'an', "'n'", 'of', ];
+    let removeWords = ['the', 'a', 'an', "'n'", 'of', 'and', ];
     // ensures that words aren't removed from interior of words
     removeWords = removeWords.map((word) => ' ' + word + ' ');
     for (let word of removeWords) {
@@ -33,14 +32,13 @@ function norm(string) {
     return string;
 }
 
-
 /**
- * Removes all occurences of substring. Warning, depending on choices,
+ * Removes all occurrences of substring. Warning, depending on choices,
  * new instances of the substring may be created by this removal process.
  * @param {string} string - String to be modified 
  * @param {string} substring - String to be replaced
  * @param {string} replacement - Replacement string
- * @returns {string} With substring replaced
+ * @returns {string} String with substring replaced
  */
 function replaceAll(string, substring, replacement) {
     while (string.includes(substring)) {
@@ -94,12 +92,6 @@ function formatSolutions(artistAndSongSolutions) {
 }
 
 /**
- * This function produces an js object containing start of sample,
- * end of sample, artist, and song sampled.
- * @param {string} sampleString 
- */
-
-/**
  * Produces js Object containing data from sample stored by key
  * @param {string} sampleString - string of sample data: start, end, artist, song 
  * @returns {object} Object containing sample data.
@@ -151,49 +143,12 @@ function primaryArtist(artist) {
 }
 
 /**
- * Removes parenthetical statements in song titles.
+ * Removes parenthetical statements. Only applied to song titles.
  * @param {string} song 
  * @returns {string} Only primary title
  */
 function removeParenthetical(songString) {
     return songString.split('(')[0].trim();
-}
-
-/**
- * Converts an html list represented as a string to an array.
- * @param {string} stringHTML - string of html representing a list element 
- * @returns {array} Array of list items in string format
- */
-function htmlListToArray(stringHTML) {
-    let htmlData = [' id=', 'incorrect-list', 'correct-list', '"', "'", '<ul>', '</ul>', '<li>'];
-    for (let datum of htmlData) {
-        stringHTML = replaceAll(stringHTML, datum, '');
-    }
-    stringHTML = replaceAll(stringHTML, '</li>', ';');
-    return stringHTML.split(';');
-}
-
-/**
- * Determines the maximum length of a correct solution. Logs max 
- * length and the relevant string to the console.
- * @param {object} solutions - object containing all solutions
- */
-function determineMax(solutions) {
-    let maxLength = 0;
-    let maxSong;
-    for (let song in solutions) {
-        for (let sol of solutions[song]) {
-            if (sol.length >= maxLength) {
-                console.log(sol);
-                maxLength = sol.length;
-                maxSong = sol;
-            } else {
-                continue;
-            }
-        }
-    }
-    console.log(maxLength);
-    console.log(maxSong);
 }
 
 /**
@@ -212,7 +167,7 @@ function catchNonsense(string) {
 }
 
 /**
- * This is used to create links for the readme from the embed format 
+ * Used to create links for the readme from the embedded format 
  * used for iframes.
  * @param {string} songHTML - song in html format
  * @param {string} embedLink - youtube link in embed format. 
@@ -224,5 +179,3 @@ function linkForReadme(songHTML, embedLink) {
     watchLink += `">${htmlToTitle(songHTML)}</a>`;
     return watchLink;
 }
-
-console.log("utility functions finished loading");

@@ -8,8 +8,9 @@ for (let track of trackList) {
 }
 document.addEventListener("DOMContentLoaded", setupPage);
 
+// Main function
 /**
- * Main function. Gets users guess. Checks if it is correct, 
+ * Gets users guess. Checks if it is correct, 
  * calls functions to provide user with feedback, logs progress.
  */
 function playSongQuiz() {
@@ -28,7 +29,6 @@ function playSongQuiz() {
     // resets answer to userAnswer if the guess was incorrect  
     answer = (answer) ? answer : userAnswer;
     let guessed = alreadyGuessed(answer, correct);
-    
     // delivers feedback
     const feedback = generateFeedback(answer, htmlToTitle(songHTML), guessed, correct);
     displayFeedback(feedback);
@@ -42,9 +42,7 @@ function playSongQuiz() {
     resetAnswerArea();
 }
 
-
-// Functions related to checking answers
-
+// Check submission functions
 /**
  * Checks if userAnswer is in answerArray using normalized form of each 
  * @param {string} userAnswer - User submitted string 
@@ -63,46 +61,6 @@ function compareGuess(userAnswer, answerArray) {
 }
 
 /**
- * Generates feedback text based on answer.
- * @param {string} answer - Correct answer or user submitted guess
- * @param {string} songName - Name of song in title format 
- * @param {boolean} guessed - True if already submitted 
- * @param {boolean} correct - True if answer is correct
- */
-function generateFeedback(answer, songName, guessed, correct) {
-    let message;
-    if (correct) {
-        message = `That is correct! ${answer} was sampled for ${songName}.`;
-    } else {
-        message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
-    }
-    if (guessed) {
-        message += ' You already guessed that. Try guessing something new.';
-    }
-    return message;
-}
-
-
-/**
- * Produces feedback for nonsense answers.
- * @param {string} guess - user submitted nonsense answer 
- * @returns {string} Message to be given to user
- */
-function nonsenseFeedback(guess) {
-    return `I don't think ${guess} is a very serious answer. Try again.`;
-}
-
-/**
- * Adds feedback string to html document.
- * @param {string} feedback - Message to be added to feedback span
- */
-function displayFeedback(feedback) {
-    let feedbackSpan = document.getElementById("feedback");
-    feedbackSpan.innerText = feedback;
-    feedbackSpan.parentNode.style.display = 'flex';
-}
-
-/**
  * Checks if guess was already submitted.
  * @param {string} guess - Correct answer or user submitted guess 
  * @param {boolean} correct - True if guess is correct
@@ -110,7 +68,6 @@ function displayFeedback(feedback) {
  */
 function alreadyGuessed(guess, correct) {
     const normedGuess = norm(guess);
-    console.log('guess: ', guess, 'correct:', correct);
     let submissions = getLogs(correct);
     submissions = submissions.map((word) => norm(word));
     // checks for guess in logs
@@ -121,7 +78,12 @@ function alreadyGuessed(guess, correct) {
     }
 }
 
-
+// Logging functions
+/**
+ * Gets relevant log for song.
+ * @param {boolean} correct - Determines which log to get 
+ * @returns {array} Array of already logged answers
+ */
 function getLogs(correct) {
     if (correct) {
         return correctAnswers[getSongHTML()];
@@ -143,6 +105,45 @@ function logGuess(guess, correct) {
     }
 }
 
+// feedback functions
+/**
+ * Generates feedback text based on answer.
+ * @param {string} answer - Correct answer or user submitted guess
+ * @param {string} songName - Name of song in title format 
+ * @param {boolean} guessed - True if already submitted 
+ * @param {boolean} correct - True if answer is correct
+ */
+function generateFeedback(answer, songName, guessed, correct) {
+    let message;
+    if (correct) {
+        message = `That is correct! ${answer} was sampled for ${songName}.`;
+    } else {
+        message = `That is incorrect. ${answer} was not sampled for ${songName}.`;
+    }
+    if (guessed) {
+        message += ' You already guessed that. Try guessing something new.';
+    }
+    return message;
+}
+
+/**
+ * Produces feedback for nonsense answers.
+ * @param {string} guess - user submitted nonsense answer 
+ * @returns {string} Message to be given to user
+ */
+function nonsenseFeedback(guess) {
+    return `I don't think ${guess} is a very serious answer. Try again.`;
+}
+
+/**
+ * Adds feedback string to html document.
+ * @param {string} feedback - Message to be added to feedback span
+ */
+function displayFeedback(feedback) {
+    let feedbackSpan = document.getElementById("feedback");
+    feedbackSpan.innerText = feedback;
+    feedbackSpan.parentNode.style.display = 'flex';
+}
 
 /**
  * Adds either correctly formatted answer to correct submissions 
@@ -193,8 +194,6 @@ function incrementScores(correct, songHTML) {
     percentageBox.innerText = completionPercentage(newScore, songHTML);
 }
 
-
-// warning, this has been updated so may cause failure due to type
 /**
  * 
  * @param {number} points - Current score
@@ -209,8 +208,7 @@ function completionPercentage(points, songHTML) {
     return percentage;
 }
 
-// These functions manage writing the html for the page and navigation 
-
+// Functions for navigation and editing HTML
 /**
  * Gets songHTML.
  * @returns {string} Song name in HTML format
@@ -271,17 +269,9 @@ function findPrevSongHTML(songHTML) {
 }
 
 /**
- * Updates keys fields in the html in order to play quiz for another song.
- * Also reloads event handlers.
- * @param {song name in html format} songHTML 
- */
-
-
-// is calling the setup function again necessary?
-/**
  * Updates section.data-song, song title, youtube link, and aria label to specified song.
  * Resets score, completion percentage, and submission areas.
- * Calls setup function. (is this necessary)
+ * Calls setup function.
  * @param {string} songHTML - Song to be loaded for the game. 
  */
 function changeQuestion(songHTML) {
@@ -296,7 +286,7 @@ function changeQuestion(songHTML) {
 }
 
 /**
- * Updates iframes youtube link and aria label.
+ * Updates iframe youtube link and aria label.
  * @param {string} songHTML 
  */
 function updateIFrame(songHTML) {
@@ -328,9 +318,7 @@ function resetScoreArea(songHTML) {
         addGuess(answer, true);
     }
     resetElementById('incorrect', '');
-    console.log(incorrectAnswers[songHTML]);
     for (let answer of incorrectAnswers[songHTML]) {
-        console.log(answer);
         addGuess(answer, false);
     }
 }
@@ -345,16 +333,12 @@ function resetElementById(elementId, resetValue) {
     element.innerHTML = resetValue;
 }
 
-
 /**
  * Changes parent element of arrow buttons for larger screens.
  */
 function moveArrows() {
     let targetDiv = document.getElementById('video-feedback-answer-div');
     let arrowSection = document.getElementById('outer-arrow-section');
-    if (!arrowSection) {
-        return;
-    }
     let arrows = document.getElementById('arrows');
     targetDiv.appendChild(arrows);
     arrowSection.remove();
@@ -365,9 +349,6 @@ function moveArrows() {
  */
 function moveRecordDivs() {
     let recordsDiv = document.getElementById("records-div");
-    /* if (!recordsDiv) {
-         return;
-     } */
     let left = recordsDiv.children[0];
     let right = recordsDiv.children[1];
     let targetDiv = document.getElementById('game-content-div');
@@ -381,7 +362,6 @@ function moveRecordDivs() {
  * Checks screen size and moves elements if suitable.
  */
 function setupPage() {
-    console.log('setupEventHandler called');
     if (window.screen.width >= 768) {
         moveRecordDivs();
         moveArrows();
@@ -399,7 +379,6 @@ function setupEventHandlers() {
     nextButton.addEventListener('click', nextButtonHandler);
     let prevButton = document.getElementById('prev-button');
     prevButton.addEventListener('click', prevButtonHandler);
-    // should this be refactored into a separate function?
     const button = document.getElementById('submit-button');
     button.addEventListener("click", playSongQuiz);
     let answerBox = document.getElementById('user-answer');
